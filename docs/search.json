@@ -1,0 +1,200 @@
+[
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html",
+    "href": "lessons/r-lessons/r-markdown.html",
+    "title": "R for Data Cleaning",
+    "section": "",
+    "text": "“How can I summarize my data in R?”\n“How can R help make my research more reproducible?”\n“How can I combine two datasets from different sources?”\n“How can data tidying facilitate answering analysis questions?”\n\n\n“To become familiar with the functions of the dplyr and tidyr packages.”\n“To be able to use dplyr and tidyr to prepare data for analysis.”\n“To be able to combine two different data sources using joins.”\n“To be able to create plots and summary tables to answer analysis questions.”",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#loading-in-the-data",
+    "href": "lessons/r-lessons/r-markdown.html#loading-in-the-data",
+    "title": "R for Data Cleaning",
+    "section": "Loading in the data",
+    "text": "Loading in the data\nThe output in your console shows that by doing this, we attach several useful packages for data wrangling, including readr. Check out these packages and their documentation at tidyverse.org\n\nReminder: Many of these packages, including dplyr , come with “Cheatsheets” found under the Help RStudio menu tab.\n\nReload your data:\nNotice that the output of the read_csv() function is pretty informative. It tells us the name of all of our column headers as well as how it interpreted the data type. This birds-eye-view can help you take a quick look that everything is how we expect it to be.\nNow we have the tools necessary to work through this lesson.",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#get-stats-fast-with-summarize",
+    "href": "lessons/r-lessons/r-markdown.html#get-stats-fast-with-summarize",
+    "title": "R for Data Cleaning",
+    "section": "Get stats fast with summarize()",
+    "text": "Get stats fast with summarize()\nBack to top",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#narrow-down-rows-with-filter",
+    "href": "lessons/r-lessons/r-markdown.html#narrow-down-rows-with-filter",
+    "title": "R for Data Cleaning",
+    "section": "Narrow down rows with filter()",
+    "text": "Narrow down rows with filter()\nBack to top\nNotice how the pipe operator (%&gt;%) allows us to combine these two simple steps into a more complicated data extraction?. We took the data, filtered out the rows, then took the mean value. The argument we pass to filter() needs to be some expression that will return TRUE or FALSE. We can use comparisons like &gt; (greater than) and &lt; (less than) for example. Here we tested for equality using a double equals sign ==. You use == (double equals) when testing if two values are equal, and you use = (single equals) when naming arguments that you are passing to functions. Try changing it to use filter(year = 2007) and see what happens.",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#grouping-rows-using-group_by",
+    "href": "lessons/r-lessons/r-markdown.html#grouping-rows-using-group_by",
+    "title": "R for Data Cleaning",
+    "section": "Grouping rows using group_by()",
+    "text": "Grouping rows using group_by()\nBack to top\nWe see that the life expectancy in 2007 is much larger than the value we got using all of the rows. It seems life expectancy is increasing which is good news. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different filter() statements, we can instead use the group_by() function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here’s what that will look like:\nThe group_by() function expects you to pass in the name of a column (or multiple columns separated by comma) in your data.\nNote that you might get a message about the summarize function regrouping the output by ‘year’. This simply indicates what the function is grouping by.\nYou can also create more than one new column when you call summarize(). To do so, you must separate your columns with a comma. Building on the code from the last exercise, let’s add a new column that calculates the minimum life expectancy for each continent.",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#make-new-variables-with-mutate",
+    "href": "lessons/r-lessons/r-markdown.html#make-new-variables-with-mutate",
+    "title": "R for Data Cleaning",
+    "section": "Make new variables with mutate()",
+    "text": "Make new variables with mutate()\nBack to top\nEach time we ran summarize(), we got back fewer rows than passed in. We either got one row back, or one row per group. But sometimes we want to create a new column in our data without changing the number of rows. The function we use to create new columns is called mutate().\nWe have a column for the population and the GDP per capita. If we wanted to get the total GDP, we could multiply the per capita GDP values by the total population. Here’s what such a mutate() command would look like:\nThis will add a new column called “gdp” to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with summarize()",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#subset-columns-using-select",
+    "href": "lessons/r-lessons/r-markdown.html#subset-columns-using-select",
+    "title": "R for Data Cleaning",
+    "section": "Subset columns using select()",
+    "text": "Subset columns using select()\nBack to top\nWe use the filter() function to choose a subset of the rows from our data, but when we want to choose a subset of columns from our data we use select(). For example, if we only wanted to see the population (“pop”) and year values, we can do:\nWe can also use select() to drop/remove particular columns by putting a minus sign (-) in front of the column name. For example, if we want everything but the continent column, we can do:",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#changing-the-shape-of-the-data",
+    "href": "lessons/r-lessons/r-markdown.html#changing-the-shape-of-the-data",
+    "title": "R for Data Cleaning",
+    "section": "Changing the shape of the data",
+    "text": "Changing the shape of the data\nBack to top\nData comes in many shapes and sizes, and one way we classify data is either “wide” or “long.” Data that is “long” has one row per observation. The gapminder_data data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as “tidy” because it makes it easy to work with ggplot2 and dplyr functions (this is where the “tidy” in “tidyverse” comes from). As tidy as it may be, sometimes we may want our data in a “wide” format. Typically in “wide” format each row represents a group of observations and each value is placed in a different column rather than a different row. For example maybe we want only one row per country and want to spread the life expectancy values into different columns (one for each year).\nThe tidyr package contains the functions pivot_wider and pivot_longer that make it easy to switch between the two formats. The tidyr package is included in the tidyverse package so we don’t need to do anything to load it.\nNotice here that we tell pivot_wider() which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the lifeExp variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.\nBefore we move on to more data cleaning, let’s create the final gapminder dataframe we will be working with for the rest of the lesson!",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#reviewing-git-and-github",
+    "href": "lessons/r-lessons/r-markdown.html#reviewing-git-and-github",
+    "title": "R for Data Cleaning",
+    "section": "Reviewing Git and GitHub",
+    "text": "Reviewing Git and GitHub\nNow that we have our gapminder data prepared, let’s use what we learned about git and GitHub in the previous lesson to add, commit, and push our changes.\nOpen Terminal/Git Bash, if you do not have it open already. First we’ll need to navigate to our un-report directory.\nLet’s start by print our current working directory and listing the items in the directory, to see where we are.",
+    "crumbs": [
+      "Home",
+      "R for Data Cleaning"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html",
+    "href": "lessons/r-lessons/r-tidydata.html",
+    "title": "Making Reports with R Markdown",
+    "section": "",
+    "text": "“How can I summarize my data in R?”\n“How can R help make my research more reproducible?”\n“How can I combine two datasets from different sources?”\n“How can data tidying facilitate answering analysis questions?”\n\n\n“To become familiar with the functions of the dplyr and tidyr packages.”\n“To be able to use dplyr and tidyr to prepare data for analysis.”\n“To be able to combine two different data sources using joins.”\n“To be able to create plots and summary tables to answer analysis questions.”",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html#loading-in-the-data",
+    "href": "lessons/r-lessons/r-tidydata.html#loading-in-the-data",
+    "title": "Making Reports with R Markdown",
+    "section": "Loading in the data",
+    "text": "Loading in the data\nThe output in your console shows that by doing this, we attach several useful packages for data wrangling, including readr. Check out these packages and their documentation at tidyverse.org\n\nReminder: Many of these packages, including dplyr , come with “Cheatsheets” found under the Help RStudio menu tab.\n\nReload your data:\nNotice that the output of the read_csv() function is pretty informative. It tells us the name of all of our column headers as well as how it interpreted the data type. This birds-eye-view can help you take a quick look that everything is how we expect it to be.\nNow we have the tools necessary to work through this lesson.",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html#get-stats-fast-with-summarize",
+    "href": "lessons/r-lessons/r-tidydata.html#get-stats-fast-with-summarize",
+    "title": "Making Reports with R Markdown",
+    "section": "Get stats fast with summarize()",
+    "text": "Get stats fast with summarize()\nBack to top",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html#narrow-down-rows-with-filter",
+    "href": "lessons/r-lessons/r-tidydata.html#narrow-down-rows-with-filter",
+    "title": "Making Reports with R Markdown",
+    "section": "Narrow down rows with filter()",
+    "text": "Narrow down rows with filter()\nBack to top\nNotice how the pipe operator (%&gt;%) allows us to combine these two simple steps into a more complicated data extraction?. We took the data, filtered out the rows, then took the mean value. The argument we pass to filter() needs to be some expression that will return TRUE or FALSE. We can use comparisons like &gt; (greater than) and &lt; (less than) for example. Here we tested for equality using a double equals sign ==. You use == (double equals) when testing if two values are equal, and you use = (single equals) when naming arguments that you are passing to functions. Try changing it to use filter(year = 2007) and see what happens.",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html#grouping-rows-using-group_by",
+    "href": "lessons/r-lessons/r-tidydata.html#grouping-rows-using-group_by",
+    "title": "Making Reports with R Markdown",
+    "section": "Grouping rows using group_by()",
+    "text": "Grouping rows using group_by()\nBack to top\nWe see that the life expectancy in 2007 is much larger than the value we got using all of the rows. It seems life expectancy is increasing which is good news. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different filter() statements, we can instead use the group_by() function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here’s what that will look like:\nThe group_by() function expects you to pass in the name of a column (or multiple columns separated by comma) in your data.\nNote that you might get a message about the summarize function regrouping the output by ‘year’. This simply indicates what the function is grouping by.\nYou can also create more than one new column when you call summarize(). To do so, you must separate your columns with a comma. Building on the code from the last exercise, let’s add a new column that calculates the minimum life expectancy for each continent.",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html#make-new-variables-with-mutate",
+    "href": "lessons/r-lessons/r-tidydata.html#make-new-variables-with-mutate",
+    "title": "Making Reports with R Markdown",
+    "section": "Make new variables with mutate()",
+    "text": "Make new variables with mutate()\nBack to top\nEach time we ran summarize(), we got back fewer rows than passed in. We either got one row back, or one row per group. But sometimes we want to create a new column in our data without changing the number of rows. The function we use to create new columns is called mutate().\nWe have a column for the population and the GDP per capita. If we wanted to get the total GDP, we could multiply the per capita GDP values by the total population. Here’s what such a mutate() command would look like:\nThis will add a new column called “gdp” to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with summarize()",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html#subset-columns-using-select",
+    "href": "lessons/r-lessons/r-tidydata.html#subset-columns-using-select",
+    "title": "Making Reports with R Markdown",
+    "section": "Subset columns using select()",
+    "text": "Subset columns using select()\nBack to top\nWe use the filter() function to choose a subset of the rows from our data, but when we want to choose a subset of columns from our data we use select(). For example, if we only wanted to see the population (“pop”) and year values, we can do:\nWe can also use select() to drop/remove particular columns by putting a minus sign (-) in front of the column name. For example, if we want everything but the continent column, we can do:",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html#changing-the-shape-of-the-data",
+    "href": "lessons/r-lessons/r-tidydata.html#changing-the-shape-of-the-data",
+    "title": "Making Reports with R Markdown",
+    "section": "Changing the shape of the data",
+    "text": "Changing the shape of the data\nBack to top\nData comes in many shapes and sizes, and one way we classify data is either “wide” or “long.” Data that is “long” has one row per observation. The gapminder_data data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as “tidy” because it makes it easy to work with ggplot2 and dplyr functions (this is where the “tidy” in “tidyverse” comes from). As tidy as it may be, sometimes we may want our data in a “wide” format. Typically in “wide” format each row represents a group of observations and each value is placed in a different column rather than a different row. For example maybe we want only one row per country and want to spread the life expectancy values into different columns (one for each year).\nThe tidyr package contains the functions pivot_wider and pivot_longer that make it easy to switch between the two formats. The tidyr package is included in the tidyverse package so we don’t need to do anything to load it.\nNotice here that we tell pivot_wider() which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the lifeExp variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.\nBefore we move on to more data cleaning, let’s create the final gapminder dataframe we will be working with for the rest of the lesson!",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-tidydata.html#reviewing-git-and-github",
+    "href": "lessons/r-lessons/r-tidydata.html#reviewing-git-and-github",
+    "title": "Making Reports with R Markdown",
+    "section": "Reviewing Git and GitHub",
+    "text": "Reviewing Git and GitHub\nNow that we have our gapminder data prepared, let’s use what we learned about git and GitHub in the previous lesson to add, commit, and push our changes.\nOpen Terminal/Git Bash, if you do not have it open already. First we’ll need to navigate to our un-report directory.\nLet’s start by print our current working directory and listing the items in the directory, to see where we are.",
+    "crumbs": [
+      "Home",
+      "Making Reports with R Markdown"
+    ]
+  }
+]

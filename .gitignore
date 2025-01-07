@@ -1,6 +1,62 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-ospo-workshop-r-intro.Rproj
+# OS generated files #
+######################
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# from tex files #
+#################
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.synctex.gz
+*.pdf
+*.bst
+
+
+# Mac IDE files
+*.swp
+*~
+*(Autosaved).rtfd/
+Backup[ ]of[ ]*.pages/
+Backup[ ]of[ ]*.key/
+Backup[ ]of[ ]*.numbers/
+
+
+# R
+*.Rhistory
+*.RData
+*.Rda
+*.rds
+*.Rproj*
+*.Ruserdata
+
+
+## html
+*.css
+*.js
+*.ttf
+
+/.quarto/
