@@ -1,5 +1,9 @@
 ---
-title: "R for Data Cleaning"
+title: "Making Reports with R Markdown"
+format: html
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 
