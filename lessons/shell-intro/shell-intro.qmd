@@ -69,7 +69,7 @@ Documents   Library     Music       Public
 ```
 
 ::: {.callout-tip appearance="simple" icon="false"}
-# Command not found
+## Command not found
 
 If the shell can't find a program whose name is the command you typed, it will print an error message such as:
 
@@ -105,7 +105,7 @@ This might happen if the command was mis-typed or if the program corresponding t
 > -   run a shell script containing her pipeline
 
 ::: {#keypoints .callout-note appearance="simple"}
-# Key Points
+## Key Points
 
 -   A shell is a program whose primary purpose is to read commands and run other programs.
 -   This lesson uses Bash, the default shell in many implementations of Unix.
@@ -1087,7 +1087,7 @@ $ ls quotes.txt
 ls: cannot access 'quotes.txt': No such file or directory
 ```
 
-::: {.callout-warning appearance="simple"}
+::: {.callout-important appearance="simple"}
 ### Deleting is forever
 
 The Unix shell doesn't have a trash bin that we can recover deleted files from (though most graphical interfaces to Unix do). Instead, when we delete files, they are unlinked from the file system so that their storage space on disk can be recycled. Tools for finding and recovering deleted files do exist, but there's no guarantee they'll work in any particular situation, since the computer may recycle the file's disk space right away.
@@ -1175,8 +1175,6 @@ cp: target 'basilisk.dat' is not a directory
 
 ## Using Wildcards for Accessing Multiple Files at Once
 
-### Wildcards
-
 `*` is a **wildcard**, which represents zero or more other characters. Let's consider the `shell-lesson-data/exercise-data/alkanes` directory: `*.pdb` represents `ethane.pdb`, `propane.pdb`, and every file that ends with '.pdb'. On the other hand, `p*.pdb` only represents `pentane.pdb` and `propane.pdb`, because the 'p' at the front can only represent filenames that begin with the letter 'p'.
 
 `?` is also a wildcard, but it represents exactly one character. So `?ethane.pdb` could represent `methane.pdb` whereas `*ethane.pdb` represents both `ethane.pdb` and `methane.pdb`.
@@ -1186,7 +1184,7 @@ Wildcards can be used in combination with each other. For example, `???ane.pdb` 
 When the shell sees a wildcard, it expands the wildcard to create a list of matching filenames *before* running the preceding command. As an exception, if a wildcard expression does not match any file, Bash will pass the expression as an argument to the command as it is. For example, typing `ls *.pdf` in the `alkanes` directory (which contains only files with names ending with `.pdb`) results in an error message that there is no file called `*.pdf`. However, generally commands like `wc` and `ls` see the lists of file names matching these expressions, but not the wildcards themselves. It is the shell, not the other programs, that expands the wildcards.
 
 :::: {.callout-caution appearance="simple" icon="false"}
-### Challenge: List filenames matching a pattern
+## Challenge: List filenames matching a pattern
 
 When run in the `alkanes` directory, which `ls` command(s) will produce this output?
 
@@ -1198,7 +1196,7 @@ When run in the `alkanes` directory, which `ls` command(s) will produce this out
 4.  `ls ethane.*`
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
-#### Solution
+### Solution
 
 The solution is `3.`
 
@@ -1213,7 +1211,7 @@ The solution is `3.`
 ::::
 
 :::: {.callout-caution appearance="simple" icon="false"}
-### Challenge: More on wildcards
+## Challenge: More on wildcards
 
 Sam has a directory containing calibration data, datasets, and descriptions of the datasets:
 
@@ -1297,7 +1295,7 @@ The resulting directory structure should look like this
 ```
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
-#### Solution
+### Solution
 
 ``` bash
 $ cp *calibration.txt backup/calibration
@@ -1308,7 +1306,7 @@ $ cp *-23-dataset* send_to_bob/all_datasets_created_on_a_23rd/
 ::::
 
 :::: {.callout-caution appearance="simple" icon="false"}
-### Challenge: Organizing directories and files
+## Challenge: Organizing directories and files
 
 Jamie is working on a project, and she sees that her files aren't very well organized:
 
@@ -1339,7 +1337,7 @@ fructose.dat    sucrose.dat
 ```
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
-#### Solution
+### Solution
 
 ```         
 mv *.dat analyzed
@@ -1350,7 +1348,7 @@ Jamie needs to move her files `fructose.dat` and `sucrose.dat` to the `analyzed`
 ::::
 
 :::: {.callout-caution appearance="simple" icon="false"}
-### Challenge: Reproduce a folder structure
+## Challenge: Reproduce a folder structure
 
 You're starting a new experiment and would like to duplicate the directory structure from your previous experiment so you can add new data.
 
@@ -1398,7 +1396,7 @@ $ mkdir raw processed
 ```
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
-#### Solution
+## Solution
 
 The first two sets of commands achieve this objective. The first set uses relative paths to create the top-level directory before the subdirectories.
 
@@ -1411,26 +1409,17 @@ The final set of commands generates the 'raw' and 'processed' directories at the
 ::::
 
 ::: {.callout-note appearance="simple"}
-# Key Points
+## Key Points
 
 -   `cp [old] [new]` copies a file.
-
 -   `mkdir [path]` creates a new directory.
-
 -   `mv [old] [new]` moves (renames) a file or directory.
-
 -   `rm [path]` removes (deletes) a file.
-
 -   `*` matches zero or more characters in a filename, so `*.txt` matches all files ending in `.txt`.
-
 -   `?` matches any single character in a filename, so `?.txt` matches `a.txt` but not `any.txt`.
-
 -   Use of the Control key may be described in many ways, including `Ctrl-X`, `Control-X`, and `^X`.
-
 -   The shell does not have a trash bin: once something is deleted, it's really gone.
-
 -   Most files' names are `something.extension`. The extension isn't required, and doesn't guarantee anything, but is normally used to indicate the type of data in the file.
-
 -   Depending on the type of work you do, you may need a more powerful text editor than Nano.
 :::
 

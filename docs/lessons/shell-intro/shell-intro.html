@@ -253,10 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#copying-files-and-directories" id="toc-copying-files-and-directories" class="nav-link" data-scroll-target="#copying-files-and-directories">Copying Files and Directories</a></li>
   <li><a href="#removing-files-and-directories" id="toc-removing-files-and-directories" class="nav-link" data-scroll-target="#removing-files-and-directories">Removing files and directories</a></li>
   <li><a href="#operations-with-multiple-filenames" id="toc-operations-with-multiple-filenames" class="nav-link" data-scroll-target="#operations-with-multiple-filenames">Operations with Multiple Filenames</a></li>
-  <li><a href="#using-wildcards-for-accessing-multiple-files-at-once" id="toc-using-wildcards-for-accessing-multiple-files-at-once" class="nav-link" data-scroll-target="#using-wildcards-for-accessing-multiple-files-at-once">Using Wildcards for Accessing Multiple Files at Once</a>
-  <ul class="collapse">
-  <li><a href="#wildcards" id="toc-wildcards" class="nav-link" data-scroll-target="#wildcards">Wildcards</a></li>
-  </ul></li>
+  <li><a href="#using-wildcards-for-accessing-multiple-files-at-once" id="toc-using-wildcards-for-accessing-multiple-files-at-once" class="nav-link" data-scroll-target="#using-wildcards-for-accessing-multiple-files-at-once">Using Wildcards for Accessing Multiple Files at Once</a></li>
   </ul></li>
   <li><a href="#linking-commands-using-pipes" id="toc-linking-commands-using-pipes" class="nav-link" data-scroll-target="#linking-commands-using-pipes">Linking commands using pipes</a></li>
   <li><a href="#repeating-commands-using-loops" id="toc-repeating-commands-using-loops" class="nav-link" data-scroll-target="#repeating-commands-using-loops">Repeating commands using loops</a></li>
@@ -1292,7 +1289,7 @@ Solution
 <p>We can confirm the file has gone using <code>ls</code>:</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls quotes.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb99"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ls:</span> cannot access <span class="st">'quotes.txt'</span>: No such file or directory</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout callout-style-simple callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -1388,8 +1385,6 @@ Solution
 </section>
 <section id="using-wildcards-for-accessing-multiple-files-at-once" class="level2">
 <h2 class="anchored" data-anchor-id="using-wildcards-for-accessing-multiple-files-at-once">Using Wildcards for Accessing Multiple Files at Once</h2>
-<section id="wildcards" class="level3">
-<h3 class="anchored" data-anchor-id="wildcards">Wildcards</h3>
 <p><code>*</code> is a <strong>wildcard</strong>, which represents zero or more other characters. Let’s consider the <code>shell-lesson-data/exercise-data/alkanes</code> directory: <code>*.pdb</code> represents <code>ethane.pdb</code>, <code>propane.pdb</code>, and every file that ends with ‘.pdb’. On the other hand, <code>p*.pdb</code> only represents <code>pentane.pdb</code> and <code>propane.pdb</code>, because the ‘p’ at the front can only represent filenames that begin with the letter ‘p’.</p>
 <p><code>?</code> is also a wildcard, but it represents exactly one character. So <code>?ethane.pdb</code> could represent <code>methane.pdb</code> whereas <code>*ethane.pdb</code> represents both <code>ethane.pdb</code> and <code>methane.pdb</code>.</p>
 <p>Wildcards can be used in combination with each other. For example, <code>???ane.pdb</code> indicates three characters followed by <code>ane.pdb</code>, giving <code>cubane.pdb  ethane.pdb  octane.pdb</code>.</p>
@@ -1635,20 +1630,19 @@ Key Points
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p><code>cp [old] [new]</code> copies a file.</p></li>
-<li><p><code>mkdir [path]</code> creates a new directory.</p></li>
-<li><p><code>mv [old] [new]</code> moves (renames) a file or directory.</p></li>
-<li><p><code>rm [path]</code> removes (deletes) a file.</p></li>
-<li><p><code>*</code> matches zero or more characters in a filename, so <code>*.txt</code> matches all files ending in <code>.txt</code>.</p></li>
-<li><p><code>?</code> matches any single character in a filename, so <code>?.txt</code> matches <code>a.txt</code> but not <code>any.txt</code>.</p></li>
-<li><p>Use of the Control key may be described in many ways, including <code>Ctrl-X</code>, <code>Control-X</code>, and <code>^X</code>.</p></li>
-<li><p>The shell does not have a trash bin: once something is deleted, it’s really gone.</p></li>
-<li><p>Most files’ names are <code>something.extension</code>. The extension isn’t required, and doesn’t guarantee anything, but is normally used to indicate the type of data in the file.</p></li>
-<li><p>Depending on the type of work you do, you may need a more powerful text editor than Nano.</p></li>
+<li><code>cp [old] [new]</code> copies a file.</li>
+<li><code>mkdir [path]</code> creates a new directory.</li>
+<li><code>mv [old] [new]</code> moves (renames) a file or directory.</li>
+<li><code>rm [path]</code> removes (deletes) a file.</li>
+<li><code>*</code> matches zero or more characters in a filename, so <code>*.txt</code> matches all files ending in <code>.txt</code>.</li>
+<li><code>?</code> matches any single character in a filename, so <code>?.txt</code> matches <code>a.txt</code> but not <code>any.txt</code>.</li>
+<li>Use of the Control key may be described in many ways, including <code>Ctrl-X</code>, <code>Control-X</code>, and <code>^X</code>.</li>
+<li>The shell does not have a trash bin: once something is deleted, it’s really gone.</li>
+<li>Most files’ names are <code>something.extension</code>. The extension isn’t required, and doesn’t guarantee anything, but is normally used to indicate the type of data in the file.</li>
+<li>Depending on the type of work you do, you may need a more powerful text editor than Nano.</li>
 </ul>
 </div>
 </div>
-</section>
 </section>
 </section>
 <section id="linking-commands-using-pipes" class="level1">
