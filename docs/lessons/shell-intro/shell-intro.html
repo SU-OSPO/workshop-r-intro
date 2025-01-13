@@ -255,7 +255,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#operations-with-multiple-filenames" id="toc-operations-with-multiple-filenames" class="nav-link" data-scroll-target="#operations-with-multiple-filenames">Operations with Multiple Filenames</a></li>
   <li><a href="#using-wildcards-for-accessing-multiple-files-at-once" id="toc-using-wildcards-for-accessing-multiple-files-at-once" class="nav-link" data-scroll-target="#using-wildcards-for-accessing-multiple-files-at-once">Using Wildcards for Accessing Multiple Files at Once</a></li>
   </ul></li>
-  <li><a href="#linking-commands-using-pipes" id="toc-linking-commands-using-pipes" class="nav-link" data-scroll-target="#linking-commands-using-pipes">Linking commands using pipes</a></li>
+  <li><a href="#pipes-and-filters" id="toc-pipes-and-filters" class="nav-link" data-scroll-target="#pipes-and-filters">Pipes and Filters</a>
+  <ul class="collapse">
+  <li><a href="#capturing-output-from-commands" id="toc-capturing-output-from-commands" class="nav-link" data-scroll-target="#capturing-output-from-commands">Capturing output from commands</a>
+  <ul class="collapse">
+  <li><a href="#output-page-by-page-with-less" id="toc-output-page-by-page-with-less" class="nav-link" data-scroll-target="#output-page-by-page-with-less">Output page by page with <code>less</code></a></li>
+  <li><a href="#filtering-output" id="toc-filtering-output" class="nav-link" data-scroll-target="#filtering-output">Filtering output</a></li>
+  </ul></li>
+  <li><a href="#passing-output-to-another-command" id="toc-passing-output-to-another-command" class="nav-link" data-scroll-target="#passing-output-to-another-command">Passing output to another command</a></li>
+  <li><a href="#combining-multiple-commands" id="toc-combining-multiple-commands" class="nav-link" data-scroll-target="#combining-multiple-commands">Combining multiple commands</a></li>
+  </ul></li>
   <li><a href="#repeating-commands-using-loops" id="toc-repeating-commands-using-loops" class="nav-link" data-scroll-target="#repeating-commands-using-loops">Repeating commands using loops</a></li>
   <li><a href="#writing-scripts" id="toc-writing-scripts" class="nav-link" data-scroll-target="#writing-scripts">Writing scripts</a></li>
   </ul>
@@ -1645,8 +1654,279 @@ Key Points
 </div>
 </section>
 </section>
-<section id="linking-commands-using-pipes" class="level1">
-<h1>Linking commands using pipes</h1>
+<section id="pipes-and-filters" class="level1">
+<h1>Pipes and Filters</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><h2 id="questions-1" class="anchored" data-anchor-id="pipes-and-filters">Questions</h2></td>
+<td><h2 id="objectives-1" class="anchored">Objectives</h2></td>
+</tr>
+<tr class="even">
+<td><ul>
+<li>How can I combine existing commands to produce a desired output?</li>
+<li>How can I show only part of the output?</li>
+</ul></td>
+<td><ul>
+<li>Explain the advantage of linking commands with pipes and filters.</li>
+<li>Combine sequences of commands to get new output</li>
+<li>Redirect a command’s output to a file.</li>
+<li>Explain what usually happens if a program or pipeline isn’t given any input to process.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<p>Now that we know a few basic commands, we can finally look at the shell’s most powerful feature: the ease with which it lets us combine existing programs in new ways. We’ll start with the directory <code>shell-lesson-data/exercise-data/alkanes</code> that contains six files describing some simple organic molecules. The <code>.pdb</code> extension indicates that these files are in Protein Data Bank format, a simple text format that specifies the type and position of each atom in the molecule.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cubane.pdb</span>    methane.pdb    pentane.pdb</span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ethane.pdb</span>    octane.pdb     propane.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s run an example command:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc cubane.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="ex">20</span>  156 1158 cubane.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>wc</code> is the ‘word count’ command: it counts the number of lines, words, and characters in files (returning the values in that order from left to right).</p>
+<p>If we run the command <code>wc *.pdb</code>, the <code>*</code> in <code>*.pdb</code> matches zero or more characters, so the shell turns <code>*.pdb</code> into a list of all <code>.pdb</code> files in the current directory:</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="pp">*</span>.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">20</span>  156  1158  cubane.pdb</span>
+<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">12</span>  84   622   ethane.pdb</span>
+<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>  57   422   methane.pdb</span>
+<span id="cb131-4"><a href="#cb131-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">30</span>  246  1828  octane.pdb</span>
+<span id="cb131-5"><a href="#cb131-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">21</span>  165  1226  pentane.pdb</span>
+<span id="cb131-6"><a href="#cb131-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">15</span>  111  825   propane.pdb</span>
+<span id="cb131-7"><a href="#cb131-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">107</span>  819  6081  total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that <code>wc *.pdb</code> also shows the total number of all lines in the last line of the output.</p>
+<p>If we run <code>wc -l</code> instead of just <code>wc</code>, the output shows only the number of lines per file:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="pp">*</span>.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">20</span>  cubane.pdb</span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">12</span>  ethane.pdb</span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>  methane.pdb</span>
+<span id="cb133-4"><a href="#cb133-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">30</span>  octane.pdb</span>
+<span id="cb133-5"><a href="#cb133-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">21</span>  pentane.pdb</span>
+<span id="cb133-6"><a href="#cb133-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">15</span>  propane.pdb</span>
+<span id="cb133-7"><a href="#cb133-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">107</span>  total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>-m</code> and <code>-w</code> options can also be used with the <code>wc</code> command to show only the number of characters or the number of words, respectively.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why isn’t it doing anything?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What happens if a command is supposed to process a file, but we don’t give it a filename? For example, what if we type:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>but don’t type <code>*.pdb</code> (or anything else) after the command? Since it doesn’t have any filenames, <code>wc</code> assumes it is supposed to process input given at the command prompt, so it just sits there and waits for us to give it some data interactively. From the outside, though, all we see is it sitting there, and the command doesn’t appear to do anything.</p>
+<p><strong>If you make this kind of mistake, you can escape out of this state by holding down the control key (Ctrl) and pressing the letter C once:</strong> <kbd aria-hidden="true">Ctrl+C</kbd><span class="visually-hidden">Ctrl+C</span><strong>. Then release both keys.</strong></p>
+</div>
+</div>
+<section id="capturing-output-from-commands" class="level2">
+<h2 class="anchored" data-anchor-id="capturing-output-from-commands">Capturing output from commands</h2>
+<section id="output-page-by-page-with-less" class="level3">
+<h3 class="anchored" data-anchor-id="output-page-by-page-with-less">Output page by page with <code>less</code></h3>
+<p>We’ll continue to use <code>cat</code> in this lesson, for convenience and consistency, but it has the disadvantage that it always dumps the whole file onto your screen. More useful in practice is the command <code>less</code> (e.g.&nbsp;<code>less lengths.txt</code>). This displays a screenful of the file, and then stops. You can go forward one screenful by pressing the spacebar, or back one by pressing <code>b</code>. Press <code>q</code> to quit.</p>
+<p>Which of these files contains the fewest lines? It’s an easy question to answer when there are only six files, but what if there were 6000? Our first step toward a solution is to run the command:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="op">&gt;</span> lengths.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The greater than symbol, <code>&gt;</code>, tells the shell to <strong>redirect</strong> the command’s output to a file instead of printing it to the screen. This command prints no screen output, because everything that <code>wc</code> would have printed has gone into the file <code>lengths.txt</code> instead. If the file doesn’t exist prior to issuing the command, the shell will create the file. If the file exists already, it will be silently overwritten, which may lead to data loss. Thus, <strong>redirect</strong> commands require caution.</p>
+<p><code>ls lengths.txt</code> confirms that the file exists:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls lengths.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lengths.txt</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can now send the content of <code>lengths.txt</code> to the screen using <code>cat lengths.txt</code>. The <code>cat</code> command gets its name from ‘concatenate’ i.e.&nbsp;join together, and it prints the contents of files one after another. There’s only one file in this case, so <code>cat</code> just shows us what it contains:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat lengths.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">20</span>  cubane.pdb</span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">12</span>  ethane.pdb</span>
+<span id="cb139-3"><a href="#cb139-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>  methane.pdb</span>
+<span id="cb139-4"><a href="#cb139-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">30</span>  octane.pdb</span>
+<span id="cb139-5"><a href="#cb139-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">21</span>  pentane.pdb</span>
+<span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">15</span>  propane.pdb</span>
+<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">107</span>  total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="filtering-output" class="level3">
+<h3 class="anchored" data-anchor-id="filtering-output">Filtering output</h3>
+<p>Next we’ll use the <code>sort</code> command to sort the contents of the <code>lengths.txt</code> file. But first we’ll do an exercise to learn a little about the sort command:</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge: What does <code>sort -n</code> do?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The file <code>shell-lesson-data/exercise-data/numbers.txt</code> contains the following lines:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="ex">10</span></span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span></span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="ex">19</span></span>
+<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="ex">22</span></span>
+<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="ex">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If we run <code>sort</code> on this file, the output is:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="ex">10</span></span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="ex">19</span></span>
+<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span></span>
+<span id="cb141-4"><a href="#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="ex">22</span></span>
+<span id="cb141-5"><a href="#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="ex">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If we run <code>sort -n</code> on the same file, we get this instead:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span></span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="ex">6</span></span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a><span class="ex">10</span></span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="ex">19</span></span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a><span class="ex">22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Explain why <code>-n</code> has this effect.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-48" class="callout-48-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>-n</code> option specifies a numerical rather than an alphanumerical sort.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>We will also use the <code>-n</code> option to specify that the sort is numerical instead of alphanumerical. This does <em>not</em> change the file; instead, it sends the sorted result to the screen:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sort <span class="at">-n</span> lengths.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">9</span>  methane.pdb</span>
+<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">12</span>  ethane.pdb</span>
+<span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">15</span>  propane.pdb</span>
+<span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">20</span>  cubane.pdb</span>
+<span id="cb144-5"><a href="#cb144-5" aria-hidden="true" tabindex="-1"></a> <span class="ex">21</span>  pentane.pdb</span>
+<span id="cb144-6"><a href="#cb144-6" aria-hidden="true" tabindex="-1"></a> <span class="ex">30</span>  octane.pdb</span>
+<span id="cb144-7"><a href="#cb144-7" aria-hidden="true" tabindex="-1"></a><span class="ex">107</span>  total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can put the sorted list of lines in another temporary file called <code>sorted-lengths.txt</code> by putting <code>&gt; sorted-lengths.txt</code> after the command, just as we used <code>&gt; lengths.txt</code> to put the output of <code>wc</code> into <code>lengths.txt</code>. Once we’ve done that, we can run another command called <code>head</code> to get the first few lines in <code>sorted-lengths.txt</code>:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sort <span class="at">-n</span> lengths.txt <span class="op">&gt;</span> sorted-lengths.txt</span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-n</span> 1 sorted-lengths.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">9</span>  methane.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using <code>-n 1</code> with <code>head</code> tells it that we only want the first line of the file; <code>-n 20</code> would get the first 20, and so on. Since <code>sorted-lengths.txt</code> contains the lengths of our files ordered from least to greatest, the output of <code>head</code> must be the file with the fewest lines.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Redirecting to the same file
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It’s a very bad idea to try redirecting the output of a command that operates on a file to the same file. For example:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sort <span class="at">-n</span> lengths.txt <span class="op">&gt;</span> lengths.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Doing something like this may give you incorrect results and/or delete the contents of <code>lengths.txt</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge: What Does <code>&gt;&gt;</code> Mean?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We have seen the use of <code>&gt;</code>, but there is a similar operator <code>&gt;&gt;</code> which works slightly differently. We’ll learn about the differences between these two operators by printing some strings. We can use the <code>echo</code> command to print strings e.g.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo The echo command prints text</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> echo command prints text</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now test the commands below to reveal the difference between the two operators:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo hello <span class="op">&gt;</span> testfile01.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo hello <span class="op">&gt;&gt;</span> testfile02.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Hint: Try executing each command twice in a row and then examining the output files.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-51-contents" aria-controls="callout-51" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-51" class="callout-51-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In the first example with <code>&gt;</code>, the string ‘hello’ is written to <code>testfile01.txt</code>, but the file gets overwritten each time we run the command.</p>
+<p>We see from the second example that the <code>&gt;&gt;</code> operator also writes ‘hello’ to a file (in this case <code>testfile02.txt</code>), but appends the string to the file if it already exists (i.e.&nbsp;when we run it for the second time).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge: appending data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We have already met the <code>head</code> command, which prints lines from the start of a file. <code>tail</code> is similar, but prints lines from the end of a file instead.</p>
+<p>Consider the file <code>shell-lesson-data/exercise-data/animal-counts/animals.csv</code>. After these commands, select the answer that corresponds to the file <code>animals-subset.csv</code>:</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-n</span> 3 animals.csv <span class="op">&gt;</span> animals-subset.csv</span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tail <span class="at">-n</span> 2 animals.csv <span class="op">&gt;&gt;</span> animals-subset.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li>The first three lines of <code>animals.csv</code></li>
+<li>The last two lines of <code>animals.csv</code></li>
+<li>The first three lines and the last two lines of <code>animals.csv</code></li>
+<li>The second and third lines of <code>animals.csv</code></li>
+</ol>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-53-contents" aria-controls="callout-53" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-53" class="callout-53-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Option 3 is correct. For option 1 to be correct we would only run the <code>head</code> command. For option 2 to be correct we would only run the <code>tail</code> command. For option 4 to be correct we would have to pipe the output of <code>head</code> into <code>tail -n 2</code> by doing <code>head -n 3 animals.csv | tail -n 2 &gt; animals-subset.csv</code></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="passing-output-to-another-command" class="level2">
+<h2 class="anchored" data-anchor-id="passing-output-to-another-command">Passing output to another command</h2>
+<p>In our example of finding the file with the fewest lines, we are using two intermediate files <code>lengths.txt</code> and <code>sorted-lengths.txt</code> to store output. This is a confusing way to work because even once you understand what <code>wc</code>, <code>sort</code>, and <code>head</code> do, those intermediate files make it hard to follow what’s going on. We can make it easier to understand by running <code>sort</code> and <code>head</code> together:</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sort <span class="at">-n</span> lengths.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">9</span>  methane.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The vertical bar, <code>|</code>, between the two commands is called a <strong>pipe</strong>. It tells the shell that we want to use the output of the command on the left as the input to the command on the right.</p>
+<p>This has removed the need for the <code>sorted-lengths.txt</code> file.</p>
+</section>
+<section id="combining-multiple-commands" class="level2">
+<h2 class="anchored" data-anchor-id="combining-multiple-commands">Combining multiple commands</h2>
+<p>Nothing prevents us from chaining pipes consecutively. We can for example send the output of <code>wc</code> directly to <code>sort</code>, and then send the resulting output to <code>head</code>. This removes the need for any intermediate files.</p>
+<p>We’ll start by using a pipe to send the output of <code>wc</code> to <code>sort</code>:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span> methane.pdb</span>
+<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">12</span> ethane.pdb</span>
+<span id="cb156-3"><a href="#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">15</span> propane.pdb</span>
+<span id="cb156-4"><a href="#cb156-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">20</span> cubane.pdb</span>
+<span id="cb156-5"><a href="#cb156-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">21</span> pentane.pdb</span>
+<span id="cb156-6"><a href="#cb156-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">30</span> octane.pdb</span>
+<span id="cb156-7"><a href="#cb156-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">107</span> total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can then send that output through another pipe, to <code>head</code>, so that the full pipeline becomes:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>  methane.pdb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is exactly like a mathematician nesting functions like <em>log(3x)</em> and saying ‘the log of three times <em>x</em>’. In our case, the algorithm is ‘head of sort of line count of <code>*.pdb</code>’.</p>
+<p>The redirection and pipes used in the last few commands are illustrated below:</p>
+<p><img src="fig/redirect.png" class="img-fluid"></p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1662,6 +1942,7 @@ Key Points
 </ul>
 </div>
 </div>
+</section>
 </section>
 <section id="repeating-commands-using-loops" class="level1">
 <h1>Repeating commands using loops</h1>
