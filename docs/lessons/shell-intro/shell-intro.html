@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-01-07">
+<meta name="dcterms.date" content="2025-01-13">
 
-<title>Computing Basics and Intro to R – Shell Intro</title>
+<title>Computing Basics and Intro to R – Working in the Unix Shell</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +66,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../lessons/github/github-intro.html" rel="next">
-<link href="../../index.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -42,6 +75,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="../../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -92,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item compact">
@@ -117,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/shell-intro/shell-intro.html">Shell Intro</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/shell-intro/shell-intro.html">Working in the Unix Shell</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -139,14 +174,8 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Computing Basics and Intro to R</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../lessons/shell-intro/shell-intro.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Shell Intro</span></a>
+ <span class="menu-text">Working in the Unix Shell</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -184,15 +213,47 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#the-shell" id="toc-the-shell" class="nav-link" data-scroll-target="#the-shell">The Shell</a>
+  <ul class="collapse">
+  <li><a href="#the-prompt" id="toc-the-prompt" class="nav-link" data-scroll-target="#the-prompt">The prompt</a></li>
+  </ul></li>
+  <li><a href="#navigating-files-and-directories" id="toc-navigating-files-and-directories" class="nav-link" data-scroll-target="#navigating-files-and-directories">Navigating files and directories</a>
+  <ul class="collapse">
+  <li><a href="#where-am-i" id="toc-where-am-i" class="nav-link" data-scroll-target="#where-am-i">Where am I?</a>
+  <ul class="collapse">
+  <li><a href="#the-home-directory" id="toc-the-home-directory" class="nav-link" data-scroll-target="#the-home-directory">The home directory</a></li>
+  </ul></li>
+  <li><a href="#listing-directory-contents" id="toc-listing-directory-contents" class="nav-link" data-scroll-target="#listing-directory-contents">Listing directory contents</a></li>
+  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
+  <li><a href="#command-options" id="toc-command-options" class="nav-link" data-scroll-target="#command-options">Command options</a>
+  <ul class="collapse">
+  <li><a href="#challenge-questions" id="toc-challenge-questions" class="nav-link" data-scroll-target="#challenge-questions">Challenge Questions</a></li>
+  </ul></li>
+  <li><a href="#exploring-other-directories" id="toc-exploring-other-directories" class="nav-link" data-scroll-target="#exploring-other-directories">Exploring other directories</a>
+  <ul class="collapse">
+  <li><a href="#challenge-questions-1" id="toc-challenge-questions-1" class="nav-link" data-scroll-target="#challenge-questions-1">Challenge Questions</a></li>
+  </ul></li>
+  <li><a href="#general-syntax-of-a-shell-command" id="toc-general-syntax-of-a-shell-command" class="nav-link" data-scroll-target="#general-syntax-of-a-shell-command">General Syntax of a Shell Command</a></li>
+  </ul></li>
+  <li><a href="#creating-moving-removing" id="toc-creating-moving-removing" class="nav-link" data-scroll-target="#creating-moving-removing">Creating, moving, removing</a></li>
+  <li><a href="#linking-commands-using-pipes" id="toc-linking-commands-using-pipes" class="nav-link" data-scroll-target="#linking-commands-using-pipes">Linking commands using pipes</a></li>
+  <li><a href="#repeating-commands-using-loops" id="toc-repeating-commands-using-loops" class="nav-link" data-scroll-target="#repeating-commands-using-loops">Repeating commands using loops</a></li>
+  <li><a href="#writing-scripts" id="toc-writing-scripts" class="nav-link" data-scroll-target="#writing-scripts">Writing scripts</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Shell Intro</h1>
+<h1 class="title">Working in the Unix Shell</h1>
 </div>
 
 
@@ -203,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-07</p>
+      <p class="date">2025-01-13</p>
     </div>
   </div>
   
@@ -215,8 +276,732 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<table class="caption-top table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><h3 id="questions" class="anchored">Questions</h3></th>
+<th><h3 id="objectives" class="anchored">Objectives</h3></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><ul>
+<li>What is a command shell and why would I use one?</li>
+</ul></td>
+<td><ul>
+<li>Explain how the shell relates to the keyboard, the screen, the operating system, and users’ programs.</li>
+<li>Explain when and why command-line interfaces should be used instead of graphical interfaces.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<section id="background" class="level1">
+<h1>Background</h1>
+<p>We interact with computers in many different ways, such as through a keyboard and mouse, and touch screen interfaces. The most widely used way to interact with personal computers is called a <strong>graphical user interface</strong> (GUI). With a GUI, we give instructions by clicking a mouse and using menu-driven interactions.</p>
+<p>While the visual aid of a GUI makes it intuitive to use, this way of delivering instructions to a computer scales very poorly. Imagine the following task: you have to copy the third line of one thousand text files in one thousand different directories and paste it into a single file. Using a GUI, you would not only be clicking at your desk for several hours, but you could potentially also commit an error in the process of completing this repetitive task. This is where we take advantage of the Unix shell. <strong>The Unix shell is both a command-line interface (CLI) and a scripting language</strong>, allowing such repetitive tasks to be done automatically and fast. With the proper commands, the shell can repeat tasks with or without some modification as many times as we want. Using the shell, the task in the literature example can be accomplished in seconds.</p>
+</section>
+<section id="the-shell" class="level1">
+<h1>The Shell</h1>
+<p>The shell is a program where users can type commands. With the shell, it’s possible to invoke complicated programs or simple commands with only one line of code. The most popular Unix shell is Bash (the Bourne Again SHell — so-called because it’s derived from a shell written by Stephen Bourne). Bash is the default shell on most implementations of Unix (Mac computers running macOS Catalina or later releases, the default Unix Shell is “Zsh”) and in most packages that provide Unix-like tools for Windows. Note that ‘Git Bash’ is a piece of software that enables Windows users to use a Bash-like interface when interacting with Git.</p>
+<p>Using the shell will take some effort and some time to learn. While a GUI presents you with choices to select, CLI choices are not automatically presented to you, so you must learn a few commands like new vocabulary in a language you’re studying. Luckily, a small number of “words” (i.e.&nbsp;commands) gets you a long way, and we’ll cover those essential few today.</p>
+<p>The grammar of a shell allows you to combine existing tools into powerful pipelines and handle large volumes of data automatically. Sequences of commands can be written into a <em>script</em>, improving the reproducibility of workflows.</p>
+<p>In addition, the command line is often the easiest way to interact with remote machines and supercomputers. Familiarity with the shell is near essential to run a variety of specialized tools and resources including high-performance computing systems. As clusters and cloud computing systems become more popular for scientific data crunching, being able to interact with the shell is becoming a necessary skill. We can build on the command-line skills covered here to tackle a wide range of scientific questions and computational challenges.</p>
+<p>Let’s get started.</p>
+<section id="the-prompt" class="level2">
+<h2 class="anchored" data-anchor-id="the-prompt">The prompt</h2>
+<p>When the shell is first opened, you are presented with a <strong>prompt</strong>, indicating that the shell is waiting for input.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The shell typically uses <code>$</code> as the prompt, but may use a different symbol. In the examples for this lesson, we’ll show the prompt as <code>$</code>. Most importantly, <em>do not type the prompt</em> when typing commands. Only type the command that follows the prompt. This rule applies both in these lessons and in lessons from other sources. Also note that after you type a command, you have to press the <kbd>Enter</kbd> key to execute it.</p>
+<p>The prompt is followed by a <strong>text cursor</strong>, a character that indicates the position where your typing will appear. The cursor is usually a flashing or solid block, but it can also be an underscore or a pipe. You may have seen it in a text editor program, for example.</p>
+<p>Note that your prompt might look a little different. In particular, most popular shell environments by default put your user name and the host name before the <code>$</code>. Such a prompt might look like, e.g.:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sklucas@localhost</span> $</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The prompt might even include more than this. Do not worry if your prompt is not just a short <code>$</code>. This lesson does not depend on this additional information and it should also not get in your way. The only important item to focus on is the <code>$</code> character itself and we will see later why.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+OPTIONAL: Change your prompt to <code>$</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you’d like to simplify your prompt for the purposes of this tutorial, copy and paste the code below into your terminal:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">PS1</span><span class="op">=</span><span class="st">'$ '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>So let’s try our first command, <code>ls</code>, which is short for <strong>listing</strong>. This command will list the contents of the current directory:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="output"><code>Desktop     Downloads   Movies      Pictures
+Documents   Library     Music       Public</code></pre>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Command not found
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the shell can’t find a program whose name is the command you typed, it will print an error message such as:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="output"><code>ks: command not found</code></pre>
+<p>This might happen if the command was mis-typed or if the program corresponding to that command is not installed.</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<h2 id="a-typical-problem" class="anchored">A Typical Problem</h2>
+<p>You are a marine biologist who has just returned from a six-month survey of the <a href="#0">North Pacific Gyre</a>, where you have sampled gelatinous marine life in the <a href="#0">Great Pacific Garbage Patch</a>. You have 1520 samples that you’ve run through an assay machine to measure the relative abundance of 300 proteins. You need to run these 1520 files through an imaginary program called <code>goostats.sh</code>. In addition to this huge task, you have to write up results by the end of the month, so your paper can appear in a special issue of <em>Aquatic Goo Letters</em>.</p>
+<p>If you choose to run <code>goostats.sh</code> by hand using a GUI, you’ll have to select and open a file 1520 times. If <code>goostats.sh</code> takes 30 seconds to run each file, the whole process will take more than 12 hours. With the shell, you can instead assign your computer this mundane task while you focuses her attention on writing your paper.</p>
+<p>The next few lessons will explore the ways you can achieve this. More specifically, the lessons explain how you can use a command shell to run the <code>goostats.sh</code> program, using loops to automate the repetitive steps of entering file names, so that your computer can work while you write your paper.</p>
+<p>As a bonus, once you have put a processing pipeline together, you will be able to use it again whenever you collect more data.</p>
+<p>In order to achieve her task, you need to know how to:</p>
+<ul>
+<li>navigate to a file/directory</li>
+<li>create a file/directory</li>
+<li>check the length of a file</li>
+<li>chain commands together</li>
+<li>retrieve a set of files</li>
+<li>iterate over files</li>
+<li>run a shell script containing her pipeline</li>
+</ul>
+</blockquote>
+<div id="keypoints" class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>A shell is a program whose primary purpose is to read commands and run other programs.</li>
+<li>This lesson uses Bash, the default shell in many implementations of Unix.</li>
+<li>Programs can be run in Bash by entering commands at the command-line prompt.</li>
+<li>The shell’s main advantages are its high action-to-keystroke ratio, its support for automating repetitive tasks, and its capacity to access networked machines.</li>
+<li>A significant challenge when using the shell can be knowing what commands need to be run and how to run them.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="navigating-files-and-directories" class="level1">
+<h1>Navigating files and directories</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Questions</th>
+<th>Objectives</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><ul>
+<li>How can I move around on my computer?</li>
+<li>How can I see what files and directories I have?</li>
+<li>How can I specify the location of a file or directory on my computer?</li>
+</ul></td>
+<td><ul>
+<li>Construct and work with absolute and relative paths</li>
+<li>Use options and arguments to change the behaviour of a shell command.</li>
+<li>Demonstrate the use of tab completion and explain its advantages.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<p>The part of the operating system responsible for managing files and directories is called the <strong>file system</strong>. It organizes our data into files, which hold information, and directories (also called ‘folders’), which hold files or other directories.</p>
+<p>Several commands are frequently used to create, inspect, rename, and delete files and directories. To start exploring them, we’ll go to our open shell window.</p>
+<section id="where-am-i" class="level2">
+<h2 class="anchored" data-anchor-id="where-am-i">Where am I?</h2>
+<p>First, let’s find out where we are by running a command called <code>pwd</code> (which stands for ‘print working directory’). Directories are like <em>places</em> — at any time while we are using the shell, we are in exactly one place called our <strong>current working directory</strong>. Commands mostly read and write files in the current working directory, i.e.&nbsp;‘here’, so knowing where you are before running a command is important. <code>pwd</code> shows you where you are:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Users/sklucas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The computer’s response is <code>/Users/sklucas</code>, which is my <strong>home directory</strong>.</p>
+<section id="the-home-directory" class="level3">
+<h3 class="anchored" data-anchor-id="the-home-directory">The home directory</h3>
+<p>The home directory will look different on different operating systems.</p>
+<ul>
+<li>Linux: <code>/home/sklucas</code></li>
+<li>Windows: <code>C:\Users\sklucas</code> (This may differ based on Windows versions)</li>
+</ul>
+<p>If <code>pwd</code> returns something else, you may need to navigate to your home directory using the command <code>cd</code>.</p>
+<p>Let’s look at how a filesystem is organized:</p>
+<p><img src="fig/filesystem_yellow.png" class="img-fluid" alt="The file system is made up of a root directory that contains sub-directories titled bin, data, users, and tmp" width="400"></p>
+<p>The filesystem looks like an upside-down tree. We refer to the topmost directory as the “root directory”. It contains everything else. It is referred to with the <code>/</code> symbol.</p>
+<p>In this illustration, we have several other directories stemming off of the root. The <code>bin</code> directory often refers to a location where programs are stored. <code>tmp</code> is a common directory on filesystems as a place to hold files that don’t need to be kept long-term. You may recognize the <code>Users</code> directory from the output we had above when typing <code>pwd</code>. We know the path of our <strong>home directory</strong>, where we currently are, is <code>/Users/sklucas</code>.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Slashes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are two meanings for the <code>/</code> character. When it appears at the front of a path, it means “root”, when it appears within a path, it acts as a separator.</p>
+</div>
+</div>
+<p><img src="fig/filesystem_users.png" class="img-fluid" width="400"></p>
+<p>The <code>Users</code> folder may have more than one directory in it. For example, the image below depicts two users, sklucas and Collin. The home directory just as the home directory for sklucas is <code>/Users/sklucas</code>, the home directory for Collin would be <code>/Users/Collin</code>. <strong>Typically, when you open a new command prompt, you will start in your home directory by default</strong></p>
+</section>
+</section>
+<section id="listing-directory-contents" class="level2">
+<h2 class="anchored" data-anchor-id="listing-directory-contents">Listing directory contents</h2>
+<p>We often want to know what a directory contains. To do this, we use the “listing” command <code>ls</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>which might return something that looks like this (results will vary):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Applications</span>  Documents  Library  Music    Public</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Desktop</span>       Downloads  Movies   Pictures  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>ls</code> prints the names of the files and directories in your current location. Typing <code>ls -F</code> will give specific notation below based on the</p>
+<ul>
+<li><p>A trailing <code>/</code> indicates that this is a directory</p></li>
+<li><p><code>@</code> indicates a link</p></li>
+<li><p><code>*</code> indicates an executable</p></li>
+</ul>
+<p>Depending on your shell’s default settings, the shell might also use colors to indicate whether each entry is a file or directory.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Clearing your terminal
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If your screen gets too cluttered, you can clear your terminal using the <code>clear</code> command. You can still access previous commands using <kbd aria-hidden="true">↑</kbd><span class="visually-hidden">↑</span> and <kbd aria-hidden="true">↓</kbd><span class="visually-hidden">↓</span> to move line-by-line, or by scrolling in your terminal.</p>
+</div>
+</div>
+</section>
+<section id="getting-help" class="level2">
+<h2 class="anchored" data-anchor-id="getting-help">Getting help</h2>
+<p>Most bash commands have help menus that tell the user about how the command is used and what <strong>options</strong> are available for tailoring the function. There are two common ways to get help with commands, which can differ based on the source of the command (built-in or externally installed), and the operating system.</p>
+<ol type="1">
+<li><p>We can pass a <code>--help</code> option to any command (on linux and Git Bash).</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>We can read the manual on a function using the <code>man</code> command (linux and OSX)</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To navigate through the <code>man</code> pages, you may use <kbd aria-hidden="true">↑</kbd><span class="visually-hidden">↑</span> and <kbd aria-hidden="true">↓</kbd><span class="visually-hidden">↓</span> to move line-by-line, or try <kbd aria-hidden="true">b</kbd><span class="visually-hidden">b</span> and <kbd aria-hidden="true">Spacebar</kbd><span class="visually-hidden">Spacebar</span> to skip up and down by a full page. To search for a character or word in the <code>man</code> pages, use <kbd aria-hidden="true">/</kbd><span class="visually-hidden">/</span> followed by the character or word you are searching for. Sometimes a search will result in multiple hits. If so, you can move between hits using <kbd aria-hidden="true">N</kbd><span class="visually-hidden">N</span> (for moving forward) and <kbd aria-hidden="true">Shift+N</kbd><span class="visually-hidden">Shift+N</span> (for moving backward). To **quit** the <code>man</code> pages, press <kbd aria-hidden="true">q</kbd><span class="visually-hidden">q</span>.</p></li>
+</ol>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Bash Built-in commands
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some commands are built in to the Bash shell, rather than existing as separate programs on the filesystem. One example is the <code>cd</code> “change directory” command. If you get a message like <code>No manual entry for cd</code>, try <code>help cd</code> instead. The <code>help</code> command is how you get usage information for <a href="https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html">Bash built-ins</a>.</p>
+</div>
+</div>
+</section>
+<section id="command-options" class="level2">
+<h2 class="anchored" data-anchor-id="command-options">Command options</h2>
+<p>We’ve seen that commands can have many options associated with them, which can control how the command functions. These are often notated by short and long forms that are typically equal in their meaning, but have conventional use in different scenarios.</p>
+<p>When options exist as both short and long options:</p>
+<ul>
+<li><p>Use the short option when typing commands directly into the shell to minimize keystrokes and get your task done faster.</p></li>
+<li><p>Use the long option in scripts to provide clarity. It will be read many times and typed once.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Unsupported commandline options
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you try to use an option that is not supported, <code>ls</code> and other commands will usually print an error message similar to:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-j</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Mac zsh output:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ls:</span> invalid option <span class="at">--</span> j</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">usage:</span> ls <span class="pp">[-</span><span class="ss">@ABCFGHILOPRSTUWXabcdefghiklmnopqrstuvwxy1%,</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">color=when</span><span class="pp">]</span> [-D format] [file ...]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>other Unix output:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ls:</span> invalid option <span class="at">--</span> <span class="st">'j'</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Try</span> <span class="st">'ls --help'</span> for more information.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<section id="challenge-questions" class="level3">
+<h3 class="anchored" data-anchor-id="challenge-questions">Challenge Questions</h3>
+<p>Explore the <code>ls</code> command options to answer the following questions:</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 1: Listing in long, human-readable format
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Which options for <code>ls</code> produces output in <em>long</em> format that is <em>human readable</em>? (i.e.&nbsp;displaying something like <code>5.3K</code> instead of <code>5369)</code></p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>the options <code>-l</code> and <code>-h</code> can be used with <code>ls</code> to make the output long and human readable. You can use them in two ways:</p>
+<ul>
+<li><p><code>ls -l -h</code></p></li>
+<li><p>or string them together <code>ls -lh</code></p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 2: Listing in Reverse Chronological Order
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By default, <code>ls</code> lists the contents of a directory in alphabetical order by name. The command <code>ls -t</code> lists items by time of last change instead of alphabetically. The command <code>ls -r</code> lists the contents of a directory in reverse order. Which file is displayed last when you combine the <code>-t</code> and <code>-r</code> options? Hint: You may need to use the <code>-l</code> option to see the last changed dates.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The most recently changed file is listed last when using <code>-rt</code>. This can be very useful for finding your most recent edits or checking to see if a new output file was written.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exploring-other-directories" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-other-directories">Exploring other directories</h2>
+<p>Not only can we use <code>ls</code> on the current working directory, but we can use it to list the contents of a different directory. Let’s take a look at our <code>Desktop</code> directory by running <code>ls -F Desktop</code>, i.e., the command <code>ls</code> with the <code>-F</code> <strong>option</strong> and the <strong>argument</strong> <code>Desktop</code>. The argument <code>Desktop</code> tells <code>ls</code> that we want a listing of something other than our current working directory:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-F</span> Desktop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You should see your newly created directory “workshop”</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shell-lesson-data/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that if a directory named <code>Desktop</code> does not exist in your current working directory, this command will return an error. Typically, a <code>Desktop</code> directory exists in your home directory, which we assume is the current working directory of your bash shell.</p>
+<p>Your output should be a list of all the files and sub-directories in your Desktop directory, including the <code>shell-lesson-data</code> directory you downloaded at the setup for this lesson. (On most systems, the contents of the <code>Desktop</code> directory in the shell will show up as icons in a graphical user interface behind all the open windows. See if this is the case for you.)</p>
+<p>Organizing things hierarchically helps us keep track of our work. While it’s possible to put hundreds of files in our home directory just as it’s possible to pile hundreds of printed papers on our desk, it’s much easier to find things when they’ve been organized into sensibly-named subdirectories.</p>
+<p>Now that we know the <code>shell-lesson-data</code> directory is located in our Desktop directory, we can do two things.</p>
+<p>First, using the same strategy as before, we can look at its contents by passing a directory name to <code>ls</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-F</span> Desktop/shell-lesson-data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">exercise-data/</span>  north-pacific-gyre/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Second, we can actually change our location to a different directory, so we are no longer located in our home directory.</p>
+<p>The command to change locations is <code>cd</code> followed by a directory name to change our working directory. <code>cd</code> stands for ‘change directory’, which is a bit misleading. The command doesn’t change the directory; it changes the shell’s current working directory. In other words it changes the shell’s settings for what directory we are in. The <code>cd</code> command is akin to double-clicking a folder in a graphical interface to get into that folder.</p>
+<p>Let’s say we want to move into the <code>exercise-data</code> directory we saw above. We can use the following series of commands to get there:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd Desktop</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd shell-lesson-data</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd exercise-data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>These commands will move us from our home directory into our Desktop directory, then into the <code>shell-lesson-data</code> directory, then into the <code>exercise-data</code> directory. You will notice that <code>cd</code> doesn’t print anything. This is normal. Many shell commands will not output anything to the screen when successfully executed. But if we run <code>pwd</code> after it, we can see that we are now in <code>/Users/sklucas/Desktop/shell-lesson-data/exercise-data</code>.</p>
+<p>If we run <code>ls -F</code> without arguments now, it lists the contents of <code>/Users/sklucas/Desktop/shell-lesson-data/exercise-data</code>, because that’s where we now are:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Users/sklucas/Desktop/shell-lesson-data/exercise-data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-F</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">alkanes/</span>  animal-counts/  creatures/  numbers.txt  writing/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We now know how to go down the directory tree (i.e.&nbsp;how to go into a subdirectory), but how do we go up (i.e.&nbsp;how do we leave a directory and go into its parent directory)? We might try the following:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd shell-lesson-data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-bash:</span> cd: shell-lesson-data: No such file or directory</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>But we get an error! Why is this?</p>
+<p>With our methods so far, <code>cd</code> can only see sub-directories inside your current directory. There are different ways to see directories above your current location; we’ll start with the simplest.</p>
+<p>There is a shortcut in the shell to move up one directory level. It works as follows:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>..</code> is a special directory name meaning “the directory containing this one”, or more succinctly, the <strong>parent</strong> of the current directory. Sure enough, if we run <code>pwd</code> after running <code>cd ..</code>, we’re back in <code>/Users/sklucas/Desktop/shell-lesson-data</code>:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Users/sklucas/Desktop/shell-lesson-data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The special directory <code>..</code> doesn’t usually show up when we run <code>ls</code>. If we want to display it, we can add the <code>-a</code> option to <code>ls -F</code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-F</span> <span class="at">-a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./</span>  ../  exercise-data/  north-pacific-gyre/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-a</code> stands for ‘show all’ (including hidden files); it forces <code>ls</code> to show us file and directory names that begin with <code>.</code>, such as <code>..</code> (which, if we’re in <code>/Users/sklucas</code>, refers to the <code>/Users</code> directory). As you can see, it also displays another special directory that’s just called <code>.</code>, which means ‘the current working directory’. It may seem redundant to have a name for it, but we’ll see some uses for it soon.</p>
+<p>Note that in most command line tools, multiple options can be combined with a single <code>-</code> and no spaces between the options; <code>ls -F -a</code> is equivalent to <code>ls -Fa</code>.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Other Hidden Files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In addition to the hidden directories <code>..</code> and <code>.</code>, you may also see a file called <code>.bash_profile</code>. This file usually contains shell configuration settings. You may also see other files and directories beginning with <code>.</code>. These are usually files and directories that are used to configure different programs on your computer. The prefix <code>.</code> is used to prevent these configuration files from cluttering the terminal when a standard <code>ls</code> command is used.</p>
+</div>
+</div>
+<p>These three commands are the basic commands for navigating the filesystem on your computer: <code>pwd</code>, <code>ls</code>, and <code>cd</code>. Let’s explore some variations on those commands. What happens if you type <code>cd</code> on its own, without giving a directory?</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>How can you check what happened? <code>pwd</code> gives us the answer!</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Users/sklucas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It turns out that <code>cd</code> without an argument will return you to your home directory, which is great if you’ve got lost in your own filesystem.</p>
+<p>Let’s try returning to the <code>exercise-data</code> directory from before. Last time, we used three commands, but we can actually string together the list of directories to move to <code>exercise-data</code> in one step:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd Desktop/shell-lesson-data/exercise-data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Check that we’ve moved to the right place by running <code>pwd</code> and <code>ls -F</code>.</p>
+<p>If we want to move up one level from the data directory, we could use <code>cd ..</code>. But there is another way to move to any directory, regardless of your current location.</p>
+<p>So far, when specifying directory names, or even a directory path (as above), we have been using <strong>relative paths</strong>. When you use a relative path with a command like <code>ls</code> or <code>cd</code>, it tries to find that location from where we are, rather than from the root of the file system.</p>
+<p>However, it is possible to specify the <strong>absolute path</strong> to a directory by including its entire path from the root directory, which is indicated by a leading slash. The leading <code>/</code> tells the computer to follow the path from the root of the file system, so it always refers to exactly one directory, no matter where we are when we run the command.</p>
+<p>This allows us to move to our <code>shell-lesson-data</code> directory from anywhere on the filesystem (including from inside <code>exercise-data</code>). To find the absolute path we’re looking for, we can use <code>pwd</code> and then extract the piece we need to move to <code>shell-lesson-data</code>.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Users/sklucas/Desktop/shell-lesson-data/exercise-data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /Users/sklucas/Desktop/shell-lesson-data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run <code>pwd</code> and <code>ls -F</code> to ensure that we’re in the directory we expect.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Two more shortcuts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The shell interprets a tilde (<code>~</code>) character at the start of a path to mean “the current user’s home directory”. For example, if your home directory is <code>/Users/sklucas</code>, then <code>~/data</code> is equivalent to <code>/Users/sklucas/data</code>. This only works if it is the first character in the path; <code>here/there/~/elsewhere</code> is <em>not</em> <code>here/there/Users/sklucas/elsewhere</code>.</p>
+<p>Another shortcut is the <code>-</code> (dash) character. <code>cd</code> will translate <code>-</code> into <em>the previous directory I was in</em>, which is faster than having to remember, then type, the full path. This is a <em>very</em> efficient way of moving <em>back and forth between two directories</em> – i.e.&nbsp;if you execute <code>cd -</code> twice, you end up back in the starting directory.</p>
+<p>The difference between <code>cd ..</code> and <code>cd -</code> is that the former brings you <em>up</em>, while the latter brings you <em>back</em>.</p>
+<blockquote class="blockquote">
+<p><strong>Try it!</strong></p>
+<p>First navigate to <code>~/Desktop/shell-lesson-data</code> (you should already be there).</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/Desktop/shell-lesson-data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then <code>cd</code> into the <code>exercise-data/creatures</code> directory</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd exercise-data/creatures</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now if you run</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd <span class="at">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>you’ll see you’re back in <code>~/Desktop/shell-lesson-data</code>. Run <code>cd -</code> again and you’re back in <code>~/Desktop/shell-lesson-data/exercise-data/creatures</code></p>
+</blockquote>
+</div>
+</div>
+<section id="challenge-questions-1" class="level3">
+<h3 class="anchored" data-anchor-id="challenge-questions-1">Challenge Questions</h3>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 3: Absolute vs Relative Paths
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Starting from <code>/Users/sklucas/data</code>, which of the following commands could sklucas use to navigate to her home directory, which is <code>/Users/sklucas</code>?</p>
+<ol type="1">
+<li><code>cd .</code></li>
+<li><code>cd /</code></li>
+<li><code>cd /home/sklucas</code></li>
+<li><code>cd ../..</code></li>
+<li><code>cd ~</code></li>
+<li><code>cd home</code></li>
+<li><code>cd ~/data/..</code></li>
+<li><code>cd</code></li>
+<li><code>cd ..</code></li>
+</ol>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>No: <code>.</code> stands for the current directory.</li>
+<li>No: <code>/</code> stands for the root directory.</li>
+<li>No: sklucas’s home directory is <code>/Users/sklucas</code>.</li>
+<li>No: this command goes up two levels, i.e.&nbsp;ends in <code>/Users</code>.</li>
+<li>Yes: <code>~</code> stands for the user’s home directory, in this case <code>/Users/sklucas</code>.</li>
+<li>No: this command would navigate into a directory <code>home</code> in the current directory if it exists.</li>
+<li>Yes: unnecessarily complicated, but correct.</li>
+<li>Yes: shortcut to go back to the user’s home directory.</li>
+<li>Yes: goes up one level.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 4: Relative Path Resolution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using the filesystem diagram below, if <code>pwd</code> displays <code>/Users/thing</code>, what will <code>ls -F ../backup</code> display?</p>
+<p><img src="fig/challenge_question3.png" class="img-fluid" width="500"></p>
+<ol type="1">
+<li><code>../backup: No such file or directory</code></li>
+<li><code>2012-12-01 2013-01-08 2013-01-27</code></li>
+<li><code>2012-12-01/ 2013-01-08/ 2013-01-27/</code></li>
+<li><code>original/ pnas_final/ pnas_sub/</code></li>
+</ol>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>No: there <em>is</em> a directory <code>backup</code> in <code>/Users</code>.</li>
+<li>No: this is the content of <code>Users/thing/backup</code>, but with <code>..</code>, we asked for one level further up.</li>
+<li>No: see previous explanation.</li>
+<li>Yes: <code>../backup/</code> refers to <code>/Users/backup/</code>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 4: <code>ls</code> reading comprehension
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using the filesystem diagram below, if <code>pwd</code> displays <code>/Users/backup</code>, and <code>-r</code> tells <code>ls</code> to display things in reverse order, what command(s) will result in the following output:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnas_sub/</span> pnas_final/ original/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="fig/challenge_question3.png" class="img-fluid" width="500"></p>
+<ol type="1">
+<li><code>ls pwd</code></li>
+<li><code>ls -r -F</code></li>
+<li><code>ls -r -F /Users/backup</code></li>
+</ol>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>No: <code>pwd</code> is not the name of a directory.</li>
+<li>Yes: <code>ls</code> without directory argument lists files and directories in the current directory.</li>
+<li>Yes: uses the absolute path explicitly.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="general-syntax-of-a-shell-command" class="level2">
+<h2 class="anchored" data-anchor-id="general-syntax-of-a-shell-command">General Syntax of a Shell Command</h2>
+<p>We have now encountered commands, options, and arguments, but it is perhaps useful to formalise some terminology.</p>
+<p>Consider the command below as a general example of a command, which we will dissect into its component parts:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-F</span> /</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="fig/command_syntax.png" class="img-fluid"></p>
+<p><code>ls</code> is the <strong>command</strong>, with an <strong>option</strong> <code>-F</code> and an <strong>argument</strong> <code>/</code>. We’ve already encountered options which either start with a single dash (<code>-</code>), known as <strong>short options</strong>, or two dashes (<code>--</code>), known as <strong>long options</strong>. <strong>Options</strong> change the behavior of a command and <strong>arguments</strong> tell the command what to operate on (e.g.&nbsp;files and directories). Sometimes options and arguments are referred to as <strong>parameters</strong>. A command can be called with more than one option and more than one argument, but a command doesn’t always require an argument or an option.</p>
+<p>You might sometimes see options being referred to as <strong>switches</strong> or <strong>flags</strong>, especially for options that take no argument. In this lesson we will stick with using the term <em>option</em>.</p>
+<p>Each part is separated by spaces. If you omit the space between <code>ls</code> and <code>-F</code> the shell will look for a command called <code>ls-F</code>, which doesn’t exist. Also, capitalization can be important. For example, <code>ls -s</code> will display the size of files and directories alongside the names, while <code>ls -S</code> will sort the files and directories by size, as shown below:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/Desktop/shell-lesson-data</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-s</span> exercise-data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">total</span> 28</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">4</span> animal-counts   4 creatures  12 numbers.txt   4 alkanes   4 writing</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that the sizes returned by <code>ls -s</code> are in <em>blocks</em>. As these are defined differently for different operating systems, you may not obtain the same figures as in the example.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-S</span> exercise-data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">animal-counts</span>  creatures  alkanes  writing  numbers.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Putting all that together, our command <code>ls -F /</code> above gives us a listing of files and directories in the root directory <code>/</code>. An example of the output you might get from the above command is given below:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-F</span> /</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Applications/</span>         System/</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Library/</span>              Users/</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Network/</span>              Volumes/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<h2 id="your-task-organizing-files" class="anchored">Your Task: Organizing Files</h2>
+<p>Knowing this much about files and directories, You are ready to organize the files that the protein assay machine will create.</p>
+<p>You create a directory called <code>north-pacific-gyre</code> (to remind yourself where the data came from), which will contain the data files from the assay machine and your data processing scripts.</p>
+<p>Each of your physical samples is labelled according to your lab’s convention with a unique ten-character ID, such as ‘NENE01729A’. This ID is what you used in your collection log to record the location, time, depth, and other characteristics of the sample, so you decide to use it within the filename of each data file. Since the output of the assay machine is plain text, you will call your files <code>NENE01729A.txt</code>, <code>NENE01812A.txt</code>, and so on. All 1520 files will go into the same directory.</p>
+<p>Now in your current directory <code>shell-lesson-data</code>, you can see what files you have using the command:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls north-pacific-gyre/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command is a lot to type, but you can let the shell do most of the work through what is called <strong>tab completion</strong>. If you types:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls nor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and then presses Tab (the tab key on her keyboard), the shell automatically completes the directory name for you:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls north-pacific-gyre/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Pressing Tab again does nothing, since there are multiple possibilities; pressing Tab twice brings up a list of all the files.</p>
+<p>If you then presses G and then presses Tab again, the shell will append ‘goo’ since all files that start with ‘g’ share the first three characters ‘goo’.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls north-pacific-gyre/goo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To see all of those files, you can press Tab twice more.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> north-pacific-gyre/goo</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="ex">goodiff.sh</span>   goostats.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is called <strong>tab completion</strong>, and we will see it in many other tools as we go on.</p>
+</blockquote>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The file system is responsible for managing information on the disk.</li>
+<li>Information is stored in files, which are stored in directories (folders).</li>
+<li>Directories can also store other directories, which then form a directory tree.</li>
+<li><code>pwd</code> prints the user’s current working directory.</li>
+<li><code>ls [path]</code> prints a listing of a specific file or directory; <code>ls</code> on its own lists the current working directory.</li>
+<li><code>cd [path]</code> changes the current working directory.</li>
+<li>Most commands take options that begin with a single <code>-</code>.</li>
+<li>Directory names in a path are separated with <code>/</code> on Unix, but <code>\</code> on Windows.</li>
+<li><code>/</code> on its own is the root directory of the whole file system.</li>
+<li>An absolute path specifies a location from the root of the file system.</li>
+<li>A relative path specifies a location starting from the current location.</li>
+<li><code>.</code> on its own means ‘the current directory’; <code>..</code> means ‘the directory above the current one’.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="creating-moving-removing" class="level1">
+<h1>Creating, moving, removing</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Questions</th>
+<th>Objectives</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><ul>
+<li>How can I navigate my filesystem at the CLI</li>
+<li>How can I create, copy, and delete files and directories?</li>
+<li>How can I edit files?</li>
+</ul></td>
+<td><ul>
+<li>Create a new directory hierarchy</li>
+<li>Create files in that hierarchy using a text editor</li>
+<li>Delete, copy, and move files and/or directories</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="linking-commands-using-pipes" class="level1">
+<h1>Linking commands using pipes</h1>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="repeating-commands-using-loops" class="level1">
+<h1>Repeating commands using loops</h1>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="writing-scripts" class="level1">
+<h1>Writing scripts</h1>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li></li>
+</ul>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -641,9 +1426,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../index.html" class="pagination-link" aria-label="Computing Basics and Intro to R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Computing Basics and Intro to R</span>
-      </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../lessons/github/github-intro.html" class="pagination-link" aria-label="git and GitHub Intro">
@@ -656,4 +1438,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
