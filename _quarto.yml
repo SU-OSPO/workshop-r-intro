@@ -30,8 +30,8 @@ website:
   sidebar:
     style: "docked"
     search: true
+    background: "secondary"
     contents:
-      - index.qmd
       - lessons/shell-intro/shell-intro.qmd
       - lessons/github/github-intro.qmd
       - lessons/r-lessons/r-intro.qmd
