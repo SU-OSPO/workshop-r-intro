@@ -464,13 +464,13 @@ at our `Desktop` directory by running `ls -F Desktop`, i.e., the command
 argument `Desktop` tells `ls` that we want a listing of something other
 than our current working directory:
 
-```         
+``` bash
 $ ls -F Desktop
 ```
 
 You should see your newly created directory "workshop"
 
-```         
+``` bash
 shell-lesson-data/
 ```
 
@@ -498,11 +498,11 @@ Desktop directory, we can do two things.
 First, using the same strategy as before, we can look at its contents by
 passing a directory name to `ls`:
 
-```         
+``` bash
 $ ls -F Desktop/shell-lesson-data
 ```
 
-```         
+``` bash
 exercise-data/  north-pacific-gyre/
 ```
 
@@ -520,7 +520,7 @@ that folder.
 Let's say we want to move into the `exercise-data` directory we saw
 above. We can use the following series of commands to get there:
 
-```         
+``` bash
 $ cd Desktop
 $ cd shell-lesson-data
 $ cd exercise-data
@@ -538,19 +538,19 @@ If we run `ls -F` without arguments now, it lists the contents of
 `/Users/sklucas/Desktop/shell-lesson-data/exercise-data`, because that's
 where we now are:
 
-```         
+``` bash
 $ pwd
 ```
 
-```         
+``` bash
 /Users/sklucas/Desktop/shell-lesson-data/exercise-data
 ```
 
-```         
+``` bash
 $ ls -F
 ```
 
-```         
+``` bash
 alkanes/  animal-counts/  creatures/  numbers.txt  writing/
 ```
 
@@ -558,11 +558,11 @@ We now know how to go down the directory tree (i.e. how to go into a
 subdirectory), but how do we go up (i.e. how do we leave a directory and
 go into its parent directory)? We might try the following:
 
-```         
+``` bash
 $ cd shell-lesson-data
 ```
 
-```         
+``` bash
 -bash: cd: shell-lesson-data: No such file or directory
 ```
 
@@ -595,11 +595,11 @@ $ pwd
 The special directory `..` doesn't usually show up when we run `ls`. If
 we want to display it, we can add the `-a` option to `ls -F`:
 
-```         
+``` bash
 $ ls -F -a
 ```
 
-```         
+``` bash
 ./  ../  exercise-data/  north-pacific-gyre/
 ```
 
@@ -631,17 +631,17 @@ filesystem on your computer: `pwd`, `ls`, and `cd`. Let's explore some
 variations on those commands. What happens if you type `cd` on its own,
 without giving a directory?
 
-```         
+``` bash
 $ cd
 ```
 
 How can you check what happened? `pwd` gives us the answer!
 
-```         
+``` bash
 $ pwd
 ```
 
-```         
+``` bash
 /Users/sklucas
 ```
 
@@ -652,7 +652,7 @@ Let's try returning to the `exercise-data` directory from before. Last
 time, we used three commands, but we can actually string together the
 list of directories to move to `exercise-data` in one step:
 
-```         
+``` bash
 $ cd Desktop/shell-lesson-data/exercise-data
 ```
 
@@ -678,15 +678,15 @@ anywhere on the filesystem (including from inside `exercise-data`). To
 find the absolute path we're looking for, we can use `pwd` and then
 extract the piece we need to move to `shell-lesson-data`.
 
-```         
+``` bash
 $ pwd
 ```
 
-```         
+``` bash
 /Users/sklucas/Desktop/shell-lesson-data/exercise-data
 ```
 
-```         
+``` bash
 $ cd /Users/sklucas/Desktop/shell-lesson-data
 ```
 
@@ -716,19 +716,19 @@ The difference between `cd ..` and `cd -` is that the former brings you
 > First navigate to `~/Desktop/shell-lesson-data` (you should already be
 > there).
 >
-> ```         
+> ``` bash
 > $ cd ~/Desktop/shell-lesson-data
 > ```
 >
 > Then `cd` into the `exercise-data/creatures` directory
 >
-> ```         
+> ``` bash
 > $ cd exercise-data/creatures
 > ```
 >
 > Now if you run
 >
-> ```         
+> ``` bash
 > $ cd -
 > ```
 >
@@ -804,7 +804,7 @@ Using the filesystem diagram below, if `pwd` displays `/Users/backup`,
 and `-r` tells `ls` to display things in reverse order, what command(s)
 will result in the following output:
 
-```         
+``` bash
 pnas_sub/ pnas_final/ original/
 ```
 
@@ -832,7 +832,7 @@ perhaps useful to formalise some terminology.
 Consider the command below as a general example of a command, which we
 will dissect into its component parts:
 
-```         
+``` bash
 $ ls -F /
 ```
 
@@ -858,12 +858,12 @@ exist. Also, capitalization can be important. For example, `ls -s` will
 display the size of files and directories alongside the names, while
 `ls -S` will sort the files and directories by size, as shown below:
 
-```         
+``` bash
 $ cd ~/Desktop/shell-lesson-data
 $ ls -s exercise-data
 ```
 
-```         
+``` bash
 total 28
  4 animal-counts   4 creatures  12 numbers.txt   4 alkanes   4 writing
 ```
@@ -872,11 +872,11 @@ Note that the sizes returned by `ls -s` are in *blocks*. As these are
 defined differently for different operating systems, you may not obtain
 the same figures as in the example.
 
-```         
+``` bash
 $ ls -S exercise-data
 ```
 
-```         
+``` bash
 animal-counts  creatures  alkanes  writing  numbers.txt
 ```
 
@@ -884,11 +884,11 @@ Putting all that together, our command `ls -F /` above gives us a
 listing of files and directories in the root directory `/`. An example
 of the output you might get from the above command is given below:
 
-```         
+``` bash
 $ ls -F /
 ```
 
-```         
+``` bash
 Applications/         System/
 Library/              Users/
 Network/              Volumes/
@@ -915,21 +915,21 @@ Network/              Volumes/
 > Now in your current directory `shell-lesson-data`, you can see what
 > files you have using the command:
 >
-> ```         
+> ``` bash
 > $ ls north-pacific-gyre/
 > ```
 >
 > This command is a lot to type, but you can let the shell do most of
 > the work through what is called **tab completion**. If you types:
 >
-> ```         
+> ``` bash
 > $ ls nor
 > ```
 >
 > and then presses Tab (the tab key on her keyboard), the shell
 > automatically completes the directory name for you:
 >
-> ```         
+> ``` bash
 > $ ls north-pacific-gyre/
 > ```
 >
@@ -940,13 +940,13 @@ Network/              Volumes/
 > append 'goo' since all files that start with 'g' share the first three
 > characters 'goo'.
 >
-> ```         
+> ``` bash
 > $ ls north-pacific-gyre/goo
 > ```
 >
 > To see all of those files, you can press Tab twice more.
 >
-> ```         
+> ``` bash
 > ls north-pacific-gyre/goo
 > goodiff.sh   goostats.sh
 > ```
