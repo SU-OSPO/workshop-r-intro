@@ -3,7 +3,7 @@ project:
   title: "Computing Basics and Intro to R"
   execute-dir: project
   output-dir: docs
-  render: 
+  render:
       - index.qmd
 #      - about.qmd
       - lessons/shell-intro/shell-intro.qmd
@@ -40,6 +40,8 @@ website:
       - lessons/r-lessons/r-markdown.qmd
   page-navigation: true
 
+execute:
+  freeze: auto
 
 format:
   html:
