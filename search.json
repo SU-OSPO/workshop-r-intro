@@ -1,5 +1,49 @@
 [
   {
+    "objectID": "lessons/r-lessons/r-plotting.html",
+    "href": "lessons/r-lessons/r-plotting.html",
+    "title": "Plotting in R with ggplot2",
+    "section": "",
+    "text": "While you can make plots with just the packages that come bundled with base R, many R users make their visualizations entirely using the ggplot2 package and an ecosystem of packages designed around it.\n\n# load the ggplot2 package\nlibrary(ggplot2)\n\nAs with the previous session, we’ll be using the palmer penguins dataset. First, let’s load the package and then inspect the raw data that is included (we’ll learn more about the dplyr package in the next session).\n\nlibrary(palmerpenguins)\ndplyr::glimpse(penguins_raw)\n\nRows: 344\nColumns: 17\n$ studyName             &lt;chr&gt; \"PAL0708\", \"PAL0708\", \"PAL0708\", \"PAL0708\", \"PAL…\n$ `Sample Number`       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1…\n$ Species               &lt;chr&gt; \"Adelie Penguin (Pygoscelis adeliae)\", \"Adelie P…\n$ Region                &lt;chr&gt; \"Anvers\", \"Anvers\", \"Anvers\", \"Anvers\", \"Anvers\"…\n$ Island                &lt;chr&gt; \"Torgersen\", \"Torgersen\", \"Torgersen\", \"Torgerse…\n$ Stage                 &lt;chr&gt; \"Adult, 1 Egg Stage\", \"Adult, 1 Egg Stage\", \"Adu…\n$ `Individual ID`       &lt;chr&gt; \"N1A1\", \"N1A2\", \"N2A1\", \"N2A2\", \"N3A1\", \"N3A2\", …\n$ `Clutch Completion`   &lt;chr&gt; \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"No\", …\n$ `Date Egg`            &lt;date&gt; 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16,…\n$ `Culmen Length (mm)`  &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34…\n$ `Culmen Depth (mm)`   &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18…\n$ `Flipper Length (mm)` &lt;dbl&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190,…\n$ `Body Mass (g)`       &lt;dbl&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 34…\n$ Sex                   &lt;chr&gt; \"MALE\", \"FEMALE\", \"FEMALE\", NA, \"FEMALE\", \"MALE\"…\n$ `Delta 15 N (o/oo)`   &lt;dbl&gt; NA, 8.94956, 8.36821, NA, 8.76651, 8.66496, 9.18…\n$ `Delta 13 C (o/oo)`   &lt;dbl&gt; NA, -24.69454, -25.33302, NA, -25.32426, -25.298…\n$ Comments              &lt;chr&gt; \"Not enough blood for isotopes.\", NA, NA, \"Adult…\n\n\nWe can see that this dataset includes many different measurements for individual penguins from three different studies. The studies cover both sexes of three different species of penguins from three different islands.",
+    "crumbs": [
+      "Home",
+      "Plotting in R with ggplot2"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-plotting.html#other-layers",
+    "href": "lessons/r-lessons/r-plotting.html#other-layers",
+    "title": "Plotting in R with ggplot2",
+    "section": "Other layers",
+    "text": "Other layers\nThere are many other types of plots that we can make with ggplot2.\n\nHistograms\nWe can visualize the density of values for a single variable with a histogram:\n\nggplot(penguins_raw) +\n  aes(x = `Body Mass (g)`, fill = Species) +\n  geom_histogram() +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\nNote how histograms don’t require a y-axis aesthetic by default. The counts are tabulated for you. If you specify a “fill” aesthetic, the default is to stack the bars which can sometimes be a bit misleading. You can also dodge them to fix this:\n\nggplot(penguins_raw) +\n  aes(x = `Body Mass (g)`, fill = Species) +\n  geom_histogram(position = \"dodge\") +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\n\n\nBoxplots and Violin Plotss\nWe can visualize the density of values for a single variable across a discrete variable with boxplots or violin plots:\n\nggplot(penguins_raw) +\n  aes(x = Island, y = `Culmen Length (mm)`) +\n  geom_boxplot() +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\n\nggplot(penguins_raw) +\n  aes(x = Island, y = `Culmen Length (mm)`) +\n  geom_violin(scale = \"width\", draw_quantiles = c(0.25, 0.5, 0.75)) +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\nNote that many of these “geom”s have lots of options. For example, here we’ve decided to scale all of the violin plots to the same width and to draw the quartiles on them (mimicking the boxplots above).\n\n\n2D Contours\nWe can also visualize the density of values across two continuous variables using a 2D contour. Here we’ll use the isotope data from the penguins dataset. We’ll expand the axes a little bit to better show the contours:\n\nggplot(penguins_raw) +\n  aes(x = `Delta 15 N (o/oo)`, y = `Delta 13 C (o/oo)`) +\n  geom_density_2d(linewidth = 0.25, colour = \"black\") +\n  scale_x_continuous(limits = c(7, 10.5)) +\n  scale_y_continuous(limits = c(-27.5, -23.5)) +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\n\n\nTime Series\nSince there isn’t really any time series data in the penguins dataset, we’ll take a quick detour and use the built-in economics dataset to explore visualizing a time series. In this case, we are looking at unemployment over time:\n\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line() +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\ngeom_path() lets you explore how two variables are related over time. For example, unemployment and personal savings rate:\n\nggplot(economics, aes(x = unemploy / pop, y = psavert)) +\n  geom_path(aes(colour = as.numeric(date))) +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\nNote how we’ve used multiple columns of the data to define the x-axis here.",
+    "crumbs": [
+      "Home",
+      "Plotting in R with ggplot2"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-plotting.html#combining-layers",
+    "href": "lessons/r-lessons/r-plotting.html#combining-layers",
+    "title": "Plotting in R with ggplot2",
+    "section": "Combining layers",
+    "text": "Combining layers\nWe can also combine multiple layers to show the same data in different ways in the same plot. For example, we could show the raw data for the above contour plot in addition to the contours:\n\nggplot(penguins_raw) +\n  aes(x = `Delta 15 N (o/oo)`, y = `Delta 13 C (o/oo)`) +\n  geom_point() +\n  geom_density_2d_filled(alpha = 0.5) +\n  geom_density_2d(linewidth = 0.25, colour = \"black\") +\n  scale_x_continuous(limits = c(7, 10.5)) +\n  scale_y_continuous(limits = c(-27.5, -23.5)) +\n  coord_cartesian(expand = FALSE) +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\nNote that, when combining layers, the layers are added to the plot in order, so in this case the points are the bottom layer and the contour lines are the top layer. We changed the alpha of the middle layer to prevent the points from being blocked. I’ve also used the coord_cartesian() function to remove the default axis expansion. This way the background color reaches both axes and doesn’t have a white gap.",
+    "crumbs": [
+      "Home",
+      "Plotting in R with ggplot2"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-plotting.html#facetting",
+    "href": "lessons/r-lessons/r-plotting.html#facetting",
+    "title": "Plotting in R with ggplot2",
+    "section": "Facetting",
+    "text": "Facetting\nLet’s take our scatterplot example from earlier:\n\nggplot(penguins_raw) +\n  aes(x = `Body Mass (g)`, y = `Flipper Length (mm)`,\n      color = Island, shape = Sex) +\n  geom_point() +\n  scale_color_brewer(palette = \"Set1\") +\n  scale_x_continuous(name = \"Body Mass (grams)\") +\n  scale_y_continuous(name = \"Flipper Length (millimeters)\") +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\nNow, what if we wanted to also split the data by the species of the penguins? We’re already using color and shape, so what other aesthetic could we use? We could possible use some shapes that have both a fill and outline color, but that sounds messy. Instead of using another aesthetic, we could also use a facet. This splits the chart into multiple panels:\n\nggplot(penguins_raw) +\n  aes(x = `Body Mass (g)`, y = `Flipper Length (mm)`,\n      color = Island, shape = Sex) +\n  geom_point() +\n  scale_color_brewer(palette = \"Set1\") +\n  scale_x_continuous(name = \"Body Mass (grams)\") +\n  scale_y_continuous(name = \"Flipper Length (millimeters)\") +\n  facet_wrap(vars(Species), ncol = 1) +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\nWe can get even crazier by faceting by multiple variables:\n\nggplot(penguins_raw) +\n  aes(x = `Body Mass (g)`, y = `Flipper Length (mm)`,\n      color = Island, shape = Sex) +\n  geom_point() +\n  scale_color_brewer(palette = \"Set1\") +\n  scale_x_continuous(name = \"Body Mass (grams)\") +\n  scale_y_continuous(name = \"Flipper Length (millimeters)\") +\n  facet_grid(rows = vars(Species), cols = vars(studyName)) +\n  theme_classic() +\n  theme(axis.text = element_text(color = \"black\"))\n\n\n\n\n\n\n\n\nOK, maybe we’ve gone a little too far here, but you get the picture!",
+    "crumbs": [
+      "Home",
+      "Plotting in R with ggplot2"
+    ]
+  },
+  {
     "objectID": "lessons/shell-intro/shell-intro.html",
     "href": "lessons/shell-intro/shell-intro.html",
     "title": "Introduction to the Unix Shell",
