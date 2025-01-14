@@ -1,0 +1,55 @@
+project:
+  type: website
+  title: "Computing Basics and Intro to R"
+  execute-dir: project
+  output-dir: docs
+  render:
+      - index.qmd
+#      - about.qmd
+      - lessons/shell-intro/shell-intro.qmd
+      - lessons/github/github-intro.qmd
+      - lessons/r-lessons/r-intro.qmd
+      - lessons/r-lessons/r-plotting.qmd
+      - lessons/r-lessons/r-tidydata.qmd
+      - lessons/r-lessons/r-markdown.qmd
+website:
+  title: "Computing Basics and Intro to R"
+#  subtitle: "January 2025"
+  site-url: https://SyracuseUniversity.github.io/ospo-workshop-r-intro
+  repo-url: https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+  repo-actions: [issue]
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+    right:
+      - icon: github
+        href: https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+  sidebar:
+    style: "docked"
+    search: true
+    background: "secondary"
+    contents:
+      - lessons/shell-intro/shell-intro.qmd
+      - lessons/github/github-intro.qmd
+      - lessons/r-lessons/r-intro.qmd
+      - lessons/r-lessons/r-plotting.qmd
+      - lessons/r-lessons/r-tidydata.qmd
+      - lessons/r-lessons/r-markdown.qmd
+  page-navigation: true
+
+execute:
+  freeze: auto
+
+format:
+  html:
+    theme: lumen
+    css: styles.css
+    toc: true
+
+callout-appearance: simple
+
+date: today
+date-format: iso
