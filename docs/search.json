@@ -537,5 +537,27 @@
       "Home",
       "Plotting in R with ggplot2"
     ]
+  },
+  {
+    "objectID": "lessons/github/github-intro.html",
+    "href": "lessons/github/github-intro.html",
+    "title": "git and GitHub Intro",
+    "section": "",
+    "text": "In this session you will learn how to use git and GitHub to track changes.\nBefore doing the exercises in this session, you’ll want to tell git what your name and email are, so that it creates commits with the appropriate author information. To do that, open a terminal and run the following (it doesn’t matter which directory you run these from), but replacing YOUR NAME with your name and YOUR_EMAIL_ADDRESS with your email address:",
+    "crumbs": [
+      "Home",
+      "`git` and GitHub Intro"
+    ]
+  },
+  {
+    "objectID": "lessons/github/github-intro.html#exercises",
+    "href": "lessons/github/github-intro.html#exercises",
+    "title": "git and GitHub Intro",
+    "section": "Exercises",
+    "text": "Exercises\n\nExercise1: Practice with git on a local repository\nExercise2: git and GitHub\nExercise3: Collaborating in GitHub using the Fork and Pull Model",
+    "crumbs": [
+      "Home",
+      "`git` and GitHub Intro"
+    ]
   }
 ]

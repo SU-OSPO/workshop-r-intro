@@ -1,28 +1,30 @@
-# Exercise 1: Practice with `git` on a local repository
+---
+title: "Exercise 1: Practice with `git` on a local repository"
+---
 
 In this exercise you will initialize a git repository on your computer and explore various git commands with it.
 
 ### Part 1: Initializing and adding files
 
 1. Go to your home directory by typing:
-```
+```bash
 cd
 ```
 
 2. Create a directory called `test-git-repo` and `cd` into it:
-```
+```bash
 mkdir test-git-repo
 cd test-git-repo
 ```
 
 3. At the moment, `test-git-repo` is just a normal directory, like any others. We want to turn this into a git repository and track changes to files made in this directory. To do that, run:
-```
+```bash
 git init
 ```
 *Note that you have to run this from within the directory you want to turn into a repository.*
 
 4. `test-git-repo` is now tracked by `git`. Run:
-```
+```bash
 git status
 ```
 to see what the status of the repo is. You should get:
