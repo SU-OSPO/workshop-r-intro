@@ -264,6 +264,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#passing-output-to-another-command" id="toc-passing-output-to-another-command" class="nav-link" data-scroll-target="#passing-output-to-another-command">Passing output to another command</a></li>
   <li><a href="#combining-multiple-commands" id="toc-combining-multiple-commands" class="nav-link" data-scroll-target="#combining-multiple-commands">Combining multiple commands</a></li>
+  <li><a href="#tools-designed-to-work-together" id="toc-tools-designed-to-work-together" class="nav-link" data-scroll-target="#tools-designed-to-work-together">Tools designed to work together</a></li>
+  <li><a href="#your-pipeline-checking-files" id="toc-your-pipeline-checking-files" class="nav-link" data-scroll-target="#your-pipeline-checking-files">Your Pipeline: Checking Files</a></li>
   </ul></li>
   <li><a href="#repeating-commands-using-loops" id="toc-repeating-commands-using-loops" class="nav-link" data-scroll-target="#repeating-commands-using-loops">Repeating commands using loops</a></li>
   <li><a href="#writing-scripts" id="toc-writing-scripts" class="nav-link" data-scroll-target="#writing-scripts">Writing scripts</a></li>
@@ -1824,10 +1826,10 @@ Redirecting to the same file
 <p>Doing something like this may give you incorrect results and/or delete the contents of <code>lengths.txt</code>.</p>
 </div>
 </div>
-<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Challenge: What Does <code>&gt;&gt;</code> Mean?
@@ -1927,6 +1929,203 @@ Solution
 <p>This is exactly like a mathematician nesting functions like <em>log(3x)</em> and saying ‘the log of three times <em>x</em>’. In our case, the algorithm is ‘head of sort of line count of <code>*.pdb</code>’.</p>
 <p>The redirection and pipes used in the last few commands are illustrated below:</p>
 <p><img src="fig/redirect.png" class="img-fluid"></p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge: Piping commands together
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In our current directory, we want to find the 3 files which have the least number of lines. Which command listed below would work?</p>
+<ol type="1">
+<li><code>wc -l * &gt; sort -n &gt; head -n 3</code></li>
+<li><code>wc -l * | sort -n | head -n 1-3</code></li>
+<li><code>wc -l * | head -n 3 | sort -n</code></li>
+<li><code>wc -l * | sort -n | head -n 3</code></li>
+</ol>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-55-contents" aria-controls="callout-55" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-55" class="callout-55-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Option 4 is the solution. The pipe character <code>|</code> is used to connect the output from one command to the input of another. <code>&gt;</code> is used to redirect standard output to a file. Try it in the <code>shell-lesson-data/exercise-data/alkanes</code> directory!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="tools-designed-to-work-together" class="level2">
+<h2 class="anchored" data-anchor-id="tools-designed-to-work-together">Tools designed to work together</h2>
+<p>This idea of linking programs together is why Unix has been so successful. Instead of creating enormous programs that try to do many different things, Unix programmers focus on creating lots of simple tools that each do one job well, and that work well with each other. This programming model is called ‘pipes and filters’. We’ve already seen pipes; a <strong>filter</strong> is a program like <code>wc</code> or <code>sort</code> that transforms a stream of input into a stream of output. Almost all of the standard Unix tools can work this way. Unless told to do otherwise, they read from standard input, do something with what they’ve read, and write to standard output.</p>
+<p>The key is that any program that reads lines of text from standard input and writes lines of text to standard output can be combined with every other program that behaves this way as well. You can <em>and should</em> write your programs this way so that you and other people can put those programs into pipes to multiply their power.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge: Pipe Reading Comprehension
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A file called <code>animals.csv</code> (in the <code>shell-lesson-data/exercise-data/animal-counts</code> folder) contains the following data:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-05,deer,5</span></span>
+<span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-05,rabbit,22</span></span>
+<span id="cb159-3"><a href="#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-05,raccoon,7</span></span>
+<span id="cb159-4"><a href="#cb159-4" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-06,rabbit,19</span></span>
+<span id="cb159-5"><a href="#cb159-5" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-06,deer,2</span></span>
+<span id="cb159-6"><a href="#cb159-6" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-06,fox,4</span></span>
+<span id="cb159-7"><a href="#cb159-7" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-07,rabbit,16</span></span>
+<span id="cb159-8"><a href="#cb159-8" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-07,bear,1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>What text passes through each of the pipes and the final redirect in the pipeline below? Note, the <code>sort -r</code> command sorts in reverse order.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat animals.csv <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 5 <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 3 <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-r</span> <span class="op">&gt;</span> final.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Hint: build the pipeline up one command at a time to test your understanding</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-57-contents" aria-controls="callout-57" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-57" class="callout-57-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>head</code> command extracts the first 5 lines from <code>animals.csv</code>. Then, the last 3 lines are extracted from the previous 5 by using the <code>tail</code> command. With the <code>sort -r</code> command those 3 lines are sorted in reverse order. Finally, the output is redirected to a file: <code>final.txt</code>. The content of this file can be checked by executing <code>cat final.txt</code>. The file should contain the following lines:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-06,rabbit,19</span></span>
+<span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-06,deer,2</span></span>
+<span id="cb161-3"><a href="#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-05,raccoon,7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge: Pipe Construction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the file <code>animals.csv</code> from the previous exercise, consider the following command:</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cut <span class="at">-d</span> , <span class="at">-f</span> 2 animals.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>cut</code> command is used to remove or ‘cut out’ certain sections of each line in the file, and <code>cut</code> expects the lines to be separated into columns by a Tab character. A character used in this way is called a <strong>delimiter</strong>. In the example above we use the <code>-d</code> option to specify the comma as our delimiter character. We have also used the <code>-f</code> option to specify that we want to extract the second field (column). This gives the following output:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deer</span></span>
+<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="ex">rabbit</span></span>
+<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="ex">raccoon</span></span>
+<span id="cb163-4"><a href="#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="ex">rabbit</span></span>
+<span id="cb163-5"><a href="#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="ex">deer</span></span>
+<span id="cb163-6"><a href="#cb163-6" aria-hidden="true" tabindex="-1"></a><span class="ex">fox</span></span>
+<span id="cb163-7"><a href="#cb163-7" aria-hidden="true" tabindex="-1"></a><span class="ex">rabbit</span></span>
+<span id="cb163-8"><a href="#cb163-8" aria-hidden="true" tabindex="-1"></a><span class="ex">bear</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>uniq</code> command filters out adjacent matching lines in a file. How could you extend this pipeline (using <code>uniq</code> and another command) to find out what animals the file contains (without any duplicates in their names)?</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-59" class="callout-59-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb164"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cut <span class="at">-d</span> , <span class="at">-f</span> 2 animals.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge: Which Pipe?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The file <code>animals.csv</code> contains 8 lines of data formatted as follows:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-05,deer,5</span></span>
+<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-05,rabbit,22</span></span>
+<span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-05,raccoon,7</span></span>
+<span id="cb165-4"><a href="#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="ex">2012-11-06,rabbit,19</span></span>
+<span id="cb165-5"><a href="#cb165-5" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>uniq</code> command has a <code>-c</code> option which gives a count of the number of times a line occurs in its input. Assuming your current directory is <code>shell-lesson-data/exercise-data/animal-counts</code>, what command would you use to produce a table that shows the total count of each type of animal in the file?</p>
+<ol type="1">
+<li><code>sort animals.csv | uniq -c</code></li>
+<li><code>sort -t, -k2,2 animals.csv | uniq -c</code></li>
+<li><code>cut -d, -f 2 animals.csv | uniq -c</code></li>
+<li><code>cut -d, -f 2 animals.csv | sort | uniq -c</code></li>
+<li><code>cut -d, -f 2 animals.csv | sort | uniq -c | wc -l</code></li>
+</ol>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-61-contents" aria-controls="callout-61" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-61" class="callout-61-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Option 4. is the correct answer. If you have difficulty understanding why, try running the commands, or sub-sections of the pipelines (make sure you are in the <code>shell-lesson-data/exercise-data/animal-counts</code> directory).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="your-pipeline-checking-files" class="level2">
+<h2 class="anchored" data-anchor-id="your-pipeline-checking-files">Your Pipeline: Checking Files</h2>
+<p>You have run your samples through the assay machines and created 17 files in the <code>north-pacific-gyre</code> directory described earlier. As a quick check, starting from the <code>shell-lesson-data</code> directory, you type:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd north-pacific-gyre</span>
+<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="pp">*</span>.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The output is 18 lines that look like this:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="ex">300</span> NENE01729A.txt</span>
+<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="ex">300</span> NENE01729B.txt</span>
+<span id="cb167-3"><a href="#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="ex">300</span> NENE01736A.txt</span>
+<span id="cb167-4"><a href="#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="ex">300</span> NENE01751A.txt</span>
+<span id="cb167-5"><a href="#cb167-5" aria-hidden="true" tabindex="-1"></a><span class="ex">300</span> NENE01751B.txt</span>
+<span id="cb167-6"><a href="#cb167-6" aria-hidden="true" tabindex="-1"></a><span class="ex">300</span> NENE01812A.txt</span>
+<span id="cb167-7"><a href="#cb167-7" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now you type this:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="pp">*</span>.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">240</span> NENE02018B.txt</span>
+<span id="cb169-2"><a href="#cb169-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">300</span> NENE01729A.txt</span>
+<span id="cb169-3"><a href="#cb169-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">300</span> NENE01729B.txt</span>
+<span id="cb169-4"><a href="#cb169-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">300</span> NENE01736A.txt</span>
+<span id="cb169-5"><a href="#cb169-5" aria-hidden="true" tabindex="-1"></a> <span class="ex">300</span> NENE01751A.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Whoops: one of the files is 60 lines shorter than the others. When you go back and check it, you see that you did that assay at 8:00 on a Monday morning — someone was probably in using the machine on the weekend, and you forgot to reset it. Before re-running that sample, you check to see if any files have too much data:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> <span class="pp">*</span>.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">300</span> NENE02040B.txt</span>
+<span id="cb171-2"><a href="#cb171-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">300</span> NENE02040Z.txt</span>
+<span id="cb171-3"><a href="#cb171-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">300</span> NENE02043A.txt</span>
+<span id="cb171-4"><a href="#cb171-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">300</span> NENE02043B.txt</span>
+<span id="cb171-5"><a href="#cb171-5" aria-hidden="true" tabindex="-1"></a><span class="ex">5040</span> total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Those numbers look good — but what’s that ‘Z’ doing there in the third-to-last line? All of your samples should be marked ‘A’ or ‘B’; by convention, your lab uses ‘Z’ to indicate samples with missing information. To find others like it, you do this:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="pp">*</span>Z.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NENE01971Z.txt</span>    NENE02040Z.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Sure enough, when you check the log on your laptop, there’s no depth recorded for either of those samples. Since it’s too late to get the information any other way, you must exclude those two files from your analysis. You could delete them using <code>rm</code>, but there are actually some analyses you might do later where depth doesn’t matter, so instead, you<code>wc</code> counts lines, words, and characters in its inputs.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1938,7 +2137,14 @@ Key Points
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li></li>
+<li><code>cat</code> displays the contents of its inputs.</li>
+<li><code>sort</code> sorts its inputs.</li>
+<li><code>head</code> displays the first 10 lines of its input by default without additional arguments.</li>
+<li><code>tail</code> displays the last 10 lines of its input by default without additional arguments.</li>
+<li><code>command &gt; [file]</code> redirects a command’s output to a file (overwriting any existing content).</li>
+<li><code>command &gt;&gt; [file]</code> appends a command’s output to a file.</li>
+<li><code>[first] | [second]</code> is a pipeline: the output of the first command is used as the input to the second.</li>
+<li>The best way to use the shell is to use pipes to combine simple single-purpose programs (filters).’ll have to be careful later on to select files using the wildcard expressions <code>NENE*A.txt NENE*B.txt</code>.</li>
 </ul>
 </div>
 </div>
