@@ -30,19 +30,19 @@ The advantage of using forks is it allows you to make develop things without bre
    * If you are not already their, go to your fork's website on GitHub. The web address should be something like `https://github.com/YOUR_USERNAME/THEIR_USERNAME-test-repo`.
    * On your fork's website, click the green `<> Code` button, then copy the SSH URL. It should be something like `git@github.com:YOUR_USERNAME/THEIR_USERNAME-test-repo.git`
    * Go to your terminal, `cd` to the directory you want to store your fork, and type:
-```
+```bash
 git clone SSH_URL
 ```
 where `SSH_URL` is the SSH URL you copied.
 
 7. `cd` into the repository you just cloned and type
-```
+```bash
 git remote -v
 ```
 to see the `origin` URL. Note that the `origin` for this repository is your fork on GitHub, *not your partner's repository*.
 
 8. Now let's create a branch called `dev2` to add a new feature to the `mymath.py` file. Create the branch on your local computer by typing:
-```
+```bash
 git checkout -b dev2
 ```
 This will create and switch to a new branch called `dev2`. You can verify you're on the new branch by typing `git branch`.
@@ -56,13 +56,13 @@ def multiply(a, b):
 Save the changes.
 
 10. Commit your changes by running:
-```
+```bash
 git add -u
 git commit -m "add multiplication function to mymath file"
 ```
 
 11. This commit (and the `dev2` branch) currently only exists on your local copy of your fork. Push the branch to your fork on GitHub by running:
-```
+```bash
 git push -u origin dev2
 ```
 Note that we had to provide the `-u origin dev2` arguments to `git push`. This is because the `dev2` branch does not currently exist on our fork in GitHub. Adding the extra arguments tells git to create a `dev2` branch on your fork on GitHub and push the new changes there.
@@ -82,16 +82,16 @@ Congratulations! You and your partner have now collaborated on a new feature.
 17. Once your partner merges the changes, their `main` branch will update with your new commit. The `main` branch of *your* fork will now be out of sync with theirs. To sync it, go to to your GitHub website for your fork (the one with URL `https://github.com/YOUR_USERNAME/THEIR_USERNAME-test-repo`). You should see a gray dialog box at the top that starts with "This branch is 1 commit behind ...". Click the `Sync fork` button, then the green `Update branch` button. This will update your fork's main branch to be the same as your partner's.
 
 18. Update your local copy of your fork. Go to your terminal and, in the repository directory, switch back to the main branch:
-```
+```bash
 git checkout main
 ```
 Now update your `main` branch by typing:
-```
+```bash
 git pull
 ```
 This will update your main to be the same the one on GitHub, which is also the same as your partner's main branch.
 
 19. Now that your changes have been merged on to your partner's main branch and you've synced your fork both on GitHub and your computer, you're free to delete your development branch on your computer. To do so run:
-```
+```bash
 git branch -d dev2
 ```

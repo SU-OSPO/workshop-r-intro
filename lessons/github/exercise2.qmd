@@ -23,7 +23,7 @@ Exercise 1 illustrated how to create a new git repository on your local computer
 To clone the repository, click the Green `<> Code` button in the upper right, then select the "SSH" tab. We'll want the SSH version so that we can push changes later. To do this you'll need to have an SSH key uploaded to your GitHub repository (what you did in [Session1](../../session1). If you have not that, stop and go do [Session 1](../../session1), then return here.
 
 10. Copy the URL in the SSH tab. Now open a terminal (you may want to open the terminal side-by-side with your web browser; it'll make doing the rest of this exercise easier). `cd` to the directory that you want your local copy of the repository to live, then type:
-```
+```bash
 git clone SSH_URL
 ```
 where `SSH_URL` is the URL you copied from GitHub.
@@ -31,7 +31,7 @@ where `SSH_URL` is the URL you copied from GitHub.
 11. When git clone finishes, you will have a new directory that has the same name as your repo on your computer. `cd` into that and type `ls`. You should see the `README.md` file and the `LICENSE` file.
 
 12. This is your local copy of your repository. It's setup to track your repo on GitHub, which is called the `origin` repository. You can verify that by typing:
-```
+```bash
 git remote -v
 ```
 That will show you the URL of the origin. Note that this is printed twice: once for *fetching* (i.e., the default repo you will *pull* new updates from) and one for *pushing* (i.e., the repo to which you will *push* changes from your local computer).
@@ -49,14 +49,14 @@ def add(a, b):
 This is a simple python program that contains a function to add two numbers.
 
 14. Add and commit your file to your repo:
-```
+```bash
 git add mymath.py
 git commit -m "add mymath file"
 ```
 Check your history to see the commit by typing `git log`.
 
 15. Now look at your copy of the repository on GitHub in your web browser. Is `mymath.py` there? No. Try refreshing the page. Is it there? Still no. This is because you have only commited the file to your *local* copy of the repository. The origin repository on GitHub doesn't know about these changes. To get the changes on to your origin repository, type:
-```
+```bash
 git push
 ```
 Go back to your web browser and refresh your repository page. You should now see the `mymath.py` file there. You can click on it to view it if you like. You can also see your commit history on GitHub (click the icon that looks like a clock just below the green `<> Code` button on the front page of your repository). Notice that the history on GitHub is the same as your history on your local computer. Your repos are in sync!
@@ -64,17 +64,17 @@ Go back to your web browser and refresh your repository page. You should now see
 16. Let's create a branch to do some development work. We could do this on our local computer, but let's do it on GitHub instead. Click the drop down button that says "main" in the upper left corner of the website. Then click "View all branches". This will bring you to another page that shows you all your branches. Currently we only have one, `main`. Create a new branch by clicking the green `New branch` button in the upper right. In the "New branch name" field type `dev1` then click `Create new branch`. This will create the new branch.
 
 17. Now let's make some changes on the `dev1` branch on our local computer. To do that, we'll need to update our local repo to pickup the new branch. Go to your terminal and type:
-```
+```bash
 git fetch
 ```
 You'll see a message telling you about the new branch `origin/dev1`. You still don't have this branch on your local repo! If you type `git branch`, you'll only see `* main`. The fetch command just informed your local repo about the existence of the `dev1` branch on GitHub. You can verify this by typing `git branch -r` to see the remote branches.
 
 18. Let's checkout a local copy of the `dev1` branch. Type:
-```
+```bash
 git checkout -b dev1 origin/dev1
 ```
 Adding the extra `origin/dev1` instructs git to make your local `dev1` *track* the remote one. This means that when we `git push` from this branch it will by default push changes to the `dev1` branch on GitHub, not the `main` branch. You can verify which branch you will push to by typing:
-```
+```bash
 git branch -vv
 ```
 
@@ -85,13 +85,13 @@ def subtract(a, b):
     return a - b
 ```
 Commit your changes to your local repo:
-```
+```bash
 git add -u
 git commit -m "add subtraction"
 ```
 
 20. Again, your changes to your local `dev1` are not on GitHub yet. To do that, push the changes by typing:
-```
+```bash
 git push
 ```
 Note that when you did this, it pushed to the `dev1` branch on git hub (you'll see a message like `dev1 -> dev1`).
@@ -103,14 +103,14 @@ Note that when you did this, it pushed to the `dev1` branch on git hub (you'll s
 23. Let's merge your pull request. There's a green `Merge pull request` button at the bottom of the page. Click it, then "Confirm merge". This will merge your changes on `dev1` on to `main`. You now have the option to delete `dev1`. Feel free to click the delete dev1 branch button.
 
 24. Now that your `main` branch on GitHub has the merged changes, your `main` branch on your local copy is out of sync. To update it, go to your terminal and switch to your main branch:
-    ```
+    ```bash
     git checkout main
     ```
     You can now bring it up to date with your remote repository by running `git pull`:
-    ```
+    ```bash
     git pull
     ```
     Once that's done, you can also delete your local copy of the `dev1` branch by typing:
-    ```
+    ```bash
     git branch -d dev1
     ```
