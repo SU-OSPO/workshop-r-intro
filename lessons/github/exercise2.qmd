@@ -2,11 +2,16 @@
 
 Exercise 1 illustrated how to create a new git repository on your local computer. In this exercise we'll create a new repository on GitHub, *clone* it to our local computer, make changes, then *push* it back to GitHub. This is the more common way to create git repositories on GitHub.
 
+::: {.callout-important}
+## ssh key setup
+In order to do this exercise you will need an `ssh` key uploaded to GitHub. If you have not done that yet, follow the [ssh setup instructions](ssh_setup.qmd) before starting this exercise.
+:::
+
 1. Go to https://github.com and sign in if you are not already. Then go to https://github.com/new to create a new repository.
 
 2. In the Owner section, click the drop down "Choose an owner" and select yourself.
 
-3. In the "Repository name" field put `USERNAME-test-repo` where `USERNAME` is your username. *Note*: putting your username in the repo name normally isn't necessary. You'll do it this time because having a unique repository name will make doing Exercise 3 (which will use this) easier.
+3. You'll need to put a name in the "Repository name" field. GitHub will offer a suggestion (where it says "Need inspiration? How about ..."). Use the suggested name. That should ensure that the repostiory name is unique, which will make doing Exercise 3 easier.
 
 4. Under "Description" put "My test git repository."
 
@@ -20,7 +25,7 @@ Exercise 1 illustrated how to create a new git repository on your local computer
 
 9. We want to add things to your repository. You can do that through the web interface, but it's easier to do it on your local computer, esepcially for code development so that you can test things. To do that we'll need a local copy of your repository. This is what `git clone` does: it downloads a local copy of your remote repository (which lives on GitHub) that can *track* the remote repository.
 
-To clone the repository, click the Green `<> Code` button in the upper right, then select the "SSH" tab. We'll want the SSH version so that we can push changes later. To do this you'll need to have an SSH key uploaded to your GitHub repository (what you did in [Session1](../../session1). If you have not that, stop and go do [Session 1](../../session1), then return here.
+To clone the repository, click the Green `<> Code` button in the upper right, then select the "SSH" tab. We'll want the SSH version so that we can push changes later.
 
 10. Copy the URL in the SSH tab. Now open a terminal (you may want to open the terminal side-by-side with your web browser; it'll make doing the rest of this exercise easier). `cd` to the directory that you want your local copy of the repository to live, then type:
 ```bash

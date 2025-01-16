@@ -3,20 +3,20 @@
 In this exercise you will learn how to collaborate with others using GitHub. You will work with a partner to contribute to the test repository they created on GitHub in [Exercise 2](exercise2.qmd) (and they will do the same with your repository!).
 
 
-1. Find a partner to work with. Get the web address of the test repository they created in Exercise 2. This is the URL of their repository website (*not* the ssh URL that they used to clone their repository). The URL should be something like `https://github.com/THEIR_USERNAME/THEIR_USERNAME-test-repo` where `THEIR_USERNAME` is your partner's GitHub username. **Again, you are going to the website for your *partner's* repository, not your own.**
+1. Find a partner to work with. Get the web address of the test repository they created in Exercise 2. This is the URL of their repository website (*not* the ssh URL that they used to clone their repository). The URL should be something like `https://github.com/THEIR_USERNAME/THEIR_REPO_NAME` where `THEIR_USERNAME` is your partner's GitHub username and `THEIR_REPO_NAME` is the name of the repository they created in Exercise 2. **Again, you are going to the website for your *partner's* repository, not your own.**
 
 2. Click the `Fork` button in the upper right of their website. This will open the "Create a new fork" page.
 
 3. On the "Create a new fork" page:
     * Under "Owner" select **your username**.
     * Leave the repository name the same.
-  The Owner / respository name should look like `YOUR_USERNAME / THEIR_USERNAME-test-repo`.
+  The Owner / respository name should look like `YOUR_USERNAME / THEIR_REPO_NAME`.
 
-5. Now click the green `Create fork` button in the lower right. This will create a "fork" of your partner's repository under your own GitHub account. You will be redirected to your fork. Note the URL at the top of the webpage: it should be something like `https://github.com/YOUR_USERNAME/THEIR_USERNAME-test-repo`.
+5. Now click the green `Create fork` button in the lower right. This will create a "fork" of your partner's repository under your own GitHub account. You will be redirected to your fork. Note the URL at the top of the webpage: it should be something like `https://github.com/YOUR_USERNAME/THEIR_REPO_NAME`.
 
-----
-
-**About forks**: a *fork* is a copy of another user's GitHub repository. When you create the fork, you create copy of the repository under your GitHub account. The copy of the repository has the entire commit history of the repository up until that point. It is, for all intents and purposes, an exact replica of the original repository, except that the copy is now under your account.
+::: {.callout-note}
+## About forks
+A *fork* is a copy of another user's GitHub repository. When you create the fork, you create copy of the repository under your GitHub account. The copy of the repository has the entire commit history of the repository up until that point. It is, for all intents and purposes, an exact replica of the original repository, except that the copy is now under your account.
 
 From this point on, your fork is independent of the original. Since it is under your account, you are free to make any changes that you like to --- add commits or branches, delete things, etc. --- without affecting the original repository. Changes to the original repository also won't affect your fork unless you actively sync it by using `git fetch` (more on that below).
 
@@ -24,11 +24,13 @@ You can create a fork of any public repository on GitHub!
 
 The advantage of using forks is it allows you to develop things without breaking the original repository while you do. This is incredibly useful if you want to contribute to another project that is widely used: you create a fork of that project under your own GitHub account; clone your fork to your local computer; develop your fork by pushing/pulling between your local computer and GitHub. Then, when you are content that your new addition is ready, you fill out a pull request to merge the changes in your fork into the original repository (usually on its `main` branch). The original repo's owner(s) can then review your changes, and, if they accept them, merge it into their repository for widespread adoption. This is known as the [fork and pull model](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model).
 
-----
+The diagram below illustrates the relationship between a fork (on GitHub) and a clone:
+![Fork digram: userB creates a fork of userA's repository on GitHub. userA and userB each have a clone of the repository on their local computers. Within each user's fork of the repository they have different branches (in userA's repos they are main and dev1; in userB, main and br1).](fork_diagram.png){width=600}
+:::
 
 6. You want to contribute a new development to your partner's repository. To do so, first clone **your fork** of their repository to your local computer:
-   * If you are not already there, go to your fork's website on GitHub. The web address should be something like `https://github.com/YOUR_USERNAME/THEIR_USERNAME-test-repo`.
-   * On your fork's website, click the green `<> Code` button, then copy the SSH URL. It should be something like `git@github.com:YOUR_USERNAME/THEIR_USERNAME-test-repo.git`
+   * If you are not already there, go to your fork's website on GitHub. The web address should be something like `https://github.com/YOUR_USERNAME/THEIR_REPO_NAME`.
+   * On your fork's website, click the green `<> Code` button, then copy the SSH URL. It should be something like `git@github.com:YOUR_USERNAME/THEIR_REPO_NAME.git`
    * Go to your terminal, `cd` to the directory you want to store your fork, and type:
 ```bash
 git clone SSH_URL
@@ -80,7 +82,7 @@ Note that we had to provide the `-u origin dev2` arguments to `git push`. This i
 
 Congratulations! You and your partner have now collaborated on a new feature.
 
-17. Once your partner merges the changes, their `main` branch will update with your new commit. The `main` branch of *your* fork will now be out of sync with theirs. To sync it, go to to your GitHub website for your fork (the one with URL `https://github.com/YOUR_USERNAME/THEIR_USERNAME-test-repo`). You should see a gray dialog box at the top that starts with "This branch is 1 commit behind ...". Click the `Sync fork` button, then the green `Update branch` button. This will update your fork's main branch to be the same as your partner's.
+17. Once your partner merges the changes, their `main` branch will update with your new commit. The `main` branch of *your* fork will now be out of sync with theirs. To sync it, go to to your GitHub website for your fork (the one with URL `https://github.com/YOUR_USERNAME/THEIR_REPO_NAME`). You should see a gray dialog box at the top that starts with "This branch is 1 commit behind ...". Click the `Sync fork` button, then the green `Update branch` button. This will update your fork's main branch to be the same as your partner's.
 
 18. Update your local copy of your fork. Go to your terminal and, in the repository directory, switch back to the main branch:
 ```bash
