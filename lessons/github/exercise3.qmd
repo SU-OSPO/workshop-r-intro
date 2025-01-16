@@ -1,6 +1,6 @@
 # Exercise 3: Collaborating in GitHub using the Fork and Pull Model
 
-In this exercise you will learn how to collaborate with others using GitHub. You will work with a partner to contribute to the test repository they created on GitHub in [Exercise 2](../exercise2) (and they will do the same with your repository!).
+In this exercise you will learn how to collaborate with others using GitHub. You will work with a partner to contribute to the test repository they created on GitHub in [Exercise 2](exercise2.qmd) (and they will do the same with your repository!).
 
 
 1. Find a partner to work with. Get the web address of the test repository they created in Exercise 2. This is the URL of their repository website (*not* the ssh URL that they used to clone their repository). The URL should be something like `https://github.com/THEIR_USERNAME/THEIR_USERNAME-test-repo` where `THEIR_USERNAME` is your partner's GitHub username. **Again, you are going to the website for your *partner's* repository, not your own.**
@@ -22,12 +22,12 @@ From this point on, your fork is independent of the original. Since it is under 
 
 You can create a fork of any public repository on GitHub!
 
-The advantage of using forks is it allows you to make develop things without breaking the original repository while you do. This is incredibly useful if you want to contribute to another project that is widely used: you create a fork of that project under your own GitHub account; clone your fork to your local computer; develop your fork by pushing/pulling between your local computer and GitHub. Then, when you are content that your new addition is ready, you fill out a pull request to merge the changes in your fork into the original repository (usually on its `main` branch). The original repo's owner(s) can then review your changes, and, if they accept them, merge it into their repository for widespread adoption. This is known as the [fork and pull model](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model).
+The advantage of using forks is it allows you to develop things without breaking the original repository while you do. This is incredibly useful if you want to contribute to another project that is widely used: you create a fork of that project under your own GitHub account; clone your fork to your local computer; develop your fork by pushing/pulling between your local computer and GitHub. Then, when you are content that your new addition is ready, you fill out a pull request to merge the changes in your fork into the original repository (usually on its `main` branch). The original repo's owner(s) can then review your changes, and, if they accept them, merge it into their repository for widespread adoption. This is known as the [fork and pull model](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model).
 
 ----
 
 6. You want to contribute a new development to your partner's repository. To do so, first clone **your fork** of their repository to your local computer:
-   * If you are not already their, go to your fork's website on GitHub. The web address should be something like `https://github.com/YOUR_USERNAME/THEIR_USERNAME-test-repo`.
+   * If you are not already there, go to your fork's website on GitHub. The web address should be something like `https://github.com/YOUR_USERNAME/THEIR_USERNAME-test-repo`.
    * On your fork's website, click the green `<> Code` button, then copy the SSH URL. It should be something like `git@github.com:YOUR_USERNAME/THEIR_USERNAME-test-repo.git`
    * Go to your terminal, `cd` to the directory you want to store your fork, and type:
 ```bash
@@ -41,17 +41,18 @@ git remote -v
 ```
 to see the `origin` URL. Note that the `origin` for this repository is your fork on GitHub, *not your partner's repository*.
 
-8. Now let's create a branch called `dev2` to add a new feature to the `mymath.py` file. Create the branch on your local computer by typing:
+8. Now let's create a branch called `dev2` to add a new feature to the `mymath.R` file. Create the branch on your local computer by typing:
 ```bash
 git checkout -b dev2
 ```
 This will create and switch to a new branch called `dev2`. You can verify you're on the new branch by typing `git branch`.
 
-9. Use your favorite text editor to open `mymath.py` and add the following lines to it:
-```
+9. Use your favorite text editor to open `mymath.R` and add the following lines to it:
+```R
 
-def multiply(a, b):
-    return a*b
+multiply <- function(a, b) {
+    return (a*b)
+    }
 ```
 Save the changes.
 
@@ -67,9 +68,9 @@ git push -u origin dev2
 ```
 Note that we had to provide the `-u origin dev2` arguments to `git push`. This is because the `dev2` branch does not currently exist on our fork in GitHub. Adding the extra arguments tells git to create a `dev2` branch on your fork on GitHub and push the new changes there.
 
-12. Look at your web browser. As soon as you pushed your changes, you should see a box pop up on fork's website on GitHub asking if you would like to file a pull request.
+12. Look at your web browser. As soon as you pushed your changes, you should see a box pop up on your fork's website on GitHub asking if you would like to file a pull request.
 
-13. Click the green `Compare & pull request` button. This will open up the "Comparing changes" page. *Note that in the gray box at the top of the web page the "base" repository is *your partner's* original repository and the base branch is their `main` branch. This means that you will be creating a Pull Request on your partner's repository, and that it will be to merge your changes onto their `main` branch. You want that!
+13. Click the green `Compare & pull request` button. This will open up the "Comparing changes" page. *Note that in the gray box at the top of the web page the "base" repository is *your partner's* original repository and the base branch is their `main` branch. This means that you will create a Pull Request on your partner's repository, and that it will be for merging your changes onto their `main` branch. You want that!
 
 14. Fill out the description box if you like and/or change the the "Add a title" box. Then click the green `Create pull request` button at the bottom.
 

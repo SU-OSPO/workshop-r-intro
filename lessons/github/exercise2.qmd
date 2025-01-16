@@ -36,30 +36,31 @@ git remote -v
 ```
 That will show you the URL of the origin. Note that this is printed twice: once for *fetching* (i.e., the default repo you will *pull* new updates from) and one for *pushing* (i.e., the repo to which you will *push* changes from your local computer).
 
-13. Now let's add a file. In your terminal, use your favorite text editor to create a file called `mymath.py` and put the following in it:
-```python
-!#/usr/bin/env python
+13. Now let's add a file. In your terminal, use your favorite text editor to create a file called `mymath.R` and put the following in it:
+```R
+!#/usr/bin/env R
 
-"""Some math functions."""
+# Some math functions
 
-def add(a, b):
-    return a + b
+add <- function(a, b) {
+    return (a + b)
+    }
 ```
 
-This is a simple python program that contains a function to add two numbers.
+This is a simple R program that contains a function to add two numbers.
 
 14. Add and commit your file to your repo:
 ```bash
-git add mymath.py
+git add mymath.R
 git commit -m "add mymath file"
 ```
 Check your history to see the commit by typing `git log`.
 
-15. Now look at your copy of the repository on GitHub in your web browser. Is `mymath.py` there? No. Try refreshing the page. Is it there? Still no. This is because you have only commited the file to your *local* copy of the repository. The origin repository on GitHub doesn't know about these changes. To get the changes on to your origin repository, type:
+15. Now look at your copy of the repository on GitHub in your web browser. Is `mymath.R` there? No. Try refreshing the page. Is it there? Still no. This is because you have only commited the file to your *local* copy of the repository. The origin repository on GitHub doesn't know about these changes. To get the changes on to your origin repository, type:
 ```bash
 git push
 ```
-Go back to your web browser and refresh your repository page. You should now see the `mymath.py` file there. You can click on it to view it if you like. You can also see your commit history on GitHub (click the icon that looks like a clock just below the green `<> Code` button on the front page of your repository). Notice that the history on GitHub is the same as your history on your local computer. Your repos are in sync!
+Go back to your web browser and refresh your repository page. You should now see the `mymath.R` file there. You can click on it to view it if you like. You can also see your commit history on GitHub (click the icon that looks like a clock just below the green `<> Code` button on the front page of your repository). Notice that the history on GitHub is the same as your history on your local computer. Your repos are in sync!
 
 16. Let's create a branch to do some development work. We could do this on our local computer, but let's do it on GitHub instead. Click the drop down button that says "main" in the upper left corner of the website. Then click "View all branches". This will bring you to another page that shows you all your branches. Currently we only have one, `main`. Create a new branch by clicking the green `New branch` button in the upper right. In the "New branch name" field type `dev1` then click `Create new branch`. This will create the new branch.
 
@@ -78,11 +79,12 @@ Adding the extra `origin/dev1` instructs git to make your local `dev1` *track* t
 git branch -vv
 ```
 
-19. Let's modify `mymath.py` on `dev1`. On your local computer, use your favorite text editor to open `mymath.py` and add the following to it:
-```python
+19. Let's modify `mymath.R` on `dev1`. On your local computer, use your favorite text editor to open `mymath.R` and add the following to it:
+```R
 
-def subtract(a, b):
-    return a - b
+subtract <- function(a, b) {
+    return (a - b)
+    }
 ```
 Commit your changes to your local repo:
 ```bash
@@ -98,19 +100,19 @@ Note that when you did this, it pushed to the `dev1` branch on git hub (you'll s
 
 21. Now look at your web browser. As soon as you typed `git push` a message popped up that said "`dev1 ` had recent pushes" with a green `Compare and pull request` button popping up. Click that button. This will open a "pull request" page. The pull request page will automatically have a title that is the message from your last commit. You can optionally add a longer description. Then click the `Create pull request` button.
 
-22. This will open "Pull request". Pull requests are GitHub's way of managing new development mergers. This particularly useful for collaborating with others on a project. You can use the pull request page to discuss changes before they are merged on to the main branch. You can alos have multiple pull requests open at once.
+22. This will open "Pull request". Pull requests are GitHub's way of managing new development. This is particularly useful for collaborating with others on a project. You can use the pull request page to discuss changes before they are merged on to the main branch. You can alos have multiple pull requests open at once.
 
 23. Let's merge your pull request. There's a green `Merge pull request` button at the bottom of the page. Click it, then "Confirm merge". This will merge your changes on `dev1` on to `main`. You now have the option to delete `dev1`. Feel free to click the delete dev1 branch button.
 
 24. Now that your `main` branch on GitHub has the merged changes, your `main` branch on your local copy is out of sync. To update it, go to your terminal and switch to your main branch:
-    ```bash
-    git checkout main
-    ```
-    You can now bring it up to date with your remote repository by running `git pull`:
-    ```bash
-    git pull
-    ```
-    Once that's done, you can also delete your local copy of the `dev1` branch by typing:
-    ```bash
-    git branch -d dev1
-    ```
+```bash
+git checkout main
+```
+You can now bring it up to date with your remote repository by running `git pull`:
+```bash
+git pull
+```
+Once that's done, you can also delete your local copy of the `dev1` branch by typing:
+```bash
+git branch -d dev1
+```
