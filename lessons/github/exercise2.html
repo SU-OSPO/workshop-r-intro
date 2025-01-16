@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-01-16">
 
-<title>Intro to R – Computing Basics and Intro to R</title>
+<title>exercise2 – Computing Basics and Intro to R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,8 +65,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../lessons/r-lessons/r-plotting.html" rel="next">
-<link href="../../lessons/github/github-intro.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -117,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/r-lessons/r-intro.html">Intro to R</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -151,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../lessons/r-lessons/r-intro.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../lessons/r-lessons/r-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro to R</span></a>
   </div>
 </li>
@@ -178,15 +210,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exercise-2-using-git-pull-and-push-with-github" id="toc-exercise-2-using-git-pull-and-push-with-github" class="nav-link active" data-scroll-target="#exercise-2-using-git-pull-and-push-with-github">Exercise 2: Using <code>git pull</code> and <code>push</code> with GitHub</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Intro to R</h1>
 </div>
 
 
@@ -209,8 +246,108 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="exercise-2-using-git-pull-and-push-with-github" class="level1">
+<h1>Exercise 2: Using <code>git pull</code> and <code>push</code> with GitHub</h1>
+<p>Exercise 1 illustrated how to create a new git repository on your local computer. In this exercise we’ll create a new repository on GitHub, <em>clone</em> it to our local computer, make changes, then <em>push</em> it back to GitHub. This is the more common way to create git repositories on GitHub.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+ssh key setup
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In order to do this exercise you will need an <code>ssh</code> key uploaded to GitHub. If you have not done that yet, follow the <a href="ssh_setup.qmd">ssh setup instructions</a> before starting this exercise.</p>
+</div>
+</div>
+<ol type="1">
+<li><p>Go to https://github.com and sign in if you are not already. Then go to https://github.com/new to create a new repository.</p></li>
+<li><p>In the Owner section, click the drop down “Choose an owner” and select yourself.</p></li>
+<li><p>You’ll need to put a name in the “Repository name” field. GitHub will offer a suggestion (where it says “Need inspiration? How about …”). Use the suggested name. That should ensure that the repostiory name is unique, which will make doing Exercise 3 easier.</p></li>
+<li><p>Under “Description” put “My test git repository.”</p></li>
+<li><p>Make sure “Public” is selected.</p></li>
+<li><p>Check the box for “Add a README file”. This will cause your repo to be initialized with a README.md file in it. It isn’t strictly necessary, but is good to have, as it’s what GitHub will show by default when people go to your repository.</p></li>
+<li><p>Under “Choose a license” select “GNU General Public License v3.0”. This will cause your repository to be initialized with a LICENSE file that has the GNU Public License v3.0 in it (an open source license). Choosing a license isn’t strictly necessary, but it’s good practice.</p></li>
+<li><p>Now click the “Create repository” green button. This will create your repository. You will have the repository webpage open.</p></li>
+<li><p>We want to add things to your repository. You can do that through the web interface, but it’s easier to do it on your local computer, esepcially for code development so that you can test things. To do that we’ll need a local copy of your repository. This is what <code>git clone</code> does: it downloads a local copy of your remote repository (which lives on GitHub) that can <em>track</em> the remote repository.</p></li>
+</ol>
+<p>To clone the repository, click the Green <code>&lt;&gt; Code</code> button in the upper right, then select the “SSH” tab. We’ll want the SSH version so that we can push changes later.</p>
+<ol start="10" type="1">
+<li>Copy the URL in the SSH tab. Now open a terminal (you may want to open the terminal side-by-side with your web browser; it’ll make doing the rest of this exercise easier). <code>cd</code> to the directory that you want your local copy of the repository to live, then type:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone SSH_URL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>where <code>SSH_URL</code> is the URL you copied from GitHub.</p>
+<ol start="11" type="1">
+<li><p>When git clone finishes, you will have a new directory that has the same name as your repo on your computer. <code>cd</code> into that and type <code>ls</code>. You should see the <code>README.md</code> file and the <code>LICENSE</code> file.</p></li>
+<li><p>This is your local copy of your repository. It’s setup to track your repo on GitHub, which is called the <code>origin</code> repository. You can verify that by typing:</p></li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That will show you the URL of the origin. Note that this is printed twice: once for <em>fetching</em> (i.e., the default repo you will <em>pull</em> new updates from) and one for <em>pushing</em> (i.e., the repo to which you will <em>push</em> changes from your local computer).</p>
+<ol start="13" type="1">
+<li>Now let’s add a file. In your terminal, use your favorite text editor to create a file called <code>mymath.R</code> and put the following in it:</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="co">#/usr/bin/env R</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Some math functions</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span> (a <span class="sc">+</span> b)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a simple R program that contains a function to add two numbers.</p>
+<ol start="14" type="1">
+<li>Add and commit your file to your repo:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add mymath.R</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add mymath file"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Check your history to see the commit by typing <code>git log</code>.</p>
+<ol start="15" type="1">
+<li>Now look at your copy of the repository on GitHub in your web browser. Is <code>mymath.R</code> there? No.&nbsp;Try refreshing the page. Is it there? Still no. This is because you have only commited the file to your <em>local</em> copy of the repository. The origin repository on GitHub doesn’t know about these changes. To get the changes on to your origin repository, type:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Go back to your web browser and refresh your repository page. You should now see the <code>mymath.R</code> file there. You can click on it to view it if you like. You can also see your commit history on GitHub (click the icon that looks like a clock just below the green <code>&lt;&gt; Code</code> button on the front page of your repository). Notice that the history on GitHub is the same as your history on your local computer. Your repos are in sync!</p>
+<ol start="16" type="1">
+<li><p>Let’s create a branch to do some development work. We could do this on our local computer, but let’s do it on GitHub instead. Click the drop down button that says “main” in the upper left corner of the website. Then click “View all branches”. This will bring you to another page that shows you all your branches. Currently we only have one, <code>main</code>. Create a new branch by clicking the green <code>New branch</code> button in the upper right. In the “New branch name” field type <code>dev1</code> then click <code>Create new branch</code>. This will create the new branch.</p></li>
+<li><p>Now let’s make some changes on the <code>dev1</code> branch on our local computer. To do that, we’ll need to update our local repo to pickup the new branch. Go to your terminal and type:</p></li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’ll see a message telling you about the new branch <code>origin/dev1</code>. You still don’t have this branch on your local repo! If you type <code>git branch</code>, you’ll only see <code>* main</code>. The fetch command just informed your local repo about the existence of the <code>dev1</code> branch on GitHub. You can verify this by typing <code>git branch -r</code> to see the remote branches.</p>
+<ol start="18" type="1">
+<li>Let’s checkout a local copy of the <code>dev1</code> branch. Type:</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> dev1 origin/dev1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Adding the extra <code>origin/dev1</code> instructs git to make your local <code>dev1</code> <em>track</em> the remote one. This means that when we <code>git push</code> from this branch it will by default push changes to the <code>dev1</code> branch on GitHub, not the <code>main</code> branch. You can verify which branch you will push to by typing:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-vv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="19" type="1">
+<li>Let’s modify <code>mymath.R</code> on <code>dev1</code>. On your local computer, use your favorite text editor to open <code>mymath.R</code> and add the following to it:</li>
+</ol>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span> (a <span class="sc">-</span> b)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Commit your changes to your local repo:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-u</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add subtraction"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="20" type="1">
+<li>Again, your changes to your local <code>dev1</code> are not on GitHub yet. To do that, push the changes by typing:</li>
+</ol>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that when you did this, it pushed to the <code>dev1</code> branch on git hub (you’ll see a message like <code>dev1 -&gt; dev1</code>).</p>
+<ol start="21" type="1">
+<li><p>Now look at your web browser. As soon as you typed <code>git push</code> a message popped up that said “<code>dev1</code> had recent pushes” with a green <code>Compare and pull request</code> button popping up. Click that button. This will open a “pull request” page. The pull request page will automatically have a title that is the message from your last commit. You can optionally add a longer description. Then click the <code>Create pull request</code> button.</p></li>
+<li><p>This will open “Pull request”. Pull requests are GitHub’s way of managing new development. This is particularly useful for collaborating with others on a project. You can use the pull request page to discuss changes before they are merged on to the main branch. You can alos have multiple pull requests open at once.</p></li>
+<li><p>Let’s merge your pull request. There’s a green <code>Merge pull request</code> button at the bottom of the page. Click it, then “Confirm merge”. This will merge your changes on <code>dev1</code> on to <code>main</code>. You now have the option to delete <code>dev1</code>. Feel free to click the delete dev1 branch button.</p></li>
+<li><p>Now that your <code>main</code> branch on GitHub has the merged changes, your <code>main</code> branch on your local copy is out of sync. To update it, go to your terminal and switch to your main branch:</p></li>
+</ol>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can now bring it up to date with your remote repository by running <code>git pull</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once that’s done, you can also delete your local copy of the <code>dev1</code> branch by typing:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> dev1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -630,21 +767,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../lessons/github/github-intro.html" class="pagination-link" aria-label="`git` and GitHub">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><code>git</code> and GitHub</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../lessons/r-lessons/r-plotting.html" class="pagination-link" aria-label="Plotting in R with ggplot2">
-        <span class="nav-page-text">Plotting in R with ggplot2</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
