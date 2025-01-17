@@ -19,6 +19,8 @@ Although there are subtle differences between the languages, it's ultimately a m
 
 To run R, all you really need is the R program, which is available for computers running the Windows, Mac OS X, or Linux operating systems. You should have downloaded R while getting for this workshop.
 
+---
+
 # RStudio
 
 To make your life in R easier, there is a great (and free!) program called RStudio that you also downloaded and used during [set up](setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
@@ -37,7 +39,7 @@ On the left you'll have a panel with three tabs - Console, Terminal, and Jobs. T
 
 <img src="fig/history.png" width="700"/>
 
-In the lower right panel are tabs for Files, Plots, Packages, Help, and Viewer. Click on the "Packages" tab. Packages are add-on libraries developed by R community members. Each package contains a suite of functions that, once loaded, can be used within your code. As an exercise, we'll install the "tidyverse" package, which we'll end up using a lot in our future sessions. Click the "Install" button, then type "tidyverse" in the empty box and click install. The installation process may take a few minutes since this is actually installing [more than 10 packages](https://www.tidyverse.org/packages/) and their dependencies (the packages that provide functions that are then used in these packages).
+In the lower right panel are tabs for Files, Plots, Packages, Help, and Viewer. Click on the "Packages" tab. Packages are add-on libraries developed by R community members. Each package contains a suite of functions that, once loaded, can be used within your code. As an exercise, we'll install the "tidyverse" package, which we'll end up using a lot in our future sessions. Click the <kbd>Install</kbd> button, then type "tidyverse" in the empty box and click the <kbd>Install</kbd> button. The installation process may take a few minutes since this is actually installing [more than 10 packages](https://www.tidyverse.org/packages/) and their dependencies (the packages that provide functions that are then used in these packages).
 
 <img src="fig/install_packages.png" width="600"/>
 
@@ -47,7 +49,7 @@ In the lower right panel are tabs for Files, Plots, Packages, Help, and Viewer. 
 If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
 :::
 
-You can use the Pane Layout menu (accessed from the button that look like a top-down view of a 2x2 ice cube tray) to change where different tabs live. For example, I like to have the plots in the top right panel, so I can see the help docs and the plots at the same time.
+You can use the Pane Layout menu (accessed from the button that look like a top-down view of a 2x2 ice cube tray) to change where different tabs live. For example, I like to have the plots in the top right panel, so I can see the help docs and the plots at the same time. I also usually switch the positions of the console and editor so that the editor is on the bottom.
 
 <img src="fig/pane_layout.png" width="600"/>
 
@@ -59,37 +61,35 @@ You might want to alter the appearance of your RStudio window. The default appea
 
 From there you will see the ability to alter numerous things about RStudio. Under the Appearances tab you can select the theme you like most. As you can see there's a lot in Global options that you can set to improve your experience in RStudio. Most of these settings are a matter of personal preference.
 
-However, you can update settings to help you to insure the reproducibility of your code. In the General tab, none of the selectors in the R Sessions, Workspace, and History should be selected. In addition, the toggle next to "Save workspace to .RData on exit" should be set to never. These setting will help ensure that things you worked on previously don't carry over between sessions.
-
 <img src="fig/general_options.png" width="600"/>
 
 ---
 
 # Projects
 
-One of the helpful features in RStudio is the ability to create a project. A project is a special directory that contains all of the code and data that you will need to run an analysis. You can create a fresh project, base one on an existing directory, or even build one based on a git repository. Since we're all [git experts now](../github/github-intro.qmd), let's go with that option.
+One of the helpful features in RStudio is the ability to create a project. Projects make it straightforward to divide your work into multiple contexts, each with their own working directory, workspace, history, and scripts. You can create a fresh project, base one on an existing directory, or even build one based on a git repository. Since we're all [git experts now](../github/github-intro.qmd), let's go with that option.
 
-First, we'll need to create a repository. For the rest of the workshop, we'll be using data collected about adult male and female Adélie (<i>P. adeliae</i>), chinstrap (<i>P. antarcticus</i>), and gentoo (<i>P. papua</i>) penguins on three islands (Biscoe, Dream, and Torgersen) within the Palmer Archipelago. For more information about the collection and handling of these data, see [Gorman et al. 2014](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0090081) and [Horst et al. 2022](https://journal.r-project.org/articles/RJ-2022-020/). I've hosted these data within a [fresh repository](https://github.com/SyracuseUniversity/penguins_repo) on GitHub.
+First, we'll need to create a GitHub repository. For the rest of the workshop, we'll be using data collected about adult male and female Adélie (<i>P. adeliae</i>), chinstrap (<i>P. antarcticus</i>), and gentoo (<i>P. papua</i>) penguins on three islands (Biscoe, Dream, and Torgersen) within the Palmer Archipelago. For more information about the collection and handling of these data, see [Gorman et al. 2014](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0090081) and [Horst et al. 2022](https://journal.r-project.org/articles/RJ-2022-020/).
+
+I've hosted these data within a [fresh repository](https://github.com/SyracuseUniversity/penguins_repo) on GitHub. Like you did in the [git and Github session](../github/github-intro.qmd), go ahead and fork this repository so that you have your own personal copy of it.
 
 <img src="fig/penguins_repo.png" width="600"/>
 
-Like you did in the [git and Github session](../github/github-intro.qmd), go ahead and fork this repository so that you have your own personal copy of it.
-
-Once you've forked the repository, copy the URL of the repo and return to RStudio. At the top of your screen you'll see the "File" menu. Select that menu and then the menu for "New Project...". (You could also use the second button on the second menu row or even the "Project: None" button in the top right)
+Once you've forked the repository, copy the URL of the repo and return to RStudio. At the top of your screen you'll see the "File" menu. Select that menu and then the menu for "New Project...". (You could also use the second button on the second menu row or even the <kbd>Project: (None)</kbd> button in the top right)
 
 <img src="fig/new_project_menu.png" width="600"/>
 
-When the smaller window opens, select "Version Control" and then the "Git" button in the next window.
+When the smaller window opens, select "Version Control" and then "Git" in the next window.
 
 <img src="fig/version_control.png" width="600"/>
 
 <img src="fig/git.png" width="600"/>
 
-Now paste your repository URL in the first box, then name your new repo directory in the second box (i.e., the name of the folder containing the repo on your computer; "penguins" is probably a good choice), and finally use the "Browse" button to select the local directory that you want to create this new directory within (i.e., the parent directory).
+Now paste your repository URL in the first box, then name your new repo directory in the second box (i.e., the name of the folder containing the repo on your computer; "penguins" is probably a good choice), and finally use the <kbd>Browse</kbd> button to select the local directory that you want to create this new directory within (i.e., the parent directory).
 
 <img src="fig/clone_git_repo.png" width="600"/>
 
-Then click the "Create Project" button.
+Then click the <kbd>Create Project</kbd> button.
 
 Did you notice anything change?
 
@@ -103,7 +103,7 @@ make sure you are in the correct directory when you run your analysis.
 <img src="fig/files_with_rproj.png" width="600"/>
 
 # Scripts
-We'd like to create a file where we can keep track of our R code.
+Using the console is fine, but we'd ideally like to be able to save the R code that we write. This is where scripts and the Editor come in.
 
 Back in the "File" menu, you'll see the first option is "New File". Selecting "New File" opens another menu to the right and the first option is "R Script". Select "R Script".
 
@@ -111,9 +111,9 @@ Now we have a fourth panel in the upper left corner of RStudio that includes an 
 
 We will now be entering all of our R code into the **Editor** tab to then run it in our **Console** panel.
 
-On line 1 of `penguins.R`, type `2+2`.
+On line 1 of `penguins.R`, type `2 + 2`.
 
-With your cursor on the line with the `2+2`, click the button that says <kbd>Run</kbd>. You should be able to see that `2+2` was run in the Console.
+With your cursor on the line with the `2 + 2`, click the button that says <kbd>Run</kbd>. You should be able to see that `2 + 2` was run in the Console.
 
 As you write more code, you can highlight multiple lines and then click <kbd>Run</kbd> to run all of the lines you have selected.
 
@@ -125,7 +125,7 @@ Go ahead and run that line in the **Console** by clicking the <kbd>Run</kbd> but
 library(tidyverse)
 ```
 
-::: {.callout-tip}
+::: {.callout-note}
 ## What's with all those messages???
 
 When you loaded the `tidyverse` package, you probably got a message like the
@@ -173,28 +173,27 @@ In RStudio select "File" > "Import Dataset" > "From Text (readr)".
 
 <img src="fig/import_data.png" width="600"/>
 
-As mentioned, the file is located in the "data" directory. Click the "Browse" button and select the file named `chinstrap_data.csv`. A preview of the data will appear in the window. You can see there are a lot of Import Options listed, but R has chosen the correct defaults for this particular file.
+As mentioned, the file is located in the "data" directory. Click the <kbd>Browse</kbd> button and select the file named `chinstrap_data.csv`. A preview of the data will appear in the window. You can see there are a lot of Import Options listed, but R has chosen the correct defaults for this particular file.
 
 <img src="fig/import_data_file.png" width="600"/>
 
-We can see in that box that our data will be imported with the Name: "chinstrap_data". Also note that this screen will show you all the code that will be run when you import your data in the lower right "Code Preview". Since everything looks good, click the "Import" button to bring your data into R.
+We can see in that box that our data will be imported with the Name: "chinstrap_data". Also note that this screen will show you all the code that will be run when you import your data in the lower right "Code Preview". Since everything looks good, click the <kbd>Import</kbd> button to bring your data into R.
 
 After you've imported your data, a table will open in a new tab in the top left corner of RStudio. This is a quick way to browse your data to make sure everything looks like it has been imported correctly. To review the data, click on the new tab.
 
-We see that our data has 17 columns (variables), 9 of character type (text), 7 of double type (numbers), and one of date type.
-
-After we've reviewed the data, you'll want to make sure to click the tab in the upper left to return to your `penguins.R` file so we can start writing some code.
+After you've reviewed the data, you'll want to make sure to click the tab in the upper left to return to your `penguins.R` file so we can start writing some code.
 
 Now look in the **Environment** tab in the upper right corner of RStudio. Here you will see a list of all the objects you've created or imported during your R session. You will now see `chinstrap_data` listed here as well.
 
 Finally, take a look at the **Console** at the bottom left part of the RStudio screen. Here you will see the commands that were run for you to import your data in addition to associated metadata and warnings.
 
-::: {.callout-tip}
+::: {.callout-note}
 ## Data objects
 There are many different ways to store data in R. Most objects have a table-like structure with rows and columns. We will refer to these objects generally as "data objects". If you've used R before, you may be used to calling them "data.frames". Functions from the "tidyverse" such as `read_csv` work with objects called "tibbles", which are a specialized kind of "data.frame." Another common way to store data is a "data.table". All of these types of data objects (tibbles, data.frames, and data.tables) can be used with the commands we will learn in these. We may sometimes use these terms interchangeably.
 :::
 
 ---
+
 # Understanding commands
 
 Let's start by looking at the code RStudio ran for us by copying and pasting the second line from the console into our `penguins.R` file that is open in the **Editor** window.
@@ -202,12 +201,15 @@ Let's start by looking at the code RStudio ran for us by copying and pasting the
 ```{r consoleReadEcho, eval = FALSE}
 chinstrap_data <- read_csv("data/chinstrap_data.csv")
 ```
+```{r consoleReadEval, echo = FALSE, message = FALSE}
+chinstrap_data <- read_csv("lessons/r-lessons/data/chinstrap_data.csv")
+```
 
 You should now have a line of text in your code file that started with `chinstrap` and ends with a `)` symbol.
 
 What if we want to run this command from our code file?
 
-In order to run code that you've typed in the editor, you have a few options. We can click <kbd>Run</kbd> again from the right side of the **Editor** tab but the quickest way to run the code is by pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your keyboard (<kbd>Ctrl</kbd>+<kbd>Enter</kbd> on Mac).
+In order to run code that you've typed in the editor, you have a few options. We can click <kbd>Run</kbd> again from the right side of the **Editor** tab but the quickest way to run the code is by pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your keyboard (<kbd>Cmd</kbd>+<kbd>Return</kbd> on Mac).
 
 This will run the line of code that currently contains your cursor and will move your cursor to the next line. Note that when Rstudio runs your code, it basically just copies your code from the **Editor** window to the **Console** window, just like what happened when we selected <kbd>Run Selected Line(s)</kbd>.
 
@@ -218,6 +220,10 @@ Starting from the left, the first thing we see is `chinstrap_data`. We viewed th
 If we highlight just `chinstrap_data` within our code file and press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on our keyboard, what do we see?
 
 We should see a data table outputted, similar to what we saw in the Viewer tab.
+
+```{r chinstrapEval, echo = FALSE}
+chinstrap_data
+```
 
 In R terms, `chinstrap_data` is a named **object** that references or stores something. In this case, `chinstrap_data` stores a specific table of data.
 
@@ -286,7 +292,7 @@ We get an error message. Don't panic! Error messages pop up all the time, and ca
 
 In this case, the message tells us "argument "file" is missing, with no default." Many functions, including `read_csv`, require additional pieces of information to do their job. We call these additional values "arguments" or "parameters." You pass **arguments** to a function by placing values in between the parenthesis. A function takes in these arguments and does a bunch of "magic" behind the scenes to output something we're interested in.
 
-For example, when we loaded in our data, the command contained `"gapminder_1997.csv"` inside the `read_csv()` function. This is the value we assigned to the file argument. But we didn't say that that was the file. How does that work?
+For example, when we loaded in our data, the command contained `"chinstrap_data.csv"` inside the `read_csv()` function. This is the value we assigned to the file argument. But we didn't say that that was the file. How does that work?
 
 ::: {.callout-tip}
 ## Pro-tip
@@ -310,14 +316,14 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 ::: {.callout-note}
 ## Behind the curtain of functions
 
-If you call a function without parentheses, it will often show you the source code of the function, demystifying its seemingly "black box" behavior. This can often be useful if a function is not behaving as you expect (but of course requires knowledge of what the functions in the source code do).
+If you call a function without parentheses, it will often show you the source code of the function, demystifying its seemingly "black box" behavior. This can often be useful if a function is not behaving as you expect (but of course requires knowledge of what the functions in the source code do). Doing this will also tell you which package the function comes from (although you can also see this in the function's help page).
 :::
 
 Do all functions need arguments? Let's test some other functions:
 
 ```{r FunctionsNoArgs}
-  Sys.Date()
-  getwd()
+Sys.Date()
+getwd()
 ```
 
 
@@ -336,7 +342,7 @@ Look up the function `round`. What does it do? What will you get as output for t
 
 ```{r functionExercise, eval = FALSE}
 round(3.1415)
-round(3.1415,3)
+round(3.1415, 3)
 ```
 
 ::: {.callout-tip collapse="true" appearance="simple" icon="false"}
@@ -403,36 +409,43 @@ read_csv(file = 'data/chinstrap_data.csv') # reads in csv file
 
 The last step before we can move on to [plotting](r-plotting.qmd) is reading in the other two data files and combining all three datasets into a single data object.
 
-First let's adelie_data.csv file. While you may be tempted to use the RStudio GUI again, let's take a stab at writing the code ourselves. We'll use the same code as before, but with the filename changed:
+First let's read in the "adelie_data.csv" file. While you may be tempted to use the RStudio GUI again, let's take a stab at writing the code ourselves. We'll use the same code as before, but with the filename changed:
 
-```{r ReadData2, eval = FALSE}
+```{r ReadData2Echo, eval = FALSE}
 adelie_data <- read_csv(file = 'data/adelie_data.csv')
+```
+```{r ReadData2Eval, echo = FALSE}
+adelie_data <- read_csv(file = 'lessons/r-lessons/data/adelie_data.csv')
 ```
 
 You should see that this new object is now listed in our environment. Also remember that we must always use the relative path to the file. While our script is located in our "code" directory, our working directory is actually the main directory of our project (as is the default for all projects). The relative path to the data file therefore must start with "data/".
 
-Now we can combine our two data objects together. The `bind_rows` function binds two data frames together rowwise, resulting in a single data.frame.
+Now we can combine our two data objects together. The `bind_rows()` function binds two data frames together rowwise, resulting in a single data.frame. Since we may want the separate data objects later, we save this as a new object.
 
-```{r CombineData1, eval = FALSE}
+```{r CombineData1}
 penguin_data <- bind_rows(adelie_data, chinstrap_data)
 ```
 
-We can use the `table` function to count how many of each penguin species are now in our combined data.frame. Here we use the `$` symbol to extract a single column of the data.frame:
+We can use the `table()` function to count how many of each penguin species are now in our combined data.frame. Here we use the `$` symbol to extract a single column of the data.frame:
 
-```{r CombinedData1, eval = FALSE}
+```{r CombinedData1}
 table(penguin_data$Species)
 ```
 
 Now go ahead and read in the last data file and combine it with the existing combined data.
 
-```{r ReadData3, eval = FALSE, echo = FALSE}
+```{r ReadData3Echo, eval = FALSE}
 gentoo_data <- read_csv(file = 'data/gentoo_data.csv')
+penguin_data <- bind_rows(penguin_data, gentoo_data)
+```
+```{r ReadData3Eval, echo = FALSE}
+gentoo_data <- read_csv(file = 'lessons/r-lessons/data/gentoo_data.csv')
 penguin_data <- bind_rows(penguin_data, gentoo_data)
 ```
 
 Your resulting data.frame should give the following counts:
 
-```{r CombinedData2, eval = FALSE}
+```{r CombinedData2}
 table(penguin_data$Species)
 ```
 
@@ -444,11 +457,11 @@ write_csv(penguin_data, "data/penguin_data.csv")
 
 # Committing and pushing changes to GitHub
 
-Now we'll use the Git interface in RStudio to commit our new data file to our forked GitHub repoitory. Click on the "Git" tab in the top right panel. Clicking this tab will show you all of the files that have been modified since we last committed. In this case, you should see a file created by RStudio for your project and your new "penguins_data.csv" file.
+Now we'll use the Git interface in RStudio to commit our new files to our forked GitHub repoitory. Click on the "Git" tab in the top right panel. Clicking this tab will show you all of the files that have been modified since we last committed. In this case, you should see a file created by RStudio for your project, your new "penguins.R" script, and your new "penguins_data.csv" data file.
 
 <img src="fig/git_panel.png" width="600"/>
 
-Click the boxes next to these two files to queue them for committing. Then click the "Commit" button. A new window should open where you can enter a commit message. Remember that commits should be both informative and concise. Once you are satisfied with your commit message, click the "Commit" button, and then "Push". And that's that!
+Click the boxes next to these three files to queue them for committing. Then click the <kbd>Commit</kbd> button. A new window should open where you can enter a commit message. Remember that commit messages should be both informative and concise. Once you are satisfied with your commit message, click the <kbd>Commit</kbd> button, and then <kbd>Push</kbd>. And that's that!
 
 <img src="fig/commit_panel.png" width="600"/>
 
