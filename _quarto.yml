@@ -20,6 +20,7 @@ website:
   site-url: https://SyracuseUniversity.github.io/ospo-workshop-r-intro
   repo-url: https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro
   repo-actions: [issue]
+  back-to-top-navigation: true
   page-footer:
     border: true
     right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
@@ -41,7 +42,7 @@ website:
     collapse-level: 1
     contents:
       - lessons/shell-intro/shell-intro.qmd
-      - section: "`git` and GitHub"
+      - section: "<code>git</code> and GitHub"
         href: lessons/github/github-intro.qmd
         contents:
           - lessons/github/exercise1.qmd
