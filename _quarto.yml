@@ -49,7 +49,7 @@ format:
     css: styles.css
     toc: true
 
-callout-appearance: simple
+callout-appearance: default
 
 date: today
 date-format: iso
