@@ -1,6 +1,6 @@
 ---
 title: "Computing Basics and Intro to R"
-author: "Syracuse University Open Source Program Office"
+author: "[Syracuse University Open Source Program Office](https://opensource.syracuse.edu/)"
 subtitle: "January 2025"
 ---
 
