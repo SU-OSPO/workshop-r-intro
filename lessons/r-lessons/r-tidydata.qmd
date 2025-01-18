@@ -10,19 +10,16 @@ editor:
 +----------------------------------+----------------------------------+
 | ### Questions                    | ### Objectives                   |
 +==================================+==================================+
-| -   "How can I summarize my data | -   "To become familiar with the |
-|     in R?"                       |     functions of `dplyr` and the |
-| -   "How can R help make my      |     `tidyverse` suite of         |
-|     research more reproducible?" |      packages."                  |
-| -   "How can I combine two       | -   "To use `dplyr` and the      |
-|     datasets from different      |     `tidyverse` packages to      |
-|     sources?"                    |     prepare data for analysis."  |
-| -   "How can data tidying        | -   "To be able to combine two   |
-|     facilitate answering         |     different data sources using |
-|     analysis questions?"         |     joins."                      |
-|                                  | -   "To be able to create plots  |
-|                                  |     and summary tables to answer |
-|                                  |     analysis questions."         |
+| -   "How can R help make my      | -   "To become familiar with the |
+|     research more reproducible?" |     functions of `dplyr` and the |
+| -   "How can data tidying        |     `tidyverse` suite of         |
+|     facilitate answering         |      packages."                  |
+|     analysis questions?"         | -   "To use `dplyr` and the      |
+| -   "How can I summarize my data |     `tidyverse` packages to      | 
+|     in R?"                       |     prepare data for analysis."  |
+|                                  | -   "To be able to create summary|
+|                                  |      tables to answer analysis   |
+|                                  |      questions."                 |
 +----------------------------------+----------------------------------+
 
 
@@ -172,7 +169,7 @@ penguins_raw |>
 
 ## Renaming columns
 
-We can use the `rename()` function to rename columns, with the syntax `new_name = old_name`. For example:
+We can use the `rename()` function to rename columns, with the syntax `new_name = old_name`. This is especially useful for datasets like this one, where the column names are long, have spaces in them, or other special characters that require \` in order to call the column name. Here is an example of how we rename a column:
 
 ```{r}
 penguins_raw |> 
@@ -362,7 +359,7 @@ penguins_raw |>
 :::: callout-note
 #### Exercise
 
-Arrange the data by `length_mass_ratio`, the ratio of the penguin's flipper length (in mm) and the penguin's body mass (in g). (You should have code on how to create this variable from the last exercise). 
+Arrange the data by `length_mass_ratio`, the ratio of the penguin's flipper length (in mm) and the penguin's body mass (in g). (You should have code on how to create this variable from the last exercise). Save this as an object called `penguins_ratio_data
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
 ##### Solution
@@ -372,12 +369,21 @@ penguins_raw |>
     rename(flipper_length = `Flipper Length (mm)`) |>
   mutate(length_mass_ratio = flipper_length/`Body Mass (g)`) |>
   arrange(length_mass_ratio)
+
+## Now save it as an object 
+penguins_ratio_data <- penguins_raw |> 
+ select(Species, `Body Mass (g)`, matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  mutate(length_mass_ratio = flipper_length/`Body Mass (g)`) |>
+  arrange(length_mass_ratio)
 ```
 :::
 
 ::::
 
-## Summarizing data
+# Summarizing data
+
+## Calculating summary statistics
 
 
 `dplyr` makes summarizing data a breeze using the `summarize()` function:
@@ -392,7 +398,7 @@ penguins_raw |>
 ::: callout-note
 #### Tip 
 
-Oh no! If you want to calculate the mean or do another arithmatic operation on a numeric vector and R returns `NA` values, it likely means that the vector has missing values. Use `na.rm = T` or one of the other operators you learned in the [intro session](r-intro.qmd) to drop the `NA` values in your calculation. 
+Oh no! If you want to calculate the mean or do another arithmatic operation on a numeric vector and R returns `NA` values, it likely means that the vector has missing values. Use `na.rm = T` to drop the `NA` values in your calculation. We'll see more of this later in this lesson.
 
 :::
 
@@ -458,30 +464,206 @@ penguins_raw |>
 
 ::::
 
-## Overview
 
-| Function               | Purpose                      |
-|------------------------|------------------------------|
-| `select()`             | Select columns               |
-| `rename()`             | Rename columns               |
-| `mutate()`             | Creating columns             |
-| `filter()`             | Filtering rows               |
-| `arrange()`            | Ordering rows                |
-| `summarize()`          | Summarizing data             |
-| `summarize(…, .by = )` | Summarizing data (by groups) |
+## Recoding variables
+
+Take a look at the `Species` variable. We can do a simple tabulation with `count()`:
+
+```{r}
+penguins_raw |> 
+  count(Species)
+```
+
+::: callout-tip
+Another common way to compute quick tabulations in R is with the `table()` function. Be aware that this takes a *vector* as the input:
+
+```{r}
+table(penguins_raw$Species)
+```
+:::
+
+We might want to recode this variable. For instance, if we are only interested in the Chinstrap penguins, we could create a *dummy*/*binary* variable for whether the penguin is a Chinstrap or not. We can do this with `if_else()`, which works with logical conditions:
+
+```{r}
+penguins_raw |> 
+  # the arguments are condition, true (what to do if true), false
+  mutate(chinstrap = if_else(Species == "Chinstrap penguin (Pygoscelis antarctica)", 1, 0)) |> 
+  count(chinstrap)
+```
+
+Instead of a numeric classification (0 and 1), we could use characters:
+
+```{r}
+penguins_raw |> 
+  # the arguments are condition, true (what to do if true), false
+  mutate(chinstrap = if_else(Species == "Chinstrap penguin (Pygoscelis antarctica)", "Chinstrap", "Other")) |> 
+  count(chinstrap)
+```
+
+`if_else()` is great for binary recoding. But sometimes we want to create more than two categories. We can use `case_when()`. This time, say we just want to simplify the `Species` variable to the familiar names of the penguins, not their scientific names:
+
+```{r}
+penguins_raw |> 
+  # syntax is condition ~ value
+  mutate(species = case_when(
+    Species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+    Species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap", 
+    Species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+    .default = "Other" # what to do in all other cases
+  )) |> 
+  count(species)
+```
+
+Save this as an object called `species_table`. We will use this later.
+
+```{r}
+species_table <- penguins_raw |> 
+  # syntax is condition ~ value
+  mutate(species = case_when(
+    Species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+    Species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap", 
+    Species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+    .default = "Other" # what to do in all other cases
+  )) |> 
+  count(species)
+```
+
+The `.default =` argument in `case_when()` can also be used to leave the variable as-is for non-specified cases. For example, let's combine Adelie and Gentoo species:
+
+```{r}
+penguins_raw |> 
+  # syntax is condition ~ value
+  mutate(species = case_when(
+    Species %in% c("Adelie Penguin (Pygoscelis adeliae)", "Gentoo penguin (Pygoscelis papua)") ~ "Adelie/Gentoo",
+    Species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap",  
+    .default = "Other" # what to do in all other cases
+  )) |> 
+  count(species)
+```
+
+:::: callout-note
+#### Exercise
+
+1.  Create a dummy variable, `large_flipper`, for whether the penguin has a flipper that is longer than 210mm. Then compute its mean. 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+
+:::
+
+2.  Say you want to get more specific and determine whether the flipper is small, medium, or large. Say a small flipper is 180mm or smaller, a medium-sized flipper ranges from 180 - 210mm, and a large flipper is longer than 210mm. Create the variable `flipper_size` that takes on the values `Small`, `Medium`, or `Large` depending on the length. 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+:::
+
+::::
+
+
+## Missing values
+
+Missing values are commonplace in real datasets. In R, missing values are a special type of value in vectors, denoted as `NA`.
+
+::: callout-warning
+The special value `NA` is different from the character value "NA". For example, notice that a numeric vector can have `NAs`, while it obviously cannot hold the character value "NA":
+
+```{r}
+c(5, 4.6, NA, 8)
+```
+:::
+
+A quick way to check for missing values in small datasets is with the `summary()` function:
+
+```{r}
+summary(penguins_raw)
+```
+
+
+Notice that we have missingness in the `Flipper Length (mm)` and `Body Mass (g)` variables, among others. We might want to filter the dataset to see which observations are in this situation:
+
+```{r}
+penguins_raw |> 
+  filter(`Body Mass (g)` == NA | `Flipper Length (mm)` == NA)
+```
+
+But the code above doesn't work! To refer to missing values in logical conditions, we cannot use `== NA`. Instead, we need to use the `is.na()` function:
+
+```{r}
+penguins_raw |> 
+  filter(is.na(`Body Mass (g)`) | is.na(`Flipper Length (mm)`))
+```
+
+As we saw earlier when trying to calculate the mean, in most R functions, missing values are "contagious." This means that any missing value will contaminate the operation and carry over to the results. Recall:
+
+```{r}
+penguins_raw |> 
+  summarize(mean_flipper_length = mean(`Flipper Length (mm)`))
+```
+
+Sometimes we'd like to perform our operations even in the presence of missing values, simply excluding them. Most basic R functions have an `na.rm =` argument to do this:
+
+```{r}
+penguins_raw |> 
+  summarize(mean_flipper_length = mean(`Flipper Length (mm)`, na.rm = T))
+```
+
+:::: callout-note
+#### Exercise
+
+Calculate the median value of the penguins' flipper length and body mass for each Island (i.e., perform a grouped summary). 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+:::
+
+::::
+
+
+# Overview
+
+| Function               | Purpose                          |
+|------------------------|----------------------------------|
+| `select()`             | Select columns                   |
+| `rename()`             | Rename columns                   |
+| `mutate()`             | Creating columns                 |
+| `filter()`             | Filtering rows                   |
+| `arrange()`            | Ordering rows                    |
+| `summarize()`          | Summarizing data                 |
+| `summarize(…, .by = )` | Summarizing data (by groups)     |
+| `if_else()`            | Recode to a binary variable      |
+| `case_when()`          | Recode to a categorical variable |
+| `is.na()`, `na.rm()`.  | Identify and remove missing data |
+
+
+# Saving and exporting cleaned data
+
+As in the [plotting lesson](r-plotting.qmd), you will often want to save or export your cleaned data. This is especially true if you are working on complex data cleaning tasks, and you will use your cleaned dataset for other scripts in the same project. You can save cleaned data in a variety of file formats: you can save them as data files (as .csv files, or as native R data files, with .rds or .rda file extensions) or export the tables for reports (for \LaTeX integration, as Microsoft Word documents, html tables, or as images). 
+
+We will practice one of each. 
+
+```{r, eval = FALSE}
+## To export to a .csv 
+save(penguins_ratio_data, file = "penguins_ratio_data.csv")
+
+## To save as .rda file
+save(penguins_ratio_data, species_table, file = "penguins_cleaned.rda")
+
+## To make a table for export
+knitr::kable(species_table, format = "markdown", caption = "N Penguins by Species") %>%
+  save_kable("species_table.pdf")
+
+```
+
+Your table will look like this: 
+```{r}
+## To make a table for export
+knitr::kable(species_table, format = "markdown", 
+             caption = "N Penguins by Species")
+
+```
 
 
 
+Now we'll once again use the git tools within RStudio to commit these files and push them to our GitHub repository. Click on the "Git" tab in the top-right. Clicking this tab will show you all of the files that have been modified since we last committed. In this case, you should see your code file, your cleaned data for future use, and your table to export for a report. Click the boxes next to these three files to queue them for committing. Then click the <kbd>Commit</kbd> button. Write a succinct commit message in the window, then click the <kbd>Commit</kbd> button, then the <kbd>Push</kbd> button. And that's that!
 
-## Reviewing Git and GitHub - NOT COMPLETE
-
-Now that we have our gapminder data prepared, let's use what we learned
-about git and GitHub in the previous lesson to add, commit, and push our
-changes.
-
-Open Terminal/Git Bash, if you do not have it open already. First we'll
-need to navigate to our un-report directory.
-
-Let's start by print our current working directory and listing the items
-in the directory, to see where we are.
 
