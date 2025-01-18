@@ -2,3 +2,333 @@
 title: "Writing reports with R Markdown"
 ---
 
++------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ### Questions                                                    | ### Objectives                                                                             |
++==================================================================+============================================================================================+
+| -   What is Markdown/R Markdown, and why use it                  | -   To create a report in R Markdown that combines text, code, and figures.                |
+| -   How can I integrate my R code with text and plots?           | -   To use Markdown to format our report.                                                  |
+| -   Which formats are available for rendering my Markdown files? | -   To understand how to use R code chunks to include or hide code, figures, and messages. |
+|                                                                  | -   To be aware of the various report formats that can be rendered using R Markdown.       |
++------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
+
+> ``` r
+> {r deps}
+> #| include: false
+> #| echo: false
+> library(tidyverse)
+> library(palmerpenguins)
+> ```
+>
+> # Discussion
+>
+> How do you usually share data analyses with fellow students, your PI, or other collaborators?
+
+# What is R Markdown and why use it?
+
+In R Markdown, you can incorporate ordinary text (ex. experimental methods, analysis and discussion of results) alongside code and figures! (Some people write entire manuscripts in R Markdown.) This is useful for writing reproducible reports and publications, sharing work with collaborators, writing up homework, and keeping an analysis notebook. ***Because the code is embedded in the document, the tables and figures are reproducible.*** Anyone can run the code and get the same results. If you find an error or want to add more to the report, you can just re-run the document and you'll have updated tables and figures! This concept of combining text and code is called "literate programming". To do this we use R Markdown, which combines Markdown (renders plain text) with R. You can output an html, PDF, or Word document that you can share with others. In fact, this webpage is an example of a rendered R markdown file!
+
+(If you are familiar with Jupyter notebooks in the Python programming environment, R Markdown is R's equivalent of a Jupyter notebook.)
+
+# Creating a reports directory
+
+To get started, let's use the Unix Shell (Git Bash for Windows, Terminal for Macs) to create a directory within penguin_project called reports. First, open the Unix Shell and cd to the penguin_projects directory on your Desktop:
+
+``` bash
+$ cd ~/Desktop/penguin_project
+$ mkdir reports
+```
+
+Note that there is an option to use the terminal from R Studio (tab next to Console), but on Windows computers this terminal might not be a Unix Shell.
+
+# Creating an R Markdown file
+
+Now that we have a better understanding of what we can use R Markdown files for, let's start writing a report!
+
+To create an R Markdown file: - Open RStudio - Go to File → New File → R Markdown
+
+![](fig/markdown-file.png){width="595"}
+
+Give your document a title, something like "A report on penguins obersved at the Palmer Archipelago, Antarctica" (Note: this is not the same as the file name - it's just a title that will appear at the top of your report). Keep the default output format as HTML. R Markdown files always end in .Rmd
+
+# R Markdown Outputs
+
+The default output for an R Markdown report is HTML, but you can also use R Markdown to output other report formats. For example, you can generate PDF reports using R Markdown, but you must install TeX to do this.
+
+## Basic components of R Markdown
+
+### Header
+
+The first part is a header at the top of the file between the lines of ---. This contains instructions for how R should render the document. The instructions are given in a format called YAML, and is made up of key-value pairs (key: value).
+
+Here's an example:
+
+---
+title: 'Writing Reports with R Markdown'
+author: "Sarah Lucas"
+date: "01/14/2025"
+output: html_document
+---
+
+### Code chunks
+
+The next section is a *code chunk*, or embedded R code, that sets up options for all code chunks. Here is the default when you create a new R Markdown file:
+
+\`\`\`{r setup, include=FALSE}
+
+knitr::opts_knit\$set(root.dir = normalizePath("..")
+
+\`\`\`
+
+\`\`\`{r setup, include=FALSE}
+
+knitr::opts_chunk\$set(echo = TRUE)
+
+\`\`\`
+
+All code chunks have this format:
+
+\`\`\`{r}
+
+\# Your code here
+
+\`\`\`
+
+All of the code is enclosed in 3 back ticks, and the `{r}` part indicates that it's a chunk of R code.
+
+![rupixen via Unsplash.com](fig/rupixen-xCVep5FgF5w-unsplash.jpg){width="500"}
+
+You can also include other information within the curly brackets to indicate different instructions for how that code chunk should be interpreted. For instance, the first code block is named "setup", and `include=FALSE` prevents code ***and*** results from showing up in the output file.
+
+Inside the code chunk, you can write any R code that you want to run, and you can have as many code chunks as you want in your file.
+
+As we mentioned above, in the first code chunk you set options for the entire file. `echo = TRUE` means that you want your code to be shown in the output file. If you change this to `echo = FALSE`, then the code will be hidden and only the output of the code chunks will be seen in the output file. There are also [many other options that you can change](https://rmarkdown.rstudio.com/lesson-3.html).
+
+### Text
+
+Finally, you can include text in your R Markdown file. This is any text or explanation you want to include, and it's formatted with Markdown. We'll learn more about Markdown formatting soon!
+
+## Starting the report
+
+Let's return to the new R Markdown file you created and delete everything below the setup code chunk. (That stuff is just examples and reminders of how to use R Markdown.)
+
+Next, let's save our R markdown file to the `reports` directory. You can do this by clicking the save icon in the top left or using control + s (command + s on a Mac).
+
+There's one other thing that we need to do before we get started with our report. To render our documents into html format, we can "knit" them in R Studio. Usually, R Markdown renders documents from the directory where the document is saved (the location of the `.Rmd` file), but we want it to render from the main project directory where our `.Rproj` file is. This is because that's where all of our relative paths are from and it's good practice to have all of your relative paths from the main project directory. To change this default, click on the down arrow next to the "Knit" button at the top left of R Studio, go to "Knit Directory" and click "Project Directory". Now it will assume all of your relative paths for reading and writing files are from the `penguins_repo` directory, rather than the `reports` directory.
+
+Now that we have that set up, let's start on the report!
+
+We're going to use the code you generated yesterday to include in the report. Recall that we needed a couple R packages to generate these plots. We can create a new code chunk to load the needed packages. You could also include this in the previous setup chunk, it's up to your personal preference.
+
+```{{r packages}}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+Now, in a real report this is when we would type out the background and purpose of our analysis to provide context to our readers. However, since writing is not a focus of this workshop we will avoid lengthy prose and stick to short descriptions. You can copy the following text into your own report below the package code chunk.
+
+> This report details our analysis of the Palmer Penguins dataset. Data were collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pallter.marine.rutgers.edu/), a member of the [Long Term Ecological Research Network](https://lternet.edu/). Here, we describe the relationship between flipper length and body mass for three species of penguin. We also include a plot with measurements for stable isotope ratios, and the relationship between culmen length and island.
+
+## Including our analysis
+
+### Coding our analysis right in the .Rmd document
+
+One great thing about R markdown documents is we can interweave text and code.
+
+```{{r plot1}}
+penguins_raw %>%
+  aes(x = `Body Mass (g)`, y = `Flipper Length (mm)`,
+    color = Island, shape = Sex) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_continuous(name = "Body Mass (grams)") +
+  scale_y_continuous(name = "Flipper Length (millimeters)") +
+  theme_classic() 
+```
+
+Now we can knit our document to see how our report looks! Use the knit button in the top left of the screen.
+
+And this is what we get:
+
+![](fig/penguin_report_1.png)
+
+Amazing! We've created a report! Let's push this to GitHub to make sure we preserve this document.
+
+Returning to the command line:
+
+1.  Check the status of our repository with the `git status`. This will tell us which files just changed.
+
+2.  Add the new files that we want tracked by git up with `git add <filename(s)>`. This adds any file(s) we list to version control.
+
+3.  Commit the file or changes with `git commit -m "<your commit message>"` and add a message with the commit to describe the changes you are committing and it adds them to the git log.
+
+4.  Push those changes from our local computer to our github repo with `git push`. This will upload the changes to the git directory on the remote server.
+
+### Cleaning up our work
+
+It's looking pretty good, but there seem to be a few extra bits that we don't need in the report. For example, the report shows that we load the tidyverse package and the accompanying messages.
+
+![](fig/tidyverse_output.png)
+
+To get rid of this, we can revise our packages code chunk by adding `include=FALSE` just like in the setup chunk to prevent code and messages in this chunk from showing up in our report.
+
+```{{r packages, include=FALSE}}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+We can also see the code that was used to generate the plot. Depending on the purpose and audience for your report, you may want to include the code. If you don't want the code to appear, how can you prevent it? What happens if we add `include=FALSE` to the plot code chunk, too? Try rendering the R Markdown report with this change.
+
+```{{r plot1, include=FALSE}}
+penguins_raw %>%
+  aes(x = `Body Mass (g)`, y = `Flipper Length (mm)`,
+    color = Island, shape = Sex) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_continuous(name = "Body Mass (grams)") +
+  scale_y_continuous(name = "Flipper Length (millimeters)") +
+  theme_classic() 
+```
+
+![](fig/include_false.png)
+
+Oops! Now the plot doesn't show up in our report at all. This is because setting `include=FALSE` prevents anything in the code chunk from appearing in the report. Instead we can add `echo=FALSE` to tell this code chunk that we don't want to see the code but just the output.
+
+```{{r plot1, echo=FALSE}}
+penguins_raw %>%
+  aes(x = `Body Mass (g)`, y = `Flipper Length (mm)`,
+    color = Island, shape = Sex) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_continuous(name = "Body Mass (grams)") +
+  scale_y_continuous(name = "Flipper Length (millimeters)") +
+  theme_classic() 
+```
+
+![](fig/echo_false.png)
+
+When we knit this again, our plot is back!
+
+One last thing we have to take care of is the warning message we get when plotting. Here, there ggplot function has a warning that some datapoints were left out of the plot. we can add one more chunk option here to remove that from the final report: `warning=FALSE`.
+
+```{{r plot1, echo=FALSE, warning=FALSE}}
+penguins_raw %>%
+  aes(x = `Body Mass (g)`, y = `Flipper Length (mm)`,
+    color = Island, shape = Sex) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_continuous(name = "Body Mass (grams)") +
+  scale_y_continuous(name = "Flipper Length (millimeters)") +
+  theme_classic() 
+```
+
+![](fig/warning_false.png)
+
+Problem solved.
+
+### Inline code
+
+Before we finalize our report, let's look at a few other cool features. Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change. Here is how to do this.
+
+First, let's create a code chunk that summarizes features of our data that we can use to describe our plot to our audience. Note that we set `include=FALSE` because we only want this step to happen in the background. For our purposes, we will calculate how many countries were included in the analysis, as well as the minimum and maximum GDP per capita values:
+
+```{r}
+#| include: false
+#| echo: false
+library(tidyverse)
+library(palmerpenguins)
+some_R_variable_name <- "some_R_variable_name"
+biscoe_count <- penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  n_distinct()
+
+biscoe_mass_mean <- penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  summarise(round(mean(`Body Mass (g)`, na.rm = TRUE), digits = 2)) %>%
+  pull()
+
+biscoe_mass_min <- penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  summarise(round(min(`Body Mass (g)`, na.rm = TRUE))) %>%
+  pull()
+
+biscoe_mass_max <- penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  summarise(round(max(`Body Mass (g)`, na.rm = TRUE))) %>%
+  pull()
+```
+
+```` r
+```{r, penguin-stats, include=FALSE}
+biscoe_count <- penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  n_distinct()
+
+biscoe_mass_mean <- penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  summarise(round(mean(`Body Mass (g)`, na.rm = TRUE), digits = 2)) %>%
+  pull()
+
+biscoe_mass_min <- penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  summarise(round(min(`Body Mass (g)`, na.rm = TRUE))) %>%
+  pull()
+
+biscoe_mass_max <- penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  summarise(round(max(`Body Mass (g)`, na.rm = TRUE))) %>%
+  pull()
+```
+````
+
+Now, all we need to do is reference the values we just computed to describe our plot. To do this, we enclose each value in one set of backticks (`` `r some_R_variable_name ` ``), while the `r` part once again indicates that it's a chunk of R code. When we knit our report, R will automatically fill in the values we just created in the above code chunk. Note that R will automatically update these values every time our data might change (if we were to decide to drop or add countries to this analysis, for example).
+
+```         
+The above plot shows the relationship between penguin body mass and flipper length. In general, Biscoe penguins had both the greatest mass and flipper length. For the  `r biscoe_count` Biscoe penguins oberved, we found the average body mass to be `r biscoe_mass_mean`, and the minimum and maximum body mass to be `r biscoe_mass_min` and `r biscoe_mass_max`, respectively. 
+```
+
+When we knit our document, we get the output below:![](fig/inline_code.png)
+
+### Tables
+
+In addition to reporting specific values in the text, we may also want to show a table of values. With R Markdown there are multiple ways to product tables. One way to generate smaller tables is manually. Using a special format we can generate a table in our output. Note that this does not get generated in a code chunk because it is markdown formatting not R code.
+
+```         
+|HEADER 1|HEADER 2|
+|-------------|-------------|
+|row 1, column1|row 1, column 2|
+|row 2, column1|row 2, column 2|
+```
+
+![](fig/simple_md_table.png)
+
+Columns are separated by the pipe key \| located above Enter on the keyboard. The dashes distinguish the header row from the rest of the table. This header could be a name for each column or a header for the whole table. Now that we know the basic structure we can fill in our table. This is how we could present the same numbers from the previous paragraph as a table instead, again using in-line code.
+
+```         
+
+|Summary Data of Biscoe Penguins|
+|------|------|
+|Number of Penguins|`r biscoe_count`|
+|Average Body Mass|`r biscoe_mass_mean`|
+|Maximum Body Mass|`r biscoe_mass_max`|
+|Minimum Body Mass|`r biscoe_mass_min`|
+```
+
+When we render our report using this above table in our document, we get the following result:
+
+![](fig/report_with_table.png)
+
+This is useful if we are reporting a few values, but can get tedious for larger tables. Another way we can add tables to our reports is using an R function called `kable()`. Since this is an R function, we will use it within a code chunk. We can give the `kable()` function a data table and it will format it to a nice looking table in the report. For example, we could use the following code to generate a table of all the countries in Oceania. The rendered version should look almost exactly as it does on this webpage.
+
+```         
+library(knitr)
+
+penguins_raw %>%
+  filter(Island == "Biscoe") %>%
+  group_by(Species, Sex) %>%
+  tally(n = "Number of Individuals") %>%
+  kable()
+```
+
+![](fig/kable_table_render.png)
+
+Now that we have a report we are happy with, let's push the changes to GitHub!
