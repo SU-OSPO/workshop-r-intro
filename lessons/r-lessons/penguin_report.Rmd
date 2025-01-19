@@ -1,0 +1,107 @@
+---
+title: "A report on the penguins observed near Palmer Station, Antarctica"
+author: "Sarah Lucas"
+date: "2025-01-18"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages, include=FALSE}
+library(tidyverse)
+```
+
+
+# Introduction
+
+This report details our analysis of the Palmer Penguins dataset. Data were collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER, a member of the Long Term Ecological Research Network. Here, we describe the relationship between flipper length and body mass for three species of penguin.
+
+[Website for the 'palmerpenguins' dataset](https://allisonhorst.github.io/palmerpenguins/)
+
+
+## Analysis
+
+### Summary Plots for all Penguins
+
+![Some general information on our penguins](../figures/penguins_1.jpg "General Summary Plots"){width="600"}
+
+### Calculating the flipper length to mass ratio
+
+
+We have calculated the flipper length to mass ratio for three species of penguins in our dataset. Below is a boxplot showing the median and interquartile range for all penguins.
+
+```{r ratioPlot, echo=FALSE, warning=FALSE, message=FALSE}
+penguins_ratio_data <- read_csv("penguins_ratio_data.csv", )
+
+penguins_ratio_data |> 
+  separate(Species, sep = "penguin|Penguin", into = c("species_common", "species_scientific")) |>
+  mutate(species_scientific = str_replace_all(species_scientific,
+                                             pattern = "[\\(\\)]",
+                                             replacement = "")) |>
+  ggplot(aes(x = species_scientific, y = length_mass_ratio)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  theme_classic() +
+  labs(title = "The ratio of flipper length to body mass for \ndifferent species of penguins",
+       subtitle = "Obervations from the Palmer Research Station, Antartica",
+       y = "Flipper Length to Body Mass Ratio",
+       x = "Species") +
+  theme(
+    axis.text.x = element_text(face = "bold.italic"),
+    axis.text.y = element_text(face = "bold"),
+    plot.title = element_text(color = "#0099f8", size = 16, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(face = "bold.italic", hjust = 0.5),
+    plot.caption = element_text(face = "italic")
+  )
+```
+
+```{r, penguin-stats, include=FALSE}
+
+gentoo_ratio_mean <- penguins_ratio_data |>
+  filter(Species == "Gentoo penguin (Pygoscelis papua)") |>
+  summarise(round(mean(length_mass_ratio, na.rm = TRUE), digits = 2)) |>
+  pull()
+
+adelie_ratio_mean <- penguins_ratio_data |>
+  filter(Species == "Adelie Penguin (Pygoscelis adeliae)") |>
+  summarise(round(mean(length_mass_ratio, na.rm = TRUE), digits = 2)) |>
+  pull()
+
+chinstrap_ratio_mean <- penguins_ratio_data |>
+  filter(Species == "Chinstrap penguin (Pygoscelis antarctica)") |>
+  summarise(round(mean(length_mass_ratio, na.rm = TRUE), digits = 2)) |>
+  pull()
+
+```
+
+
+The above plot shows the relationship between penguin body mass and flipper length. The Gentoo penguins had the smallest flipper length to body mass ratio, with an average of `r gentoo_ratio_mean`, followed by the Adelie and the Chinstrap penguins, at `r adelie_ratio_mean` and `r chinstrap_ratio_mean`, respectively.
+
+
+| Average Penguin Length to Body Mass Ratio |                          |
+|-------------------------------------------|--------------------------|
+| Gentoo penguin (Pygoscelis papua)         | `r gentoo_ratio_mean`    |
+| Adelie Penguin (Pygoscelis adeliae)       | `r adelie_ratio_mean`    |
+| Chinstrap penguin (Pygoscelis antarctica) | `r chinstrap_ratio_mean` |
+
+
+### Penguin Species Totals
+
+```{r, echo=FALSE}
+library(knitr)
+penguins_ratio_data |> 
+  # syntax is condition ~ value
+  mutate(species = case_when(
+    Species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+    Species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap", 
+    Species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+    .default = "Other" # what to do in all other cases
+  )) |> 
+  count(species) |>
+  kable()
+```
+
+

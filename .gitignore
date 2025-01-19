@@ -60,3 +60,4 @@ Backup[ ]of[ ]*.numbers/
 *.ttf
 
 /.quarto/
+.Rproj.user
