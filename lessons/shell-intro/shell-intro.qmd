@@ -249,14 +249,14 @@ $ ls -j
 
 Mac zsh output:
 
-``` bash
+```         
 ls: invalid option -- j
 usage: ls [-@ABCFGHILOPRSTUWXabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
 ```
 
 other Unix output:
 
-``` bash
+```         
 ls: invalid option -- 'j'
 Try 'ls --help' for more information.
 ```
@@ -2136,7 +2136,7 @@ propane.pdb
 
 What would be the output of running the following loop in the `shell-lesson-data/exercise-data/alkanes` directory?
 
-```         
+``` bash
 $ for filename in c*
 > do
 >     ls $filename
@@ -2163,7 +2163,7 @@ $ for filename in c*
 
 How would the output differ from using this command instead?
 
-```         
+``` bash
 $ for filename in *c*
 > do
 >     ls $filename
@@ -2187,7 +2187,7 @@ $ for filename in *c*
 :::
 ::::
 
-:::: {.callout-caution appearance="simple" icon="false"}
+::: {.callout-caution appearance="simple" icon="false"}
 ## Challenge: Saving to a file in a loop - part one
 
 In the `shell-lesson-data/exercise-data/alkanes` directory, what is the effect of this loop?
@@ -2208,17 +2208,19 @@ done
 
 4.  None of the above.
 
-::: {.callout-caution collapse="true" appearance="simple" icon="false"}
-1.  The text from each file in turn gets written to the `alkanes.pdb` file. However, the file gets overwritten on each loop iteration, so the final content of `alkanes.pdb` is the text from the `propane.pdb` file.
+    ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+    ### Solution
+
+    1.  The text from each file in turn gets written to the `alkanes.pdb` file. However, the file gets overwritten on each loop iteration, so the final content of `alkanes.pdb` is the text from the `propane.pdb` file.
+    :::
 :::
-::::
 
 :::: {.callout-caution appearance="simple" icon="false"}
 ## Challenge: Saving to a file in a loop - part two
 
 Also in the `shell-lesson-data/exercise-data/alkanes` directory, what would be the output of the following loop?
 
-```         
+``` bash
 for datafile in *.pdb
 do
     cat $datafile >> all.pdb
@@ -2234,6 +2236,8 @@ done
 4.  All of the text from `cubane.pdb`, `ethane.pdb`, `methane.pdb`, `octane.pdb`, `pentane.pdb` and `propane.pdb` would be printed to the screen and saved to a file called `all.pdb`.
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+### Solution
+
 3 is the correct answer. `>>` appends to a file, rather than overwriting it with the redirected output from a command. Given the output from the `cat` command has been redirected, nothing is printed to the screen.
 :::
 ::::
