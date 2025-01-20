@@ -285,10 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#shell-scripts" id="toc-shell-scripts" class="nav-link" data-scroll-target="#shell-scripts">Shell Scripts</a>
   <ul class="collapse">
-  <li><a href="#your-pipeline-creating-a-script" id="toc-your-pipeline-creating-a-script" class="nav-link" data-scroll-target="#your-pipeline-creating-a-script">Your pipeline: Creating a script</a>
-  <ul class="collapse">
-  <li><a href="#bash" id="toc-bash" class="nav-link" data-scroll-target="#bash">BASH</a></li>
-  </ul></li>
+  <li><a href="#your-pipeline-creating-a-script" id="toc-your-pipeline-creating-a-script" class="nav-link" data-scroll-target="#your-pipeline-creating-a-script">Your pipeline: Creating a script</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -2624,7 +2621,7 @@ Beginning and end
 NENE01736A.txt
 NENE01751A.txt
 ...</code></pre>
-<p>1518 times 5 seconds, divided by 60, tells her that her script will take about two hours to run. As a final check, she opens another terminal window, goes into <code>north-pacific-gyre</code>, and uses <code>cat stats-NENE01729B.txt</code> to examine one of the output files. It looks good, so she decides to get some coffee and catch up on her reading.</p>
+<p>1518 times 5 seconds, divided by 60, tells her that her script will take about two hours to run. As a final check, you open another terminal window, go into <code>north-pacific-gyre</code>, and uses <code>cat stats-NENE01729B.txt</code> to examine one of the output files. It looks good, so you decides to get some coffee and catch up on your reading.</p>
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2891,14 +2888,12 @@ done</code></pre>
 <div class="sourceCode" id="cb249"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb249-1"><a href="#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> bash do-stats.sh NENE<span class="pp">*</span>A.txt NENE<span class="pp">*</span>B.txt <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>so that the output is just the number of files processed rather than the names of the files that were processed.</p>
 <p>One thing to note about your script is that it lets the person running it decide what files to process. You could have written it as:</p>
-<section id="bash" class="level3">
-<h3 class="anchored" data-anchor-id="bash">BASH</h3>
-<pre><code># Calculate stats for Site A and Site B data files.
-for datafile in NENE*A.txt NENE*B.txt
-do
-    echo $datafile
-    bash goostats.sh $datafile stats-$datafile
-done</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb250-1"><a href="#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate stats for Site A and Site B data files.</span></span>
+<span id="cb250-2"><a href="#cb250-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> datafile <span class="kw">in</span> NENE<span class="pp">*</span>A.txt NENE<span class="pp">*</span>B.txt</span>
+<span id="cb250-3"><a href="#cb250-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb250-4"><a href="#cb250-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">$datafile</span></span>
+<span id="cb250-5"><a href="#cb250-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bash</span> goostats.sh <span class="va">$datafile</span> stats-<span class="va">$datafile</span></span>
+<span id="cb250-6"><a href="#cb250-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The advantage is that this always selects the right files: you doesn’t have to remember to exclude the ‘Z’ files. The disadvantage is that it <em>always</em> selects just those files — you can’t run it on all files (including the ‘Z’ files), or on the ‘G’ or ‘H’ files your colleagues in Antarctica are producing, without editing the script. If you wanted to be more adventurous, you could modify your script to check for command-line arguments, and use <code>NENE*A.txt NENE*B.txt</code> if none were provided. Of course, this introduces another tradeoff between flexibility and complexity.</p>
 <div class="callout callout-style-simple callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -3049,7 +3044,6 @@ Key Points
 </div>
 
 
-</section>
 </section>
 </section>
 
