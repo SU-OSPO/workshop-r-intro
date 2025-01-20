@@ -36,11 +36,13 @@ For entering longer commit messages (you'll learn what this means in Exercise 1)
 git config --global core.editor nano
 ```
 
+::: {.callout-note}
 If you wish to reset to the default editor after the tutorial is over, run:
 
 ``` bash
 git config --global --unset-all core.editor
 ```
+:::
 
 ## Exercises
 
