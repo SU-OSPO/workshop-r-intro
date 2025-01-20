@@ -709,7 +709,7 @@ $ pwd
 ```
 
 ``` bash
-/Users/nelle/Desktop/shell-lesson-data
+/Users/sklucas/Desktop/shell-lesson-data
 ```
 
 Next we'll move to the `exercise-data/writing` directory and see what it contains:
@@ -1938,7 +1938,7 @@ $ ls *Z.txt
 NENE01971Z.txt    NENE02040Z.txt
 ```
 
-Sure enough, when you check the log on your laptop, there's no depth recorded for either of those samples. Since it's too late to get the information any other way, you must exclude those two files from your analysis. You could delete them using `rm`, but there are actually some analyses you might do later where depth doesn't matter, so instead, you`wc` counts lines, words, and characters in its inputs.
+Sure enough, when you check the log on your laptop, there's no depth recorded for either of those samples. Since it's too late to get the information any other way, you must exclude those two files from your analysis. You could delete them using `rm`, but there are actually some analyses you might do later where depth doesn't matter, so instead, you'll have to be careful later on to select files using the wildcard expressions `NENE*A.txt NENE*B.txt`.
 
 ::: {.callout-note appearance="simple"}
 # Key Points
@@ -2427,13 +2427,13 @@ NENE02043B.txt stats-NENE02043B.txt
 
 You haven't actually run `goostats.sh` yet, but now you're sure you can select the right files and generate the right output filenames.
 
-Typing in commands over and over again is becoming tedious, though, and you are worried about making mistakes, so instead of re-entering your loop, you press ↑. In response, the shell redisplays the whole loop on one line (using semi-colons to separate the pieces):
+Typing in commands over and over again is becoming tedious, though, and you are worried about making mistakes, so instead of re-entering your loop, you press ↑. In response, the shell re-displays the whole loop on one line (using semi-colons to separate the pieces):
 
 ``` bash
 $ for datafile in NENE*A.txt NENE*B.txt; do echo $datafile stats-$datafile; done
 ```
 
-Using the ←, Nelle navigates to the `echo` command and changes it to `bash goostats.sh`:
+Using the ←, you navigate to the `echo` command and change it to `bash goostats.sh`:
 
 ``` bash
 $ for datafile in NENE*A.txt NENE*B.txt; do bash goostats.sh $datafile stats-$datafile; done
