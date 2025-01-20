@@ -107,6 +107,14 @@ This might happen if the command was mis-typed or if the program corresponding t
 > -   retrieve a set of files
 > -   iterate over files
 > -   run a shell script containing her pipeline
+>
+> ### Download files:
+>
+> You need to download some files to follow this lesson.
+>
+> 1.  Download [shell-lesson-data.zip](https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip) and move the file to your Desktop.
+>
+> 2.  Unzip/extract the file. **Let your instructor know if you need help with this step**. You should end up with a new folder called **`shell-lesson-data`** on your Desktop.
 
 ::: {#keypoints .callout-note appearance="simple"}
 ## Key Points
