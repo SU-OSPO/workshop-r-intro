@@ -9,6 +9,10 @@ title: "Introduction to the Unix Shell"
 |                                                      | -   Explain when and why command-line interfaces should be used instead of graphical interfaces.          |
 +------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+
 
+# About this tutorial
+
+This tutorial was heavily adapted from the [Shell Novice tutorial created by Software Carpentry](https://swcarpentry.github.io/shell-novice/). It has been shortened to fit our time frame.
+
 # Background
 
 We interact with computers in many different ways, such as through a keyboard and mouse, and touch screen interfaces. The most widely used way to interact with personal computers is called a **graphical user interface** (GUI). With a GUI, we give instructions by clicking a mouse and using menu-driven interactions.
