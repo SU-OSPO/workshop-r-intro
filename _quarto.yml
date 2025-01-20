@@ -19,7 +19,7 @@ project:
 website:
   title: "Computing Basics and Intro to R"
   site-url: https://SyracuseUniversity.github.io/ospo-workshop-r-intro
-  repo-url: https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+  repo-url: https://github.com/SyracuseUniversity/ospo-workshop-r-intro
   repo-actions: [issue]
   back-to-top-navigation: true
   page-footer:
@@ -37,9 +37,9 @@ website:
       - icon: github
         menu:
           - text: Source Code
-            href: https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+            href: https://github.com/SyracuseUniversity/ospo-workshop-r-intro
           - text: Report a Bug
-            href: https://https//github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new
+            href: https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new
     collapse-level: 1
     contents:
       - lessons/shell-intro/shell-intro.qmd
