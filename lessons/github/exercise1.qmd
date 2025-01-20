@@ -333,6 +333,265 @@ There is another way to merge branches called *rebasing*. Rebasing changes the h
 If you had not merged everything on `title-dev` into `main`, you would have gotten an error preventing you from deleting the branch. The fact that you could delete it gives you confidence that everything on the development branch has been merged.
 :::
 
+
+### Challenge Questions: Editing the same file on different branches
+
+In the above example we only made changes to different files on our two branches: on `main` we only edited `story.txt`, while on `title-dev` we only edited `title.txt`. However, there is nothing stopping us from editing the *same* file concurrently on two different branches. The following questions will illustrate how that works.
+
+:::: {.callout-caution appearance="simple" icon="false"}
+#### Question 1: Setup
+
+Create a file called `list.txt` that initially contains the following three lines:
+
+```bash
+alpha
+bravo
+charlie
+```
+
+Now use the `git` commands you learned above to do the following:
+
+1. Add and commit `list.txt` to `main`.
+
+2. Create a branch called `dev1`.
+
+3. On `dev1` change the first line of `list.txt` to `delta` then commit the change.
+
+4. Go back to `main` and change the third line to `foxtrot`, then commit it.
+
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+
+1. Run:
+    
+    ```bash
+    git add list.txt
+    git commit -m "add list.txt"
+    ```
+
+2. Run:
+    
+    ```bash
+    git checkout -b dev1
+    ```
+
+3. Use `nano` (or your favorite text editor) to edit `list.txt` and change the first line to `delta`. Then run:
+
+    ```bash
+    git add list.txt
+    git commit -m "change the first item of list"
+    ```
+
+4. First run:
+
+    ```bash
+    git checkout main
+    ```
+
+    Then use `nano` (or your favorite text editor) to edit `list.txt` and  change the third line to `foxtrot`. To commit, run:
+
+    ```bash
+    git add list.txt
+    git commit -m "change the last item of list"
+    ```
+
+
+:::
+
+When you are done, `list.txt` should look like the following on `main`:
+
+```bash
+alpha
+bravo
+foxtrot
+```
+
+while on `dev1` it should look like:
+
+```bash
+delta
+bravo
+charlie
+```
+
+You can check the differences by running `git diff main dev1.`
+
+::::
+
+
+:::: {.callout-caution appearance="simple" icon="false"}
+#### Question 2: Editing different lines
+
+Now suppose you merge `dev1` into `main`. What happens to `list.txt`?
+
+**A.** `main` takes precedence since it's the branch being merged into; `list.txt` will look like:
+
+```txt
+alpha
+bravo
+foxtrot
+```
+
+**B.** `dev1` takes precedence since it's the branch being merged; `list.txt` will look like:
+
+```txt
+delta
+bravo
+charlie
+```
+
+**C.** The changes from both are adopted; `list.txt` will look like:
+
+```txt
+delta
+bravo
+foxtrot
+```
+
+**D.** An error is raised because the same file was modified.
+
+*If you're not sure, try it yourself and see what happens!*
+
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+
+The answer is **C**. Since different lines have been modified, `git` is able to merge the changes together without issue. To do it yourself, run:
+
+```bash
+git checkout main
+git merge dev1
+```
+:::
+::::
+
+:::: {.callout-caution appearance="simple" icon="false"}
+#### Question 3: Editing the same lines
+
+After merging `dev1` on to `main`, suppose you create another branch called `dev2`. On `dev2` you change the second line of `list.txt` to be `echo` while on `main` you change the second line to `easy`; i.e. on `main` `list.txt` looks like:
+
+```txt
+delta
+easy
+foxtrot
+```
+
+On `dev2` `list.txt` looks like:
+
+```txt
+delta
+echo
+foxtrot
+```
+
+**What happens if you merge `dev2` into `main` in this case?**
+
+**A.** `main` takes precedence since it's the branch being merged into; `list.txt` will look like:
+    
+```txt
+delta
+easy
+foxtrot
+```
+
+**B.** `dev2` takes precedence since it's the branch being merged; `list.txt` will look like:
+
+```txt
+delta
+echo
+foxtrot
+```
+
+**C.** The changes from both branches are adopted; `list.txt` will look like:
+
+```txt
+delta
+easy
+echo
+foxtrot
+```
+
+**D.** An error is raised because the same line is modified.
+
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+
+The answer is **D**, an error is raised. Since the same line has been modified in the same file, `git` cannot tell how to reconcile the differences. This is known as a *merge conflict*. In this case, `git` will leave it up to the user to reconcile the differences. How to do that is discussed in the next section. 
+
+:::
+::::
+
+### Part 4: Resolving merge conflicts
+
+As illustrated in the Challenge Questions, if the same lines in the same file are modified on two different branches, `git` will not know how to merge the changes. This is called a **merge conflict**. In this case, `git` will ask you to reconcile the differences. To illustrate, let's try merging `dev2` into `main` after making the changes to `list.txt` discussed in Question 3 above:
+
+1. If you have not done so, try to merge `dev2` into `main` after making the changes to the second line of `list.txt` discussed in Question 3:
+
+    ```bash
+    git checkout main
+    git merge dev2
+    ```
+
+    You should get the following:
+
+    ```txt
+    Auto-merging list.txt
+    CONFLICT (content): Merge conflict in list.txt
+    Automatic merge failed; fix conflicts and then commit the result.
+    ```
+
+2. To resolve the merge conflict, we must edit `list.txt` ourselves. Use `nano` (or your favorite text editor) to open `list.txt`. You should see the following:
+
+    ```txt
+    delta
+    <<<<<<< HEAD
+    easy
+    =======
+    echo
+    >>>>>>> dev2
+    foxtrot
+    ```
+
+    `git` has added the conflicting lines from both branches to the file, along with information about the two branches. The line as it appears on `main` is prefaced with `<<<<<<< HEAD`. This indicates that the following line(s) is (are) how it appears on the branch being merged into. The line(s) is (are) followed by a `=======`.
+
+    After the `=======` the line(s) as it/they appear(s) on the branch being merged are shown. These are followed by `>>>>>>> BRANCH_NAME` (here, `BRANCH_NAME` is `dev2`).
+
+3. We are free to edit the file anyway we like to resolve the conflict. You should remove the `<<<<`, `====`, and `>>>>` lines that `git` has added, along with the edit you want to make to resolve the conflict.
+
+    In this case, let's keep the edit as it appears on `dev2`, and remove the edit on `main`. Delete the appropriate lines so that the file looks like:
+
+    ```txt
+    delta
+    echo
+    foxtrot
+    ```
+
+    Then save and exit the file.
+
+4. Now that we are happy with the way `list.txt` appears, add the file:
+
+    ```bash
+    git add list.txt
+    ```
+
+    Now `commit` *without the* `-m`:
+
+    ```bash
+    git commit
+    ```
+
+    This will open up your text editor. The commit message will already be set to `Merge branch 'dev2'`. While you are free to modify this, it's usually best to leave it as-is, as it indicates the merge. Save and exit the file.
+
+5. The merge conflict is resolved! If you type `git log` you will see the history with all the commits in it, as if you had a merged without any issue.
+
+Merge conflicts happen, but can be fixed fairly easy. If there were multiple areas in a file that caused a conflict, the conflicting areas would all be surrounded by the same `<<<<<<< `/`=======`/`>>>>>>>` lines that we saw above. You'll want to search through the file for those to make sure you got all the conflicts. If multiple files had conflicts, `git` will make you resolve all of them before allowing the merge to complete.
+
+### Summary
+
+That's the basics of how to use `git`. In the following parts we'll see how to use this with GitHub and how to collaborate with partners using `git` and GitHub.
+
 ### Appendix: Rebasing
 
 Before merging `title-dev` into master in step 8 above, we could have first done a *rebase*. If you rebase a development branch against its parent branch (in this case `main`) it will incorporate all the commits that were made on the parent after the development branch was originally created. To do so, the development branch's history is rearranged so that the additional commits from the parent are placed before all commits that were made on the development branch.
