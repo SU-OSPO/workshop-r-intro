@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-01-20">
 
-<title>git and GitHub – Computing Basics and Intro to R</title>
+<title>ssh_setup – Computing Basics and Intro to R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../lessons/github/exercise1.html" rel="next">
-<link href="../../lessons/shell-intro/shell-intro.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -117,7 +115,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/github/github-intro.html"><code>git</code> and GitHub</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      Computing Basics and Intro to R
+      </li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -167,13 +167,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../lessons/github/github-intro.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../lessons/github/github-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><code>git</code> and GitHub</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/github/exercise1.html" class="sidebar-item-text sidebar-link">
@@ -228,12 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a>
-  <ul class="collapse">
-  <li><a href="#github-ssh-keys" id="toc-github-ssh-keys" class="nav-link" data-scroll-target="#github-ssh-keys">GitHub ssh keys</a></li>
-  <li><a href="#git-configuration" id="toc-git-configuration" class="nav-link" data-scroll-target="#git-configuration">Git configuration</a></li>
-  </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#create-and-add-an-ssh-key-to-github" id="toc-create-and-add-an-ssh-key-to-github" class="nav-link active" data-scroll-target="#create-and-add-an-ssh-key-to-github">Create and add an ssh key to GitHub</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -242,7 +237,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><code>git</code> and GitHub</h1>
 </div>
 
 
@@ -265,66 +259,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="create-and-add-an-ssh-key-to-github" class="level2">
+<h2 class="anchored" data-anchor-id="create-and-add-an-ssh-key-to-github">Create and add an ssh key to GitHub</h2>
+<p>In order to push commits to GitHub you need to have authentication setup. While there are a couple of ways to do this, we recommend using ssh keys. The steps below will walk you through how to create an ssh key (if you don’t already have one) and add it to your GitHub account.</p>
+<p><strong>Before doing step 1, check if you already have a key pair generated. Open a shell and run:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/.ssh/id_ed25519</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>If a file path is returned, skip step 1. Otherwise, if you get “No such file or directory”, do step 1.</strong></p>
+<ol type="1">
+<li><p>Go to <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">this help article on GitHub</a>, select which operating system you are using for your terminal (either Mac or Linux), then scroll down to “Generating a new SSH key” and follow the instructions there. Stop when you get to “Adding your SSH key to the ssh-agent”.</p></li>
+<li><p>The keygen command should have created a public and private key pair in your <code>~/.ssh</code> directory. This is a hidden directory that contains your ssh keys, configuration settings, and other files related to ssh. Verify that the keys exist by typing:</p></li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/.ssh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You should see at least two files in there, one called <code>id_ed25519</code> and one called <code>id_ed25519.pub</code>. (You may also have other <code>id_*</code> files in there, if you had created key pairs previously.)</p>
+<p>The <code>id_ed25519</code> file is your <strong>private</strong> key. <strong>Do not share your private key with anyone!</strong> It remains on your computer, and only on your computer. The <code>id_ed25519.pub</code> file is your <strong>public</strong> key. You can share the contents of your public key with other servers you want to log in to.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 84%">
+<col style="width: 6%">
 </colgroup>
-<thead>
-<tr class="header">
-<th>Objectives</th>
-</tr>
-</thead>
 <tbody>
 <tr class="odd">
-<td><ul>
-<li>Learn how to use <code>git</code> with command-line instructions.</li>
-<li>Learn how to do version control with <code>git</code>.</li>
-<li>Understand the differences between <code>git</code> and GitHub.</li>
-<li>Use GitHub to collaborate with others on a project.</li>
-</ul></td>
+<td><em>Note: you need a GitHub account to do the following steps. If you do not have a GitHub account, sign up for one by going to https://github.com and following the onscreen instructions. Once you have an account you can proceed.</em></td>
 </tr>
 </tbody>
 </table>
-<section id="prerequisites" class="level2">
-<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
-<p>The following should be done <em>before</em> doing the exercises below.</p>
-<section id="github-ssh-keys" class="level3">
-<h3 class="anchored" data-anchor-id="github-ssh-keys">GitHub ssh keys</h3>
-<p>In exercises 2 and 3 you will be using GitHub to “push” and “pull” commits between your local computer and GitHub’s servers. This requires authentication to be setup. For these purposes we suggest using ssh keys. To set that up, follow the instructions here:</p>
-<ul>
-<li><a href="../../lessons/github/ssh_setup.html">Setup ssh key for GitHub</a></li>
-</ul>
-</section>
-<section id="git-configuration" class="level3">
-<h3 class="anchored" data-anchor-id="git-configuration">Git configuration</h3>
-<p>Before doing the exercises in this session, you’ll need to tell <code>git</code> what your name and email are, so that it creates commits with the appropriate author information. To do that, open a terminal and run the following (it doesn’t matter which directory you run these from), but replacing <code>YOUR NAME</code> with your name and <code>YOUR_EMAIL_ADDRESS</code> with your email address:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"YOUR NAME"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"YOUR_EMAIL_ADDRESS"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For entering longer commit messages (you’ll learn what this means in Exercise 1) we’ll need to tell <code>git</code> what text editor to use. By default <code>git</code> will use <code>vim</code>, which can be tricky to understand for new users. For the purposes of this tutorial, we’ll use the more user-friendly <a href="https://en.wikipedia.org/wiki/GNU_nano">nano</a>. To do that, run the following in your terminal:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor nano</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you wish to reset to the default editor after the tutorial is over, run:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--unset-all</span> core.editor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
-</section>
-<section id="exercises" class="level2">
-<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
-<ul>
-<li><a href="../../lessons/github/exercise1.html">Exercise1</a>: Practice with <code>git</code> on a local repository</li>
-<li><a href="../../lessons/github/exercise2.html">Exercise2</a>: <code>git</code> and GitHub</li>
-<li><a href="../../lessons/github/exercise3.html">Exercise3</a>: Collaborating in GitHub using the Fork and Pull Model</li>
-</ul>
+<ol start="3" type="1">
+<li><p>Now let’s upload your public key to GitHub so that you can use your ssh keypairs when interacting with GitHub. Follow the instructions here: <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux#adding-a-new-ssh-key-to-your-account">Adding a new SSH key to your GitHub account</a>.</p></li>
+<li><p>To test whether you were successful, in your terminal run</p></li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-T</span> git@github.com</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You may be prompted with something like:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> The <span class="ex">authenticity</span> of host <span class="st">'github.com (IP ADDRESS)'</span> can<span class="st">'t be established.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">&gt; ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">&gt; Are you sure you want to continue connecting (yes/no)?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If so, type <code>yes</code>. You should then get</p>
+<pre><code>Hi USERNAME! You've successfully authenticated, but GitHub does not provide shell access.</code></pre>
+<p>where <code>USERNAME</code> is your username.</p>
+<p>You’re now ready to use GitHub!</p>
+<hr>
+<p>For more information on what ssh keys are and how they work, see the lecture on ssh from our <a href="https://opensource.syracuse.edu/events/computing-101-workshop-summer-2024/#Workshop-materials">summer workshop</a> (Day 2, session 1).</p>
 
 
 </section>
@@ -747,18 +719,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../lessons/shell-intro/shell-intro.html" class="pagination-link" aria-label="Introduction to the Unix Shell">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction to the Unix Shell</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../lessons/github/exercise1.html" class="pagination-link" aria-label="Exercise 1: Practice with `git` on a local repository">
-        <span class="nav-page-text">Exercise 1: Practice with <code>git</code> on a local repository</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
