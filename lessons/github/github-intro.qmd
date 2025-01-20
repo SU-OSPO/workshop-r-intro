@@ -30,6 +30,20 @@ git config --global user.name "YOUR NAME"
 git config --global user.email "YOUR_EMAIL_ADDRESS"
 ```
 
+For entering longer commit messages (you'll learn what this means in Exercise 1) we'll need to tell `git` what text editor to use. By default `git` will use `vim`, which can be tricky to understand for new users. For the purposes of this tutorial, we'll use the more user-friendly [nano](https://en.wikipedia.org/wiki/GNU_nano). To do that, run the following in your terminal:
+
+``` bash
+git config --global core.editor nano
+```
+
+::: {.callout-note}
+If you wish to reset to the default editor after the tutorial is over, run:
+
+``` bash
+git config --global --unset-all core.editor
+```
+:::
+
 ## Exercises
 
 -   [Exercise1](exercise1.qmd): Practice with `git` on a local repository
