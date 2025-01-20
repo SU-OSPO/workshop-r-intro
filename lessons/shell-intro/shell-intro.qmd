@@ -98,7 +98,7 @@ This might happen if the command was mis-typed or if the program corresponding t
 >
 > As a bonus, once you have put a processing pipeline together, you will be able to use it again whenever you collect more data.
 >
-> In order to achieve her task, you need to know how to:
+> In order to achieve your task, you need to know how to:
 >
 > -   navigate to a file/directory
 > -   create a file/directory
@@ -106,7 +106,7 @@ This might happen if the command was mis-typed or if the program corresponding t
 > -   chain commands together
 > -   retrieve a set of files
 > -   iterate over files
-> -   run a shell script containing her pipeline
+> -   run a shell script containing your pipeline
 >
 > ### Download files:
 >
