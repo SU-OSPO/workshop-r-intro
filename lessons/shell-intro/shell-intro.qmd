@@ -2449,7 +2449,7 @@ NENE01751A.txt
 ...
 ```
 
-1518 times 5 seconds, divided by 60, tells her that her script will take about two hours to run. As a final check, she opens another terminal window, goes into `north-pacific-gyre`, and uses `cat stats-NENE01729B.txt` to examine one of the output files. It looks good, so she decides to get some coffee and catch up on her reading.
+1518 times 5 seconds, divided by 60, tells her that her script will take about two hours to run. As a final check, you open another terminal window, go into `north-pacific-gyre`, and uses `cat stats-NENE01729B.txt` to examine one of the output files. It looks good, so you decides to get some coffee and catch up on your reading.
 
 ::: {.callout-tip appearance="simple"}
 ## Those who know history can choose to repeat it
@@ -2801,9 +2801,7 @@ so that the output is just the number of files processed rather than the names o
 
 One thing to note about your script is that it lets the person running it decide what files to process. You could have written it as:
 
-### BASH
-
-```         
+``` bash
 # Calculate stats for Site A and Site B data files.
 for datafile in NENE*A.txt NENE*B.txt
 do
