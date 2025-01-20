@@ -231,6 +231,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-1-initializing-and-adding-files" id="toc-part-1-initializing-and-adding-files" class="nav-link active" data-scroll-target="#part-1-initializing-and-adding-files">Part 1: Initializing and adding files</a></li>
   <li><a href="#part-2-making-changes-to-files" id="toc-part-2-making-changes-to-files" class="nav-link" data-scroll-target="#part-2-making-changes-to-files">Part 2: Making changes to files</a></li>
   <li><a href="#part-3-branches" id="toc-part-3-branches" class="nav-link" data-scroll-target="#part-3-branches">Part 3: Branches</a></li>
+  <li><a href="#challenge-questions-editing-the-same-file-on-different-branches" id="toc-challenge-questions-editing-the-same-file-on-different-branches" class="nav-link" data-scroll-target="#challenge-questions-editing-the-same-file-on-different-branches">Challenge Questions: Editing the same file on different branches</a></li>
+  <li><a href="#part-4-resolving-merge-conflicts" id="toc-part-4-resolving-merge-conflicts" class="nav-link" data-scroll-target="#part-4-resolving-merge-conflicts">Part 4: Resolving merge conflicts</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#appendix-rebasing" id="toc-appendix-rebasing" class="nav-link" data-scroll-target="#appendix-rebasing">Appendix: Rebasing</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -266,32 +270,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="part-1-initializing-and-adding-files" class="level3">
 <h3 class="anchored" data-anchor-id="part-1-initializing-and-adding-files">Part 1: Initializing and adding files</h3>
 <ol type="1">
-<li>Go to your home directory by typing:</li>
-</ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="2" type="1">
-<li>Create a directory called <code>test-git-repo</code> and <code>cd</code> into it:</li>
-</ol>
+<li><p>Go to your home directory by typing:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Create a directory called <code>test-git-repo</code> and <code>cd</code> into it:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> test-git-repo</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> test-git-repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="3" type="1">
-<li>At the moment, <code>test-git-repo</code> is just a normal directory, like any others. We want to turn this into a git repository and track changes to files made in this directory. To do that, run:</li>
-</ol>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> test-git-repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>At the moment, <code>test-git-repo</code> is just a normal directory, like any others. We want to turn this into a git repository and track changes to files made in this directory. To do that, run:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><em>Note that you have to run this from within the directory you want to turn into a repository.</em></p>
-<ol start="4" type="1">
-<li><code>test-git-repo</code> is now tracked by <code>git</code>. Run:</li>
-</ol>
+<p><em>Note that you have to run this from within the directory you want to turn into a repository.</em></p></li>
+<li><p><code>test-git-repo</code> is now tracked by <code>git</code>. Run:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>to see what the status of the repo is. You should get:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">On</span> branch main</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">No</span> commits yet</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">nothing</span> to commit <span class="er">(</span><span class="ex">create/copy</span> files and use <span class="st">"git add"</span> to track<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="5" type="1">
-<li>Let’s add some files for git to track. Use your favorite text editor to create a file called <code>story_idea.txt</code> and add the following to it:</li>
-</ol>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">nothing</span> to commit <span class="er">(</span><span class="ex">create/copy</span> files and use <span class="st">"git add"</span> to track<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Let’s add some files for git to track. Use your favorite text editor to create a file called <code>story.txt</code> and add the following to it:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Once</span> upon a time, in a land far,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">far</span> away...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Save and exit the file, then type <code>ls</code> to verify it’s there. Now run</p>
@@ -303,14 +298,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Untracked</span> files:</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">use</span> <span class="st">"git add &lt;file&gt;..."</span> to include in what will be committed<span class="kw">)</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">story_idea.txt</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">story.txt</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">nothing</span> added to commit but untracked files present <span class="er">(</span><span class="ex">use</span> <span class="st">"git add"</span> to track<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>git knows you have a file in the directory called <code>story_idea.txt</code>, but it isn’t tracked by git yet!</p>
-<ol start="6" type="1">
-<li>Tell git to start tracking <code>story_idea.txt</code> by using <code>git add</code>. Run the following:</li>
-</ol>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add story_idea.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>git knows you have a file in the directory called <code>story.txt</code>, but it isn’t tracked by git yet!</p></li>
+<li><p>Tell git to start tracking <code>story.txt</code> by using <code>git add</code>. Run the following:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add story.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now type <code>git status</code>. You’ll see:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">On</span> branch main</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -318,21 +311,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Changes</span> to be committed:</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">use</span> <span class="st">"git rm --cached &lt;file&gt;..."</span> to unstage<span class="kw">)</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">new</span> file:   story_idea.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Notice that it still says there are no commits, but that on the next commit the file <code>story_idea.txt</code> will be added. This means that <code>story_idea.txt</code> is <em>staged</em> for the next commit.</p>
-<ol start="7" type="1">
-<li>Commit the change by running:</li>
-</ol>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">new</span> file:   story.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Notice that it still says there are no commits, but that on the next commit the file <code>story.txt</code> will be added. This means that <code>story.txt</code> is <em>staged</em> for the next commit.</p></li>
+<li><p>Commit the change by running:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add story idea"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now run <code>git status</code>. You should get <code>nothing to commit, working tree clean</code>. Congratulations, you’ve made your first commit! To verify, run:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>to see the history of your commits. Since this is your first commit, there will only be one entry.</p>
+<p>to see the history of your commits. Since this is your first commit, there will only be one entry.</p></li>
+</ol>
 </section>
 <section id="part-2-making-changes-to-files" class="level3">
 <h3 class="anchored" data-anchor-id="part-2-making-changes-to-files">Part 2: Making changes to files</h3>
 <ol type="1">
-<li>You’re not happy with your story opening. You don’t want to write fairy tales, you want to write SciFi! Use your favorite text editor to open <code>story_idea.txt</code> and change the line <code>Once upon a time, in a land far,</code> to <code>A long time ago in a galaxy far,</code> so that your file now reads:</li>
-</ol>
+<li><p>You’re not happy with your story opening. You don’t want to write fairy tales, you want to write SciFi! Use your favorite text editor to open <code>story.txt</code> and change the line <code>Once upon a time, in a land far,</code> to <code>A long time ago in a galaxy far,</code> so that your file now reads:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">A</span> long time ago in a galaxy far,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">far</span> away...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Much better. Now type <code>git status</code>; you should see:</p>
@@ -340,103 +331,371 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Changes</span> not staged for commit:</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">use</span> <span class="st">"git add &lt;file&gt;..."</span> to update what will be committed<span class="kw">)</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">use</span> <span class="st">"git restore &lt;file&gt;..."</span> to discard changes in working directory<span class="kw">)</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">modified:</span>   story_idea.txt</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">modified:</span>   story.txt</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">no</span> changes added to commit <span class="er">(</span><span class="ex">use</span> <span class="st">"git add"</span> and/or <span class="st">"git commit -a"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>git recognizes that <code>story_idea.txt</code> has changed, but your changes have not been committed yet. You can see how the file differs from the last commit you did by typing:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="2" type="1">
-<li>Let’s commit your changes so you don’t lose them! Let’s stage the changes by running <code>git add</code> again:</li>
-</ol>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add story_idea.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>(Alternatively, you can just run <code>git add -u</code> to stage changes to all tracked files that have changed.) Now run:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"change opening"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>to commit the changes. Run:</p>
+<p>git recognizes that <code>story.txt</code> has changed, but your changes have not been committed yet. You can see how the file differs from the last commit you did by typing:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Let’s commit your changes so you don’t lose them! We’ll stage the changes by running <code>git add</code> again:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add story.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(Alternatively, you can just run <code>git add -u</code> to stage changes to all tracked files that have changed.) Now we’ll commit the change, however, we’ll do it slightly differently than we did above. Just run:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(i.e., don’t include the <code>-m</code> argument). This will cause a text editor to open. The text editor that is used depends on your <code>git</code> settings. Since we set git’s global <code>core.editor</code> to <code>nano</code> in the <a href="../../lessons/github/github-intro.html#git-configuration">intro</a>, nano will open up for you. Now you can type in a commit message. Type “change opening” then save by hitting <code>&lt;Ctrl&gt;+O</code>. When nano asks where to save to, just hit <code>&lt;Enter&gt;</code> to save to the default. Then hit <code>&lt;Ctrl&gt;+X</code> to exit. This will complete the commit; you will be returned to the command line. To verify that the commit worked, run:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You’ll now see 2 commits in your history.</p>
+<p>You’ll now see 2 commits in your history.</p></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that there are two different ways to provide a commit message:</p>
+<ol type="1">
+<li><p>Provide the <code>-m</code> argument along with a short message in quotes when you run <code>git commit</code> on the command line, like we did in Part 1, step 7 above; i.e, run:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"YOUR MESSAGE"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In that case, the commit will be completed on the command line; no text editor will be opened.</p></li>
+<li><p>Do not provide the <code>-m</code> argument. In that case, a text editor will open with which you can type the commit message. The commit will be created as soon as you save and exit from the editor. Note that if you exit the editor without saving, the commit will not be created. (You will be returned to the command line with the file changes still in the staged state.)</p></li>
+</ol>
+<p>Either way is fine. Typically the second method is used if you want to write a more elaborate commit message that spans multiple lines, which is difficult to do on the command line.</p>
+</div>
+</div>
 </section>
 <section id="part-3-branches" class="level3">
 <h3 class="anchored" data-anchor-id="part-3-branches">Part 3: Branches</h3>
 <p>You want to start working on titles for your stories, but you want to do it independently of your work on the story itself. To do that, let’s create a branch to specifically work on titles.</p>
 <ol type="1">
-<li>Run <code>git branch</code>. You should get back:</li>
-</ol>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<li><p>Run <code>git branch</code>. You should get back:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This means there is currently only one branch, called <code>main</code>. The <code>*</code> next to <code>main</code> means that you are currently on the main branch. Let’s create a new branch for working on the titles. Run:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You’ll get <code>Switched to a new branch 'title-dev'</code>. To verify, run <code>git branch</code> again. Now you should see:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">main</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Notice that <code>story_idea.txt</code> is still here (type <code>ls</code>) and that your git history is the same as before (type <code>git log</code>). This is because when you create a branch, the branch will have all the same history and files as the main branch.</p>
-<ol start="2" type="1">
-<li>Let’s create a file to store our title idea. Use your favorite text editor to create a file called <code>title.txt</code> and put in it:</li>
-</ol>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">STAR</span> FIGHT!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>(You can also use <code>echo</code> and the <code>&gt;</code> operator on the command line to do this.) The title’s not great, but you can’t think of anything better at the moment.</p>
-<ol start="3" type="1">
-<li>Now that you’ve created the file, run <code>git status</code>; you should see that <code>title.txt</code> is untracked. Add it to be tracked and commit:</li>
-</ol>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add title.txt</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add title idea"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now type <code>git log</code>; you’ll see you have 3 commits in your history.</p>
-<ol start="4" type="1">
-<li>Satisfied with your title for now, go back to your main branch to work on your story some more. Switch back to the <code>main</code> branch by running:</li>
-</ol>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">main</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Notice that <code>story.txt</code> is still here (type <code>ls</code>) and that your git history is the same as before (type <code>git log</code>). This is because when you create a branch, the branch will have all the same history and files as the main branch.</p></li>
+<li><p>Let’s create a file to store our title idea. Use your favorite text editor to create a file called <code>title.txt</code> and put in it:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">STAR</span> FIGHT!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(You can also use <code>echo</code> and the <code>&gt;</code> operator on the command line to do this.) The title’s not great, but you can’t think of anything better at the moment.</p></li>
+<li><p>Now that you’ve created the file, run <code>git status</code>; you should see that <code>title.txt</code> is untracked. Add it to be tracked and commit:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add title.txt</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add title idea"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now type <code>git log</code>; you’ll see you have 3 commits in your history.</p></li>
+<li><p>Satisfied with your title for now, go back to your main branch to work on your story some more. Switch back to the <code>main</code> branch by running:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>(Notice that we don’t include the <code>-b</code> flag this time. This is because <code>main</code> already exists; we only add the <code>-b</code> when we want to create a new branch.) Verify that you’re on main by running <code>git branch</code>; you should get:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> main</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">title-dev</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> main</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">title-dev</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that the <code>*</code> is now next to main.</p>
 <p>Now type <code>ls</code>. The <code>title.txt</code> file is gone! To see why, type <code>git log</code>. Your last commit is no longer in your history; you just have the first two commits. This is because your last commit (and the file it created, <code>title.txt</code>) only exists on the <code>title-dev</code> branch. To verify that it’s still there, you check the history of the <code>title-dev</code> branch by running:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>From now on (or until we merge the branches; more on that below) changes you make on <code>main</code> won’t affect <code>title-dev</code> and vice veras.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In graph form, your repository currently looks like this:</p>
+<p><img src="figures/git_graphs.001.png" height="300"></p>
+<p>Here, each dot represents a commit, and the different lines represent a different branch. Following a line illustrates the history as seen by that branch. Since the commits on title-dev live on their own branch, changes you make on <code>main</code> won’t affect <code>title-dev</code> and vice versa (at least not until we merge the branches; more on that below).</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can git graphs like the above in your terminal if you add <code>--graph</code> to the <code>git log</code> command; i.e.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--graph</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 <ol start="5" type="1">
-<li>Let’s make some more changes to <code>story_idea.txt</code>. Use your favorite text editor to open <code>story_idea.txt</code> and add the following lines:</li>
-</ol>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">It</span> is period of civil war.</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rebel</span> spaceships, striking</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="ex">from</span> a hidden base, have won</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="ex">their</span> first victory against</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="ex">the</span> evil Galactic Empire.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<li><p>Let’s make some more changes to <code>story.txt</code>. Use your favorite text editor to open <code>story.txt</code> and add the following lines:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">It</span> is period of civil war.</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rebel</span> spaceships, striking</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="ex">from</span> a hidden base, have won</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="ex">their</span> first victory against</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="ex">the</span> evil Galactic Empire.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Stage the change and commit it:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-u</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add intro paragraph"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now type <code>git log</code>: you should have 3 commits, none of which include the commits to <code>title-dev</code> branch.</p>
-<ol start="7" type="1">
-<li>In a flash of brilliance, you get an idea for the title of your story. Quick! Switch to your <code>title-dev</code> branch by typing:</li>
-</ol>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-u</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add intro paragraph"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now type <code>git log</code>: you should have 3 commits, none of which include the commits to <code>title-dev</code> branch.</p></li>
+<li><p>In a flash of brilliance, you get an idea for the title of your story. Quick! Switch to your <code>title-dev</code> branch by typing:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You can verify that you’re on the <code>title-dev</code> branch by typing <code>git branch</code>. Now use your favorite text editor to open <code>title.txt</code> and change <code>STAR FIGHT!</code> to:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Star</span> Wars</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">A</span> NEW HOPE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Save and exit. Stage the change and commit it:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-u</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"final title"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Type <code>git log</code> to check your history. Note that there are 4 commits here: the first two from <code>main</code> (before you branched off), and the last two on <code>title-dev</code>.</p>
-<ol start="8" type="1">
-<li>Satisfied that your title is perfect, you no longer feel the need to keep the title development on a separate branch. It’s ready to be <em>merged</em> on to the <code>main</code> branch.</li>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Star</span> Wars</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">A</span> NEW HOPE</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="ex">by</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="ex">George</span> Lucas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nice work, George! Now save and exit. Stage the change and commit it:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-u</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"update title"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Type <code>git log</code> to check your history. Note that there are 4 commits here: the first two from <code>main</code> (before you branched off), and the last two on <code>title-dev</code>. In graph form, your repo looks like this:</p>
+<p><img src="figures/git_graphs.002.png" height="300"></p></li>
+<li><p>Satisfied that your title is perfect, you no longer feel the need to keep the title development on a separate branch. It’s ready to be <em>merged</em> on to the <code>main</code> branch. To do that, switch to the main branch:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and merge in the changes on <code>title-dev</code> by typing:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will open up your text editor (which we set to <code>nano</code> in the intro). Don’t change the commit message, just save and exit to return to your terminal.</p>
+<p>Now type <code>git log</code>. You should see 6 commits: the initial two commits on main, the first commit on title-dev, the add paragraph commit on main, and the update title commit you made on title-dev, followed by an additional “Merge” commit. This final “merge” commit is to indicate that some of the commits in the history came from another branch (and what the name of the branch was).</p>
+<p>If you type:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>you’ll see that both <code>story.txt</code> and <code>title.txt</code> are in your directory (on the main branch), and if you look in them, you’ll see the most up-to-date versions of both. In graph form, your main branch now looks like:</p>
+<p><img src="figures/git_graphs.003.png" height="300"></p></li>
 </ol>
-<p><strong>Optional:</strong> However, before merging the branches, it’s usually good to first <em>rebase</em> the development branch’s history to incorporate the changes that were made on <code>main</code> after the branch. This will make the history on <code>main</code> cleaner when we merge <code>title-dev</code>. To do that, while on the <code>title-dev</code> branch run:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rebase main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You should get: “Successfully rebased and updated refs/heads/title-dev.”. Now type <code>git log</code>. You should now see that the commit history on <code>title-dev</code> has all 3 commits from the <code>main</code> branch <em>followed by</em> the 2 commits you made on <code>title-dev</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is another way to merge branches called <em>rebasing</em>. Rebasing changes the history of the development branch to make it look like all the commits came after the last commit on main. This makes for a cleaner history when merging, but can be more challenging to do correctly. See the Appendix (below) for more information.</p>
+</div>
+</div>
 <ol start="9" type="1">
-<li>You’re now ready to merge <code>title-dev</code> back into <code>main</code>. Switch to the main branch:</li>
+<li><p>Now that you’ve merged your <code>title-dev</code> branch, you can delete it to save space. To do that, run:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ol>
-<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>and <em>merge</em> in the changes on <code>title-dev</code> by typing:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now type <code>git log</code>. If you did the rebase in step 8, you’ll see 5 commits: the 3 commits you made on <code>main</code> followed by the 2 on <code>title-dev</code>. If you skipped the rebase in step 8, you’ll instead see 6 commits: the 5 commits (in a different order), followed by an additional “Merge” commit. Either way, if you type:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>you’ll see that both <code>story_idea.txt</code> and <code>title.txt</code> are in your directory (on the main branch), and if you look in them, you’ll see the most up-to-date versions of both.</p>
-<hr>
-<p><em>Note</em>: Again, the <code>rebase</code> step is <em>optional</em>. You could have skipped step 8 and gone to step 9. Skipping rebasing leads to a more complicated history, but rebasing can sometimes lead to complications that can be difficult to untangle. If you want to know more about the differences, see this article by the Atlassian corporation: <a href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing">Merging vs.&nbsp;rebasing</a>.</p>
-<hr>
-<ol start="10" type="1">
-<li>Now that you’ve merged your <code>title-dev</code> branch, you can delete it to save space. To do that, run:</li>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you had not merged everything on <code>title-dev</code> into <code>main</code>, you would have gotten an error preventing you from deleting the branch. The fact that you could delete it gives you confidence that everything on the development branch has been merged.</p>
+</div>
+</div>
+</section>
+<section id="challenge-questions-editing-the-same-file-on-different-branches" class="level3">
+<h3 class="anchored" data-anchor-id="challenge-questions-editing-the-same-file-on-different-branches">Challenge Questions: Editing the same file on different branches</h3>
+<p>In the above example we only made changes to different files on our two branches: on <code>main</code> we only edited <code>story.txt</code>, while on <code>title-dev</code> we only edited <code>title.txt</code>. However, there is nothing stopping us from editing the <em>same</em> file concurrently on two different branches. The following questions will illustrate how that works.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 1: Setup
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Create a file called <code>list.txt</code> that initially contains the following three lines:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">alpha</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bravo</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="ex">charlie</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now use the <code>git</code> commands you learned above to do the following:</p>
+<ol type="1">
+<li><p>Add and commit <code>list.txt</code> to <code>main</code>.</p></li>
+<li><p>Create a branch called <code>dev1</code>.</p></li>
+<li><p>On <code>dev1</code> change the first line of <code>list.txt</code> to <code>delta</code> then commit the change.</p></li>
+<li><p>Go back to <code>main</code> and change the third line to <code>foxtrot</code>, then commit it.</p></li>
 </ol>
-<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><em>Note:</em> if you had not merged everything on <code>title-dev</code> into <code>main</code>, you would have gotten an error preventing you from deleting the branch. The fact that you could delete it gives you confidence that everything on the development branch has been merged.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Run:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add list.txt</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add list.txt"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Run:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> dev1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Use <code>nano</code> (or your favorite text editor) to edit <code>list.txt</code> and change the first line to <code>delta</code>. Then run:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add list.txt</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"change the first item of list"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>First run:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then use <code>nano</code> (or your favorite text editor) to edit <code>list.txt</code> and change the third line to <code>foxtrot</code>. To commit, run:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add list.txt</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"change the last item of list"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
+</div>
+</div>
+</div>
+<p>When you are done, <code>list.txt</code> should look like the following on <code>main</code>:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">alpha</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bravo</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="ex">foxtrot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>while on <code>dev1</code> it should look like:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">delta</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bravo</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="ex">charlie</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can check the differences by running <code>git diff main dev1.</code></p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 2: Editing different lines
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now suppose you merge <code>dev1</code> into <code>main</code>. What happens to <code>list.txt</code>?</p>
+<p><strong>A.</strong> <code>main</code> takes precedence since it’s the branch being merged into; <code>list.txt</code> will look like:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>alpha</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>bravo</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>B.</strong> <code>dev1</code> takes precedence since it’s the branch being merged; <code>list.txt</code> will look like:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>bravo</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>charlie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>C.</strong> The changes from both are adopted; <code>list.txt</code> will look like:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>bravo</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>D.</strong> An error is raised because the same file was modified.</p>
+<p><em>If you’re not sure, try it yourself and see what happens!</em></p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The answer is <strong>C</strong>. Since different lines have been modified, <code>git</code> is able to merge the changes together without issue. To do it yourself, run:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge dev1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 3: Editing the same lines
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>After merging <code>dev1</code> on to <code>main</code>, suppose you create another branch called <code>dev2</code>. On <code>dev2</code> you change the second line of <code>list.txt</code> to be <code>echo</code> while on <code>main</code> you change the second line to <code>easy</code>; i.e.&nbsp;on <code>main</code> <code>list.txt</code> looks like:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>easy</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On <code>dev2</code> <code>list.txt</code> looks like:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>echo</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>What happens if you merge <code>dev2</code> into <code>main</code> in this case?</strong></p>
+<p><strong>A.</strong> <code>main</code> takes precedence since it’s the branch being merged into; <code>list.txt</code> will look like:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>easy</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>B.</strong> <code>dev2</code> takes precedence since it’s the branch being merged; <code>list.txt</code> will look like:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>echo</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>C.</strong> The changes from both branches are adopted; <code>list.txt</code> will look like:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>easy</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>echo</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>D.</strong> An error is raised because the same line is modified.</p>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The answer is <strong>D</strong>, an error is raised. Since the same line has been modified in the same file, <code>git</code> cannot tell how to reconcile the differences. This is known as a <em>merge conflict</em>. In this case, <code>git</code> will leave it up to the user to reconcile the differences. How to do that is discussed in the next section.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-4-resolving-merge-conflicts" class="level3">
+<h3 class="anchored" data-anchor-id="part-4-resolving-merge-conflicts">Part 4: Resolving merge conflicts</h3>
+<p>As illustrated in the Challenge Questions, if the same lines in the same file are modified on two different branches, <code>git</code> will not know how to merge the changes. This is called a <strong>merge conflict</strong>. In this case, <code>git</code> will ask you to reconcile the differences. To illustrate, let’s try merging <code>dev2</code> into <code>main</code> after making the changes to <code>list.txt</code> discussed in Question 3 above:</p>
+<ol type="1">
+<li><p>If you have not done so, try to merge <code>dev2</code> into <code>main</code> after making the changes to the second line of <code>list.txt</code> discussed in Question 3:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge dev2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You should get the following:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>Auto-merging list.txt</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>CONFLICT (content): Merge conflict in list.txt</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>Automatic merge failed; fix conflicts and then commit the result.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>To resolve the merge conflict, we must edit <code>list.txt</code> ourselves. Use <code>nano</code> (or your favorite text editor) to open <code>list.txt</code>. You should see the following:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>easy</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>=======</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>echo</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; dev2</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>git</code> has added the conflicting lines from both branches to the file, along with information about the two branches. The line as it appears on <code>main</code> is prefaced with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code>. This indicates that the following line(s) is (are) how it appears on the branch being merged into. The line(s) is (are) followed by a <code>=======</code>.</p>
+<p>After the <code>=======</code> the line(s) as it/they appear(s) on the branch being merged are shown. These are followed by <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; BRANCH_NAME</code> (here, <code>BRANCH_NAME</code> is <code>dev2</code>).</p></li>
+<li><p>We are free to edit the file anyway we like to resolve the conflict. You should remove the <code>&lt;&lt;&lt;&lt;</code>, <code>====</code>, and <code>&gt;&gt;&gt;&gt;</code> lines that <code>git</code> has added, along with the edit you want to make to resolve the conflict.</p>
+<p>In this case, let’s keep the edit as it appears on <code>dev2</code>, and remove the edit on <code>main</code>. Delete the appropriate lines so that the file looks like:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>delta</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>echo</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>foxtrot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then save and exit the file.</p></li>
+<li><p>Now that we are happy with the way <code>list.txt</code> appears, add the file:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now <code>commit</code> <em>without the</em> <code>-m</code>:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will open up your text editor. The commit message will already be set to <code>Merge branch 'dev2'</code>. While you are free to modify this, it’s usually best to leave it as-is, as it indicates the merge. Save and exit the file.</p></li>
+<li><p>The merge conflict is resolved! If you type <code>git log</code> you will see the history with all the commits in it, as if you had a merged without any issue.</p></li>
+</ol>
+<p>Merge conflicts happen, but can be fixed fairly easy. If there were multiple areas in a file that caused a conflict, the conflicting areas would all be surrounded by the same <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>/<code>=======</code>/<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> lines that we saw above. You’ll want to search through the file for those to make sure you got all the conflicts. If multiple files had conflicts, <code>git</code> will make you resolve all of them before allowing the merge to complete.</p>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<p>That’s the basics of how to use <code>git</code>. In the following parts we’ll see how to use this with GitHub and how to collaborate with partners using <code>git</code> and GitHub.</p>
+</section>
+<section id="appendix-rebasing" class="level3">
+<h3 class="anchored" data-anchor-id="appendix-rebasing">Appendix: Rebasing</h3>
+<p>Before merging <code>title-dev</code> into master in step 8 above, we could have first done a <em>rebase</em>. If you rebase a development branch against its parent branch (in this case <code>main</code>) it will incorporate all the commits that were made on the parent after the development branch was originally created. To do so, the development branch’s history is rearranged so that the additional commits from the parent are placed before all commits that were made on the development branch.</p>
+<p>For example, if we had run <code>git rebase main</code> while on the <code>title-dev</code> branch in Part 3, step 8 above, <code>title-dev</code>’s history would have been rearranged from:</p>
+<p><img src="figures/git_graphs.002.png" height="300"></p>
+<p>to:</p>
+<p><img src="figures/git_graphs.004.png" height="300"></p>
+<p>The <strong>advantage</strong> to rebasing is that when we merge a rebased development branch back into main no “Merge” commit is created, and the history on main is much simpler. So, in our story example, if we had done the following in step 8:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout title-dev</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rebase main</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge title-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then main’s history would have looked like:</p>
+<p><img src="figures/git_graphs.005.png" height="250"></p>
+<p>rather than the more complicated graph above.</p>
+<p>The <strong>disadvantage</strong> to rebasing is it can be more challenging to handle merge conflicts. When rebasing, conflicts need to be handled at the point they are created in the development branch, rather once at the end when the merge occurs. If resolving a conflict affects a later commit on the development branch, it can cause a cascading series of conflicts that can be a challenge to untangle. The other challenge with rebasing is it can cause issues when collaborating with others on a development branch. Since rebasing changes the history of the branch, it can make it a challenge for your colleagues to keep their clones in sync with yours. For these reasons, rebasing is best for more advanced users.</p>
+<p>For more on rebasing, see this article by the Atlassian corporation: <a href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing">Merging vs.&nbsp;rebasing</a>.</p>
 
 
 </section>
