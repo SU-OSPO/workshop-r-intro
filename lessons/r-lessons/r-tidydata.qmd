@@ -548,13 +548,31 @@ penguins_raw |>
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
 ##### Solution
+```{r}
+penguins_raw |> 
+  # the arguments are condition, true (what to do if true), false
+  mutate(large_flipper = if_else(`Flipper Length (mm)` > 210, 1, 0)) |> 
+  drop_na(large_flipper) |>
+  summarise(large_flipper_mean = mean(large_flipper))
 
+```
 :::
 
 2.  Say you want to get more specific and determine whether the flipper is small, medium, or large. Say a small flipper is 180mm or smaller, a medium-sized flipper ranges from 180 - 210mm, and a large flipper is longer than 210mm. Create the variable `flipper_size` that takes on the values `Small`, `Medium`, or `Large` depending on the length. 
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
 ##### Solution
+```{r}
+penguins_raw |> 
+  # the arguments are condition, true (what to do if true), false
+  mutate(flipper_size = case_when(`Flipper Length (mm)` <= 180 ~ "Small",
+                                   `Flipper Length (mm)` > 180 & `Flipper Length (mm)` < 210 ~ "Medium", 
+                                   `Flipper Length (mm)` >= 210 ~ "Large",
+                                   .default = "Other")) |> 
+           drop_na(flipper_size) |>
+           count(flipper_size)
+
+```
 :::
 
 ::::
@@ -614,6 +632,14 @@ Calculate the median value of the penguins' flipper length and body mass for eac
 
 ::: {.callout-caution collapse="true" appearance="simple" icon="false"}
 ##### Solution
+```{r}
+penguins_raw |> 
+    summarize(median_flipper_length = median(`Flipper Length (mm)`, na.rm = T),
+              median_body_mass = median(`Body Mass (g)`, na.rm = T),
+              .by = Island)
+
+```
+
 :::
 
 ::::
