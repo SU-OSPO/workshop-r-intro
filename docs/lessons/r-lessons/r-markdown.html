@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+
 <meta name="dcterms.date" content="2025-01-22">
 
 <title>Writing reports with R Markdown – Computing Basics and Intro to R</title>
+
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/r-lessons/r-markdown.html">Writing reports with R Markdown</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../lessons/r-lessons/r-markdown.html">Writing Reports with R Markdown</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -180,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../lessons/r-lessons/r-markdown.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Writing reports with R Markdown</span></a>
+ <span class="menu-text">Writing Reports with R Markdown</span></a>
   </div>
 </li>
     </ul>
@@ -188,26 +190,67 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-r-markdown-and-why-use-it" id="toc-what-is-r-markdown-and-why-use-it" class="nav-link active" data-scroll-target="#what-is-r-markdown-and-why-use-it">What is R Markdown and why use it?</a></li>
+  <li><a href="#creating-a-reports-directory" id="toc-creating-a-reports-directory" class="nav-link" data-scroll-target="#creating-a-reports-directory">Creating a reports directory</a></li>
+  <li><a href="#creating-an-r-markdown-file" id="toc-creating-an-r-markdown-file" class="nav-link" data-scroll-target="#creating-an-r-markdown-file">Creating an R Markdown file</a></li>
+  <li><a href="#basic-components-of-r-markdown" id="toc-basic-components-of-r-markdown" class="nav-link" data-scroll-target="#basic-components-of-r-markdown">Basic components of R Markdown</a>
+  <ul class="collapse">
+  <li><a href="#different-outputs" id="toc-different-outputs" class="nav-link" data-scroll-target="#different-outputs">Different outputs</a></li>
+  <li><a href="#header" id="toc-header" class="nav-link" data-scroll-target="#header">Header</a></li>
+  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks">Code chunks</a></li>
+  <li><a href="#text" id="toc-text" class="nav-link" data-scroll-target="#text">Text</a></li>
+  </ul></li>
+  <li><a href="#starting-our-report" id="toc-starting-our-report" class="nav-link" data-scroll-target="#starting-our-report">Starting our report</a>
+  <ul class="collapse">
+  <li><a href="#including-our-analysis" id="toc-including-our-analysis" class="nav-link" data-scroll-target="#including-our-analysis">Including our analysis</a>
+  <ul class="collapse">
+  <li><a href="#inserting-our-saved-plots" id="toc-inserting-our-saved-plots" class="nav-link" data-scroll-target="#inserting-our-saved-plots">Inserting our saved plots</a></li>
+  <li><a href="#coding-our-analysis-right-in-the-.rmd-document" id="toc-coding-our-analysis-right-in-the-.rmd-document" class="nav-link" data-scroll-target="#coding-our-analysis-right-in-the-.rmd-document">Coding our analysis right in the .Rmd document</a></li>
+  </ul></li>
+  <li><a href="#cleaning-up-our-work" id="toc-cleaning-up-our-work" class="nav-link" data-scroll-target="#cleaning-up-our-work">Cleaning up our work</a></li>
+  <li><a href="#inline-code" id="toc-inline-code" class="nav-link" data-scroll-target="#inline-code">Inline code</a></li>
+  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
+  <li><a href="#formatting" id="toc-formatting" class="nav-link" data-scroll-target="#formatting">Formatting</a>
+  <ul class="collapse">
+  <li><a href="#r-markdown-headers" id="toc-r-markdown-headers" class="nav-link" data-scroll-target="#r-markdown-headers">R Markdown headers</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#revisiting-version-control-stage-commit-and-push-our-work-to-github" id="toc-revisiting-version-control-stage-commit-and-push-our-work-to-github" class="nav-link" data-scroll-target="#revisiting-version-control-stage-commit-and-push-our-work-to-github">Revisiting Version Control: Stage, Commit, and Push our work to GitHub</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Writing reports with R Markdown</h1>
+<h1 class="title">Writing Reports with R Markdown</h1>
+
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sarah Lucas </p>
+          </div>
+  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-22</p>
+      <p class="date">01/14/2025</p>
+
     </div>
   </div>
   
@@ -219,7 +262,353 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<table class="caption-top table">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 58%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><h3 id="questions" class="anchored">Questions</h3></th>
+<th><h3 id="objectives" class="anchored">Objectives</h3></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><ul>
+<li>What is Markdown/R Markdown, and why use it</li>
+<li>How can I integrate my R code with text and plots?</li>
+<li>Which formats are available for rendering my Markdown files?</li>
+</ul></td>
+<td><ul>
+<li>To create a report in R Markdown that combines text, code, and figures.</li>
+<li>To use Markdown to format our report.</li>
+<li>To understand how to use R code chunks to include or hide code, figures, and messages.</li>
+<li>To be aware of the various report formats that can be rendered using R Markdown.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<h1 id="discussion">Discussion</h1>
+<p>How do you usually share data analyses with fellow students, your PI, or other collaborators?</p>
+</blockquote>
+<section id="what-is-r-markdown-and-why-use-it" class="level1">
+<h1>What is R Markdown and why use it?</h1>
+<p>In R Markdown, you can incorporate ordinary text (ex. experimental methods, analysis and discussion of results) alongside code and figures! (Some people write entire manuscripts in R Markdown.) This is useful for writing reproducible reports and publications, sharing work with collaborators, writing up homework, and keeping an analysis notebook. <strong><em>Because the code is embedded in the document, the tables and figures are reproducible.</em></strong> Anyone can run the code and get the same results. If you find an error or want to add more to the report, you can just re-run the document and you’ll have updated tables and figures! This concept of combining text and code is called “literate programming”. To do this we use R Markdown, which combines Markdown (renders plain text) with R. You can output an html, PDF, or Word document that you can share with others. In fact, this webpage is an example of a rendered R markdown file!</p>
+<p>(If you are familiar with Jupyter notebooks in the Python programming environment, R Markdown is R’s equivalent of a Jupyter notebook.)</p>
+</section>
+<section id="creating-a-reports-directory" class="level1">
+<h1>Creating a reports directory</h1>
+<p>To get started, let’s use the Unix Shell (Git Bash for Windows, Terminal for Macs) to create a directory within penguin_project called reports. First, open the Unix Shell and cd to the penguin_projects directory on your Desktop:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/Desktop/penguin_project</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir reports</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that there is an option to use the terminal from R Studio (tab next to Console), but on Windows computers this terminal might not be a Unix Shell (unless you are using Git Bash).</p>
+</section>
+<section id="creating-an-r-markdown-file" class="level1">
+<h1>Creating an R Markdown file</h1>
+<p>Now that we have a better understanding of what we can use R Markdown files for, let’s start writing a report!</p>
+<p>To create an R Markdown file: - Open RStudio - Go to File → New File → R Markdown</p>
+<p><img src="fig/markdown-file.png" class="img-fluid" width="595"></p>
+<p>Give your document a title, something like “A report on the mass to flipper length ratio of penguins observed at the Palmer Archipelago, Antarctica” (Note: this is not the same as the file name - it’s just a title that will appear at the top of your report). Keep the default output format as HTML. R Markdown files always end in .Rmd</p>
+<p>Now, save your new file in your newly created <code>reports</code> directory.</p>
+</section>
+<section id="basic-components-of-r-markdown" class="level1">
+<h1>Basic components of R Markdown</h1>
+<section id="different-outputs" class="level2">
+<h2 class="anchored" data-anchor-id="different-outputs">Different outputs</h2>
+<p>The default output for an R Markdown report is HTML, but you can also use R Markdown to output other report formats. For example, you can generate PDF reports using R Markdown, but you must install TeX to do this.</p>
+</section>
+<section id="header" class="level2">
+<h2 class="anchored" data-anchor-id="header">Header</h2>
+<p>The first part is a header at the top of the file between the lines of —. This contains instructions for how R should render the document. The instructions are given in a format called YAML, and is made up of key-value pairs (key: value).</p>
+<p>Here’s an example:</p>
+</section>
+<section id="code-chunks" class="level2">
+<h2 class="anchored" data-anchor-id="code-chunks">Code chunks</h2>
+<p>The next section is a <em>code chunk</em>, or embedded R code, that sets up options for all code chunks. Here is a default code chunk that appears when you create a new R Markdown file:</p>
+<p>```{r setup, include=FALSE}</p>
+<p>knitr::opts_chunk$set(echo = TRUE)</p>
+<p>```</p>
+<p>All code chunks have this format:</p>
+<p>```{r}</p>
+<p># Your code here</p>
+<p>```</p>
+<p>All of the code is enclosed in 3 back ticks, and the <code>{r}</code> part indicates that it’s a chunk of R code.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig/rupixen-xCVep5FgF5w-unsplash.jpg" class="img-fluid figure-img" width="500"></p>
+<figcaption>rupixen via Unsplash.com</figcaption>
+</figure>
+</div>
+<p>You can also include other information within the curly brackets to indicate different instructions for how that code chunk should be interpreted. For instance, the first code block is named “setup”, and <code>include=FALSE</code> prevents code <strong><em>and</em></strong> results from showing up in the output file.</p>
+<p>Inside the code chunk, you can write any R code that you want to run, and you can have as many code chunks as you want in your file.</p>
+<p>As we mentioned above, in the first code chunk you can set options for the entire file. <code>echo = TRUE</code> means that you want your code to be shown in the output file. If you change this to <code>echo = FALSE</code>, then the code will be hidden and only the output of the code chunks will be seen in the output file. There are also <a href="https://rmarkdown.rstudio.com/lesson-3.html">many other options that you can change</a>.</p>
+</section>
+<section id="text" class="level2">
+<h2 class="anchored" data-anchor-id="text">Text</h2>
+<p>Finally, you can include text in your R Markdown file. This is any text or explanation you want to include, and it’s formatted with Markdown. We’ll learn more about Markdown formatting soon!</p>
+</section>
+</section>
+<section id="starting-our-report" class="level1">
+<h1>Starting our report</h1>
+<p>Let’s return to the new R Markdown file you created and delete everything below the setup code chunk. (That stuff is just examples and reminders of how to use R Markdown.)</p>
+<p>Next, let’s save our R markdown file to the <code>reports</code> directory. You can do this by clicking the save icon in the top left or using control + s (command + s on a Mac).</p>
+<p>There’s one other thing that we need to do before we get started with our report. To render our documents into html format, we can “knit” them in R Studio. Usually, R Markdown renders documents from the directory where the document is saved (the location of the <code>.Rmd</code> file), but we want it to render from the main project directory where our <code>.Rproj</code> file is. This is because that’s where all of our relative paths are from and it’s good practice to have all of your relative paths from the main project directory. To change this default, click on the down arrow next to the “Knit” button at the top left of R Studio, go to “Knit Directory” and click “Project Directory”. Now it will assume all of your relative paths for reading and writing files are from the <code>penguins_repo</code> directory, rather than the <code>reports</code> directory.</p>
+<p>Now that we have that set up, let’s start on the report!</p>
+<p>We’re going to use the plots and cleaned data you generated yesterday to create this report. Recall that we needed the tidyverse R package, so let’s load it here in a new code chunck. You could also include this in the previous setup chunk, it’s up to your personal preference.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r packages}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="in">library(tidyverse)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, in a real report this is when we would type out the background and purpose of our analysis to provide context to our readers. However, since writing is not a focus of this workshop we will avoid lengthy prose and stick to short descriptions. You can copy the following text into your own report below the package code chunk.</p>
+<blockquote class="blockquote">
+<p>This report details our analysis of the Palmer Penguins dataset. Data were collected and made available by <a href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dr.&nbsp;Kristen Gorman</a> and the <a href="https://pallter.marine.rutgers.edu/">Palmer Station, Antarctica LTER</a>, a member of the <a href="https://lternet.edu/">Long Term Ecological Research Network</a>. Here, we describe the relationship between flipper length and body mass for three penguin species.</p>
+</blockquote>
+<section id="including-our-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="including-our-analysis">Including our analysis</h2>
+<p>Next, we will go over a couple different ways we can include data into our report.</p>
+<section id="inserting-our-saved-plots" class="level3">
+<h3 class="anchored" data-anchor-id="inserting-our-saved-plots">Inserting our saved plots</h3>
+<p>In an R Markdown file, we can use markdown syntax to pull in a figure we have saved from our plotting lesson. The code below allows us to access the .jpg file we made yesterday during the plotting lesson.</p>
+<pre><code>![Some general information on our penguins](../figures/penguins_1.jpg){width="600"}</code></pre>
+<p>There are several components to this markdown element. First, we begin with an exclamation point <code>!</code> followed by a pair of square brackets that contains a figure caption. Next, a pair of parentheses contains the path to the file, relative to our .Rmd file. Finally, in a pair of curly braces, we can dictate the size in pixels we want our figure to be in the document. Since our figure is pretty big, we downsize it to a width of 600 px. There are many other ways you can customize outside figures.</p>
+</section>
+<section id="coding-our-analysis-right-in-the-.rmd-document" class="level3">
+<h3 class="anchored" data-anchor-id="coding-our-analysis-right-in-the-.rmd-document">Coding our analysis right in the .Rmd document</h3>
+<p>One great thing about R markdown documents is we can interweave text and code. That means we can do a quick analysis an insert a new figure in our report. Let’s add some quick text to describe what we want to show:</p>
+<pre><code>We have calculated the flipper length to mass ratio for three species of penguins in our dataset. Below is a boxplot showing the median and interquartile range for all penguins.</code></pre>
+<p>Below, we will read in our <code>penguins_ratio_data.csv</code> file we saved yesterday, do a little more cleaning up, and plotting.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ratioPlot}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">penguins_ratio_data &lt;- read_csv("penguins_ratio_data.csv")</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="in">penguins_ratio_data |&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">  separate(Species, sep = "penguin|Penguin", into = c("species_common", "species_scientific")) |&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(species_scientific = str_replace_all(species_scientific,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="in">                                             pattern = "[\\(\\)]",</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">                                             replacement = "")) |&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">  ggplot(aes(x = species_scientific, y = length_mass_ratio)) +</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_boxplot() +</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_jitter(width = 0.2, alpha = 0.5) +</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="in">  theme_classic() +</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="in">  labs(title = "The ratio of flipper length to body mass for \ndifferent species of penguins",</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">       subtitle = "Obervations from the Palmer Research Station, Antartica",</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="in">       y = "Flipper Length to Body Mass Ratio",</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="in">       x = "Species") +</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="in">  theme(</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="in">    axis.text.x = element_text(face = "bold.italic"),</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="in">    axis.text.y = element_text(face = "bold"),</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="in">    plot.title = element_text(color = "#0099f8", size = 16, face = "bold", hjust = 0.5),</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="in">    plot.subtitle = element_text(face = "bold.italic", hjust = 0.5),</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="in">    plot.caption = element_text(face = "italic")</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now we can knit our document to see how our report looks! Use the knit button in the top left of the screen. Below is just the top part of our report, but we can already seem some areas that need a little tidying up.</p>
+<p><img src="fig/penguin_report_1.png" class="img-fluid" width="1000"></p>
+</section>
+</section>
+<section id="cleaning-up-our-work" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-up-our-work">Cleaning up our work</h2>
+<p>It’s looking pretty good, but there seems to be a few extra elements that we don’t need to see in the report. For example, the report shows that we load the tidyverse package and the accompanying messages.</p>
+<p><img src="fig/tidyverse_output.png" class="img-fluid" width="1000"></p>
+<p>To get rid of this, we can revise our packages code chunk by adding <code>include=FALSE</code> just like in the setup chunk to prevent code and messages in this chunk from showing up in our report.</p>
+<div class="cell">
+<pre><code>```{r packages, include=FALSE}
+library(tidyverse)
+```</code></pre>
+</div>
+<p>We can also see the code that was used to generate the plot. Depending on the purpose and audience for your report, you may want to include the code. If you don’t want the code to appear, how can you prevent it? Using the echo=FALSE option will allow us to see the output without the code that generated it.</p>
+<div class="cell">
+<pre><code>```{r ratioPlot, echo=FALSE}
+ [...rest of plotting code here...]
+```</code></pre>
+</div>
+<p>Here is a snapshot of the output after we add echo=FALSE to our code chunk:</p>
+<p><img src="fig/echo_false.png" class="img-fluid"></p>
+<p>We still have some pesky warnings and messages that are included in our report. There are special options to remove these two types of output as well. Let’s include the two options, <code>warning=FALSE</code> and <code>message=FALSE</code> in our code chunk:</p>
+<div class="cell">
+<pre><code>```{r ratioPlot, echo=FALSE, message=FALSE, warning=FALSE}
+ [...rest of plotting code here...]
+```</code></pre>
+</div>
+<p>When we Knit our .Rmd file again we can see that our report is really starting to take shape!</p>
+<p><img src="fig/warning_false.png" class="img-fluid"></p>
+</section>
+<section id="inline-code" class="level2">
+<h2 class="anchored" data-anchor-id="inline-code">Inline code</h2>
+<p>Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change. Here is how to do this.</p>
+<p>First, let’s create a new code chunk that summarizes features of our data that we can use to describe our plot to our audience. Note that we set <code>include=FALSE</code> because we only want this step to happen in the background. We will calculate the average flipper length to mass ratio for each species of penguin in the dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gentoo_ratio_mean <span class="ot">&lt;-</span> penguins_ratio_data <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">round</span>(<span class="fu">mean</span>(length_mass_ratio, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">digits =</span> <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>adelie_ratio_mean <span class="ot">&lt;-</span> penguins_ratio_data <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">round</span>(<span class="fu">mean</span>(length_mass_ratio, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">digits =</span> <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>chinstrap_ratio_mean <span class="ot">&lt;-</span> penguins_ratio_data <span class="sc">|&gt;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">round</span>(<span class="fu">mean</span>(length_mass_ratio, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">digits =</span> <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, all we need to do is reference the values we just computed to describe our plot. To do this, we enclose each value in one set of backticks (some_R_variable_name), while the r part once again indicates that it’s a chunk of R code. When we knit our report, R will automatically fill in the values we just created in the above code chunk. Note that R will automatically update these values every time our data might change.</p>
+<pre><code>The above plot shows the relationship between penguin body mass and flipper length. The Gentoo penguins had the smallest flipper length to body mass ratio, with an average of `r gentoo_ratio_mean `, followed by the Adelie and the Chinstrap penguins, at `r adelie_ratio_mean ` and `r chinstrap_ratio_mean `, respectively.</code></pre>
+<p>The code above will render to this text:</p>
+<blockquote class="blockquote">
+<p>The above plot shows the relationship between penguin body mass and flipper length. The Gentoo penguins had the smallest flipper length to body mass ratio, with an average of 0.043, followed by the Adelie and the Chinstrap penguins, at 0.052 and 0.053, respectively.</p>
+</blockquote>
+</section>
+<section id="tables" class="level2">
+<h2 class="anchored" data-anchor-id="tables">Tables</h2>
+<p>In addition to reporting specific values in the text, we may also want to show a table of values. With R Markdown there are multiple ways to product tables. One way to generate smaller tables is manually. Using a special format we can generate a table in our output. Note that this does not get generated in a code chunk because it is markdown formatting not R code.</p>
+<pre><code>|HEADER 1|HEADER 2|
+|-------------|-------------|
+|row 1, column1|row 1, column 2|
+|row 2, column1|row 2, column 2|</code></pre>
+<p>Columns are separated by the pipe key <code>|</code> located above Enter on the keyboard. The dashes distinguish the header row from the rest of the table. This header could be a name for each column or a header for the whole table. Now that we know the basic structure we can fill in our table. This is how we could present the same numbers from the previous paragraph as a table instead, again using in-line code. Copy and paste the following code into your .Rmd report file.</p>
+<pre><code>| Average Penguin Length to Body Mass Ratio |                          |
+|-------------------------------------------|--------------------------|
+| Gentoo penguin (Pygoscelis papua)         | `r gentoo_ratio_mean `    |
+| Adelie Penguin (Pygoscelis adeliae)       | `r adelie_ratio_mean `    |
+| Chinstrap penguin (Pygoscelis antarctica) | `r chinstrap_ratio_mean ` |</code></pre>
+<p>When we render our report using this above table in our document, we get the following result:</p>
+<p><img src="fig/simple_md_table.png" class="img-fluid"></p>
+</section>
+<section id="formatting" class="level2">
+<h2 class="anchored" data-anchor-id="formatting">Formatting</h2>
+<p>We now know how to create a report with R Markdown. Maybe we also want to format the report a little bit to structure our thought process in a useful way (e.g., sections) and make it visually appealing? Markdown is a very simple programming language when it comes to syntax. Let’s try to figure out some syntax together. Suppose we wanted to create sections in our report.</p>
+<section id="r-markdown-headers" class="level3">
+<h3 class="anchored">R Markdown headers</h3>
+<p>Markdown syntax allows us to easily denote different sections with headers. To do this, simply att the <code>#</code> symbol before your header text using the below convention:</p>
+<pre><code># Level 1 Header
+## Level 2 Header
+### Level 3 Header</code></pre>
+<p>… and so on.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Using Posit Cheat sheets
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Posit makes some great cheat sheets for writing in Markdown, and so much more. You can find these cheat sheets in the Help menu at the top of your RStudio window. You can also easily find them online.</p>
+<p><img src="fig/help_cheatsheets.png" class="img-fluid" width="715"></p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+R Markdown Syntax Practice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use the available cheat sheets, or search the internet to figure out how to do the following tasks:</p>
+<ul>
+<li>as the first item, write the name of your current favorite programming language in bold</li>
+<li>as the second item, write the names of a function you have so far found most useful in italics</li>
+<li>as the third item, write one thing you want to learn next on your programming journey in bold and italics</li>
+<li>turn your bullet point list into a numbered list</li>
+<li>create a fourth list item and find an online guide and or cheatsheet for basic Markdown syntax, write its name here and hyperlink its URL.</li>
+</ul>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<pre><code>* **my favorite programming language is R**
+* *most useful function I've learned is dplyr::filter()*
+* ***I'd like to learn more about creating my own R packages***
 
+1. **my favorite programming language is R**
+1. *most useful function I've learned is dplyr::filter()*
+1. ***I'd like to learn more about creating my own R packages***
+1. [Here's a link to a Markdown Cheat Sheet](https://rmarkdown.rstudio.com/lesson-15.HTML)</code></pre>
+<ul>
+<li><strong>my favorite programming language is R</strong></li>
+<li><em>most useful function I’ve learned is dplyr::filter()</em></li>
+<li><strong><em>I’d like to learn more about creating my own R packages</em></strong></li>
+</ul>
+<ol type="1">
+<li><strong>my favorite programming language is R</strong></li>
+<li><em>most useful function I’ve learned is dplyr::filter()</em></li>
+<li><strong><em>I’d like to learn more about creating my own R packages</em></strong></li>
+<li><a href="https://rmarkdown.rstudio.com/lesson-15.HTML">Here’s a link to a Markdown Cheat Sheet</a></li>
+</ol>
+</div>
+</div>
+</div>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+</section>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Shaping up our report
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using a combination of what you have learned so far, online resources, and the R Markdown cheat sheets, add the following elements to your .Rmd file. When you’re done, render your report.</p>
+<ul>
+<li><p>Add headers and subheaders to break up your plots and text into sections</p></li>
+<li><p>Somewhere in your document, create a table (your preferred method) of total penguins per species (like you did in the <strong>R for Data Cleaning</strong> lesson. Don’t show the code, just the table.</p></li>
+<li><p>At the top of your report, create a hyperlink to the palmerpenguins website: <a href="https://allisonhorst.github.io/palmerpenguins/" class="uri">https://allisonhorst.github.io/palmerpenguins/</a></p></li>
+</ul>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Final .Rmd contents
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you’d like to see an example of what the final .Rmd could look like (you might have personalized it a different way!) follow the link here:</p>
+<p><a href="lessons/r-lessons/penguin_report.Rmd">penguin_report.Rmd</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="revisiting-version-control-stage-commit-and-push-our-work-to-github" class="level1">
+<h1>Revisiting Version Control: Stage, Commit, and Push our work to GitHub</h1>
+<p>Now that we have a report we are happy with, let’s push the changes to GitHub!</p>
+<p>Returning to the command line:</p>
+<p>Check the status of our repository with the <code>git status</code>. This will tell us which files just changed.</p>
+<p>Add the new files that we want tracked by <code>git</code> with <code>git add &lt;filename(s)&gt;</code>. This adds any file(s) we list to version control.</p>
+<p>Commit the file or changes with <code>git commit -m</code> “<your commit="" message="">” and add a message with the commit to describe the changes you are committing and it adds them to the git log.</your></p>
+<p>Push those changes from our local computer to our github repo with <code>git push</code>. This will upload the changes to the git directory on the remote server.</p>
+</section>
+<section id="section-1" class="level1">
+<h1></h1>
+
+
+</section>
 
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
