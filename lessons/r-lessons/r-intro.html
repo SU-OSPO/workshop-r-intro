@@ -335,13 +335,28 @@ The tidyverse vs Base R
 <p>First, we’ll need to create a GitHub repository. For the rest of the workshop, we’ll be using data collected about adult male and female Adélie (<i>P. adeliae</i>), chinstrap (<i>P. antarcticus</i>), and gentoo (<i>P. papua</i>) penguins on three islands (Biscoe, Dream, and Torgersen) within the Palmer Archipelago. For more information about the collection and handling of these data, see <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0090081">Gorman et al.&nbsp;2014</a> and <a href="https://journal.r-project.org/articles/RJ-2022-020/">Horst et al.&nbsp;2022</a>.</p>
 <p>I’ve hosted these data within a <a href="https://github.com/SyracuseUniversity/penguins_repo">fresh repository</a> on GitHub. Like you did in the <a href="../../lessons/github/github-intro.html">git and Github session</a>, go ahead and fork this repository so that you have your own personal copy of it.</p>
 <p><img src="fig/penguins_repo.png" width="600"></p>
-<p>Once you’ve forked the repository, copy the URL of the repo and return to RStudio. At the top of your screen you’ll see the “File” menu. Select that menu and then the menu for “New Project…”. (You could also use the second button on the second menu row or even the <kbd>Project: (None)</kbd> button in the top right)</p>
+<p>Once you’ve forked the repository, click on the green “Code” button, then click on “SSH” (since we set up SSH with our GitHub account in the <a href="../../lessons/github/github-intro.html">Git and GitHub lesson</a>). Then copy the SSH link of the repo:</p>
+<p><img src="fig/git_ssh_link.png" width="600"></p>
+<p>Now, return to your RStudio window. At the top of your screen you’ll see the “File” menu. Select that menu and then the menu for “New Project…”. (You could also use the second button on the second menu row or even the <kbd>Project: (None)</kbd> button in the top right)</p>
 <p><img src="fig/new_project_menu.png" width="600"></p>
 <p>When the smaller window opens, select “Version Control” and then “Git” in the next window.</p>
 <p><img src="fig/version_control.png" width="600"></p>
 <p><img src="fig/git.png" width="600"></p>
-<p>Now paste your repository URL in the first box, then name your new repo directory in the second box (i.e., the name of the folder containing the repo on your computer; “penguins” is probably a good choice), and finally use the <kbd>Browse</kbd> button to select the local directory that you want to create this new directory within (i.e., the parent directory).</p>
+<p>Now paste your repository SSH link in the first box, then name your new repo directory in the second box (i.e., the name of the folder containing the repo on your computer; “penguins” is probably a good choice), and finally use the <kbd>Browse</kbd> button to select the local directory that you want to create this new directory within (i.e., the parent directory).</p>
 <p><img src="fig/clone_git_repo.png" width="600"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In addition to using the SSH link, you can also use the git URL of the repository (e.g., https://github.com/willgearty/penguins_repo.git). If you do this, you will need to either a) set up the SSH key connection manually using Git Bash or the Git Terminal in RStudio or b) set up a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">personal access token</a>. You will be prompted to perform the “b” option the <a href="#committing-and-pushing-changes-to-github">first time you attempt to push to GitHub</a>.</p>
+</div>
+</div>
 <p>Then click the <kbd>Create Project</kbd> button.</p>
 <p>Did you notice anything change?</p>
 <p>In the lower right corner of your RStudio session, you should notice that your Files tab is now your project directory. You’ll also see a file called penguins.Rproj in that directory.</p>
@@ -492,7 +507,7 @@ Assigning values to objects
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -501,7 +516,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>When we assign a value to an object, the object stores that value so we can access it later. However, if we store a new value in an object we have already created (like when we stored “Harry Potter” in the <code>name</code> object), it replaces the old value. The <code>age</code> object does not change, because we never assign it a new value.</p>
 </div>
@@ -549,7 +564,7 @@ Bonus Exercise: Bad names for objects
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>favorite number <span class="ot">&lt;-</span> <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -558,7 +573,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Notice that we get an error when we try to assign values to <code>1number</code> and <code>favorite number</code>. This is because we cannot start an object name with a numeral and we cannot have spaces in object names. The object <code>Flower</code> still holds “marigold.” This is because R is case-sensitive, so running <code>flower &lt;- "rose"</code> does NOT change the <code>Flower</code> object. This can get confusing, and is why we generally avoid having objects with the same name and different capitalization.</p>
 </div>
@@ -608,7 +623,7 @@ Behind the curtain of functions
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2025-01-17"</code></pre>
+<pre><code>[1] "2025-01-24"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -638,7 +653,7 @@ Learning more about functions
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">3.1415</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -647,7 +662,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>round</code> rounds a number. By default, it rounds it to zero digits (in our example above, to 3). If you give it a second number, it rounds it to that number of digits (in our example above, to 3.142)</p>
 </div>
@@ -677,7 +692,7 @@ Position of the arguments in functions
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span>, <span class="fl">3.1415</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -686,7 +701,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The 2nd and 3rd lines will give you the right answer because the arguments are named, and when you use names the order doesn’t matter. The 1st line will give you 3 because the default number of digits is 0. Then 4th line will give you 2 because, since you didn’t name the arguments, x=2 and digits=3.1415.</p>
 </div>
@@ -707,7 +722,7 @@ Reading in an excel file
 <div class="callout-body-container callout-body">
 <p>Say you have an excel file and not a csv - how would you read that in? Hint: Use the Internet to help you figure it out!</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -716,7 +731,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>One way is using the <code>read_excel</code> function in the <code>readxl</code> package. There are other ways, but this is our preferred method because the output will be the same as the output of <code>read_csv</code>.</p>
 </div>
