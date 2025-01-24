@@ -8,32 +8,47 @@ project:
 #      - about.qmd
       - lessons/shell-intro/shell-intro.qmd
       - lessons/github/github-intro.qmd
+      - lessons/github/exercise1.qmd
+      - lessons/github/exercise2.qmd
+      - lessons/github/exercise3.qmd
+      - lessons/github/ssh_setup.qmd
       - lessons/r-lessons/r-intro.qmd
       - lessons/r-lessons/r-plotting.qmd
       - lessons/r-lessons/r-tidydata.qmd
       - lessons/r-lessons/r-markdown.qmd
 website:
   title: "Computing Basics and Intro to R"
-#  subtitle: "January 2025"
   site-url: https://SyracuseUniversity.github.io/ospo-workshop-r-intro
-  repo-url: https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+  repo-url: https://github.com/SyracuseUniversity/ospo-workshop-r-intro
   repo-actions: [issue]
-  navbar:
-    background: primary
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-    right:
-      - icon: github
-        href: https://https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+  back-to-top-navigation: true
+  page-footer:
+    border: true
+    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
+    left: "&copy; Copyright 2024, [Syracuse University Open Source Program Office](https://opensource.syracuse.edu/)"
+    background: "#F76900"
+    foreground: "#000E54"
   sidebar:
     style: "docked"
     search: true
-    background: "secondary"
+    foreground: "#000E54"
+    background: "#F76900"
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href: https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+          - text: Report a Bug
+            href: https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new
+    collapse-level: 1
     contents:
       - lessons/shell-intro/shell-intro.qmd
-      - lessons/github/github-intro.qmd
+      - section: "<code>git</code> and GitHub"
+        href: lessons/github/github-intro.qmd
+        contents:
+          - lessons/github/exercise1.qmd
+          - lessons/github/exercise2.qmd
+          - lessons/github/exercise3.qmd
       - lessons/r-lessons/r-intro.qmd
       - lessons/r-lessons/r-plotting.qmd
       - lessons/r-lessons/r-tidydata.qmd
@@ -49,7 +64,7 @@ format:
     css: styles.css
     toc: true
 
-callout-appearance: simple
+callout-appearance: default
 
 date: today
 date-format: iso

@@ -1,3 +1,51 @@
 ---
-title: "git and GitHub Intro"
+title: "`git` and GitHub"
 ---
+
++------------------------------------------------------------+
+| Objectives                                                 |
++============================================================+
+| -   Learn how to use `git` with command-line instructions. |
+| -   Learn how to do version control with `git`.            |
+| -   Understand the differences between `git` and GitHub.   |
+| -   Use GitHub to collaborate with others on a project.    |
++------------------------------------------------------------+
+
+## Prerequisites
+
+The following should be done *before* doing the exercises below.
+
+### GitHub ssh keys
+
+In exercises 2 and 3 you will be using GitHub to "push" and "pull" commits between your local computer and GitHub's servers. This requires authentication to be setup. For these purposes we suggest using ssh keys. To set that up, follow the instructions here:
+
+ * [Setup ssh key for GitHub](ssh_setup.qmd)
+ 
+### Git configuration
+
+Before doing the exercises in this session, you'll need to tell `git` what your name and email are, so that it creates commits with the appropriate author information. To do that, open a terminal and run the following (it doesn't matter which directory you run these from), but replacing `YOUR NAME` with your name and `YOUR_EMAIL_ADDRESS` with your email address:
+
+``` bash
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR_EMAIL_ADDRESS"
+```
+
+For entering longer commit messages (you'll learn what this means in Exercise 1) we'll need to tell `git` what text editor to use. By default `git` will use `vim`, which can be tricky to understand for new users. For the purposes of this tutorial, we'll use the more user-friendly [nano](https://en.wikipedia.org/wiki/GNU_nano). To do that, run the following in your terminal:
+
+``` bash
+git config --global core.editor nano
+```
+
+::: {.callout-note}
+If you wish to reset to the default editor after the tutorial is over, run:
+
+``` bash
+git config --global --unset-all core.editor
+```
+:::
+
+## Exercises
+
+-   [Exercise1](exercise1.qmd): Practice with `git` on a local repository
+-   [Exercise2](exercise2.qmd): `git` and GitHub
+-   [Exercise3](exercise3.qmd): Collaborating in GitHub using the Fork and Pull Model

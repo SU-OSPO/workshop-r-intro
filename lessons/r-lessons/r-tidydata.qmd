@@ -6,171 +6,690 @@ editor:
     wrap: 72
 ---
 
-
+ 
 +----------------------------------+----------------------------------+
 | ### Questions                    | ### Objectives                   |
 +==================================+==================================+
-| -   "How can I summarize my data | -   "To become familiar with the |
-|     in R?"                       |     functions of the `dplyr` and |
-| -   "How can R help make my      |     `tidyr` packages."           |
-|     research more reproducible?" | -   "To be able to use `dplyr`   |
-| -   "How can I combine two       |     and `tidyr` to prepare data  |
-|     datasets from different      |     for analysis."               |
-|     sources?"                    | -   "To be able to combine two   |
-| -   "How can data tidying        |     different data sources using |
-|     facilitate answering         |     joins."                      |
-|     analysis questions?"         | -   "To be able to create plots  |
-|                                  |     and summary tables to answer |
-|                                  |     analysis questions."         |
+| -   "How can R help make my      | -   "To become familiar with the |
+|     research more reproducible?" |     functions of `dplyr` and the |
+| -   "How can data tidying        |     `tidyverse` suite of         |
+|     facilitate answering         |      packages."                  |
+|     analysis questions?"         | -   "To use `dplyr` and the      |
+| -   "How can I summarize my data |     `tidyverse` packages to      | 
+|     in R?"                       |     prepare data for analysis."  |
+|                                  | -   "To be able to create summary|
+|                                  |      tables to answer analysis   |
+|                                  |      questions."                 |
 +----------------------------------+----------------------------------+
 
 
 # Getting Started {#getting-started}
 
-```{r InitDplyr}
+The [`tidyverse`](https://www.tidyverse.org/) is a collection of packages that facilitates data analysis in R. After installing the `tidyverse` with `install.packages("tidyverse")` (see the [intro session](r-intro.qmd)), you can load it with:
+
+
+```{r}
 library(tidyverse)
 ```
 
-## Loading in the data
 
-The output in your console shows that by doing this, we attach several
-useful packages for data wrangling, including `readr`. Check out these
-packages and their documentation at
-[tidyverse.org](https://www.tidyverse.org)
+::: callout-tip
+### Tip 
+Upon loading, the `tidyverse` prints a message like the one above. Notice that multiple packages (the constituent elements of the "collection") are actually loaded. For instance, `dplyr` and `tidyr` help with data wrangling and transformation, while `ggplot2` allows us to draw plots, as you saw in the [last session](r-plotting.qmd). Often, one just loads the `tidyverse` and ignores these details, as the individual packages are compatible with each other.
+:::
 
-> **Reminder:** Many of these packages, including `dplyr` , come with
-> "Cheatsheets" found under the **Help** RStudio menu tab.
+Throughout this module, we will use `tidyverse` functions to load, wrangle, and visualize real data.
 
-Reload your data:
 
-Notice that the output of the `read_csv()` function is pretty
-informative. It tells us the name of all of our column headers as well
-as how it interpreted the data type. This birds-eye-view can help you
-take a quick look that everything is how we expect it to be.
+# Loading data
 
-Now we have the tools necessary to work through this lesson.
+As with the [intro session](r-intro.qmd), we'll be using the palmer penguins dataset. First, let's load the package, then save the raw data to an object using the assignment operator `<-`. Finally, inspect the raw data that is included using `glimpse()`. 
 
-# An introduction to data analysis in R using `dplyr` {#intro-data-analysis}
+```{r}
+library(palmerpenguins)
+penguins_raw <- penguins_raw
+glimpse(penguins_raw)
+```
 
-## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
+We can inspect our data by using the interface above. An alternative is to run the command `View(penguins_raw)` or click on the object in RStudio’s environment panel (in the top-right section).
 
-[*Back to top*](#getting-started)
+Let’s review the dataset’s columns:  
 
-## Narrow down rows with `filter()` {#narrow-down-rows-with-filter}
+- `studyName`: Sampling expedition from which data were collected, generated, etc.  
+- `Sample Number`: an integer denoting the continuous numbering sequence for each sample 
+- `Species`:  a character string denoting the penguin species  
+- `Region`: a character string denoting the region of Palmer LTER sampling grid  
+- `Island`: a character string denoting the island near Palmer Station where samples were collected  
+- `Stage`:  a character string denoting reproductive stage at sampling  
+- `Individual ID`: a character string denoting the unique ID for each individual in dataset  
+- `Clutch Completion`: a character string denoting if the study nest observed with a full clutch, i.e., 2 eggs  
+- `Date Egg`: a date denoting the date study nest observed with 1 egg (sampled) 
+- `Culmen Length`: a number denoting the length of the dorsal ridge of a bird's bill (millimeters)  
+- `Culmen Depth`: a number denoting the depth of the dorsal ridge of a bird's bill (millimeters)  
+- `Flipper Length`: an integer denoting the length penguin flipper (millimeters)  
+- `Body Mass`:  an integer denoting the penguin body mass (grams)  
+- `Sex`: a character string denoting the sex of an animal  
+- `Delta 15 N`: a number denoting the measure of the ratio of stable isotopes 15N:14N  
+- `Delta 13 C`: a number denoting the measure of the ratio of stable isotopes 13C:12C  
+- `Comments`: a character string with text providing additional relevant information for data  
 
-[*Back to top*](#getting-started)
+You can read more about these variables by querying `?penguins_raw` and reading the **Help** documentation. 
 
-Notice how the pipe operator (`%>%`) allows us to combine these two
-simple steps into a more complicated data extraction?. We took the data,
-filtered out the rows, then took the mean value. The argument we pass to
-`filter()` needs to be some expression that will return TRUE or FALSE.
-We can use comparisons like `>` (greater than) and `<` (less than) for
-example. Here we tested for equality using a double equals sign `==`.
-You use `==` (double equals) when testing if two values are equal, and
-you use `=` (single equals) when naming arguments that you are passing
-to functions. Try changing it to use `filter(year = 2007)` and see what
-happens.
+The `tidyverse` facilitates the creation and use of *tidy data*. If you can get your data to this format (and we will see ways to do this), your life will be much easier:
 
-## Grouping rows using `group_by()` {#grouping-rows-using-group_by}
+![](fig/tidy_data.jpg)
+![](fig/tidy_data2.jpg)
 
-[*Back to top*](#getting-started)
+Source: Illustrations from the [Openscapes](https://www.openscapes.org/) blog [*Tidy Data for reproducibility, efficiency, and collaboration*](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst.
 
-We see that the life expectancy in 2007 is much larger than the value we
-got using all of the rows. It seems life expectancy is increasing which
-is good news. But now we might be interested in calculating the average
-for each year. Rather that doing a bunch of different `filter()`
-statements, we can instead use the `group_by()` function. The function
-allows us to tell the code to treat the rows in logical groups, so
-rather than summarizing over all the rows, we will get one summary value
-for each group. Here's what that will look like:
 
-The `group_by()` function expects you to pass in the name of a column
-(or multiple columns separated by comma) in your data.
+# Wrangling data with `dplyr`
 
-Note that you might get a message about the summarize function
-regrouping the output by 'year'. This simply indicates what the function
-is grouping by.
+We often need to modify data to conduct our analyses, e.g., creating columns, filtering rows, etc. In the `tidyverse`, these operations are conducted with multiple *verbs*, which we will review now.
 
-You can also create more than one new column when you call
-`summarize()`. To do so, you must separate your columns with a comma.
-Building on the code from the last exercise, let's add a new column that
-calculates the minimum life expectancy for each continent.
+## Selecting columns
 
-## Make new variables with `mutate()` {#make-new-variables-with-mutate}
+We can select specific columns in our dataset with the `select()` function. All `dplyr` wrangling verbs take a data frame as their first argument---in this case, the columns we want to select are the other arguments.
 
-[*Back to top*](#getting-started)
+```{r}
+select(penguins_raw, Species, Island, `Individual ID`)
+```
 
-Each time we ran `summarize()`, we got back fewer rows than passed in.
-We either got one row back, or one row per group. But sometimes we want
-to create a new column in our data without changing the number of rows.
-The function we use to create new columns is called `mutate()`.
+This is a good moment to talk about "pipes." Notice how the code below produces the same output as the one above, but with a slightly different syntax. Pipes (`|>` or `%>%`) "kick" the object on the left of the pipe to the first argument of the function on the right. One can read pipes as "then," so the code below can be read as "take `penguins_raw`, then select the columns `Species`, `Island` and `Individual ID`." Pipes are very powerful and can be used to *link multiple operations*, as we will see in a moment.
 
-We have a column for the population and the GDP per capita. If we wanted
-to get the total GDP, we could multiply the per capita GDP values by the
-total population. Here's what such a `mutate()` command would look like:
+```{r}
+penguins_raw |> 
+  select(Species, Island, `Individual ID`) 
 
-This will add a new column called "gdp" to our data. We use the column
-names as if they were regular values that we want to perform
-mathematical operations on and provide the name in front of an equals
-sign like we have done with `summarize()`
+```
 
-## Subset columns using `select()` {#subset-columns-using-select}
+::: callout-tip
+### Tip
+You can insert a pipe with the `Cmd/Ctrl + Shift + M` shortcut. If you have not changed the default RStudio settings, an "old" pipe (`%>%`) might appear. While most of the functionality is the same, the `|>` "new" pipes are more readable and don't need any extra packages (to use `%>%` you need the `tidyverse` or one of its packages). You can change this RStudio option in `Tools > Global Options > Code > Use native pipe operator`. 
+:::
 
-[*Back to top*](#getting-started)
+Going back to selecting columns, you can select ranges:
 
-We use the `filter()` function to choose a subset of the rows from our
-data, but when we want to choose a subset of columns from our data we
-use `select()`. For example, if we only wanted to see the population
-("pop") and year values, we can do:
+```{r}
+penguins_raw |> 
+  select(Species:`Individual ID`)
+```
 
-We can also use `select()` to drop/remove particular columns by putting
-a minus sign (`-`) in front of the column name. For example, if we want
-everything but the continent column, we can do:
+You can also **de**select columns using a minus sign:
 
-## Changing the shape of the data
+```{r}
+penguins_raw |> 
+  select(-Species)
+```
 
-[*Back to top*](#getting-started)
+And use a few helper functions, like `matches()`:
 
-Data comes in many shapes and sizes, and one way we classify data is
-either "wide" or "long." Data that is "long" has one row per
-observation. The gapminder_data data is in a long format. We have one
-row for each country for each year and each different measurement for
-that country is in a different column. We might describe this data as
-"tidy" because it makes it easy to work with `ggplot2` and `dplyr`
-functions (this is where the "tidy" in "tidyverse" comes from). As tidy
-as it may be, sometimes we may want our data in a "wide" format.
-Typically in "wide" format each row represents a group of observations
-and each value is placed in a different column rather than a different
-row. For example maybe we want only one row per country and want to
-spread the life expectancy values into different columns (one for each
-year).
+```{r}
+penguins_raw |> 
+  select(Species, matches("Length"))
+```
 
-The `tidyr` package contains the functions `pivot_wider` and
-`pivot_longer` that make it easy to switch between the two formats. The
-`tidyr` package is included in the `tidyverse` package so we don't need
-to do anything to load it.
+Or `everything()`, which we usually use to reorder columns:
 
-Notice here that we tell `pivot_wider()` which columns to pull the names
-we wish our new columns to be named from the year variable, and the
-values to populate those columns from the lifeExp variable. (Again,
-neither of which have to be in quotes in the code when there are no
-special characters or spaces - certainly an incentive not to use special
-characters or spaces!) We see that the resulting table has new columns
-by year, and the values populate it with our remaining variables
-dictating the rows.
+```{r}
+penguins_raw |> 
+  select(Species, everything())
+```
 
-Before we move on to more data cleaning, let's create the final
-gapminder dataframe we will be working with for the rest of the lesson!
+::: callout-tip
+### Tip
+Notice that all these commands have not edited our existent objects---they have just printed the requested outputs to the screen. In order to modify objects, you need to use the assignment operator (`<-`). For example:
 
-## Reviewing Git and GitHub
+```{r}
+penguins_raw_reduced <- penguins_raw |> 
+  select(Species, matches("Length"))
+```
 
-Now that we have our gapminder data prepared, let's use what we learned
-about git and GitHub in the previous lesson to add, commit, and push our
-changes.
+```{r}
+penguins_raw_reduced
+```
+:::
 
-Open Terminal/Git Bash, if you do not have it open already. First we'll
-need to navigate to our un-report directory.
+:::: callout-note
+#### Exercise
 
-Let's start by print our current working directory and listing the items
-in the directory, to see where we are.
+Select the variables `Species`, `Stage`, `Individual ID`, `Clutch Completion`, and `Date Egg` from the data frame.
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+
+```{r}
+penguins_raw |> 
+  select(Species, Stage, `Individual ID`, `Clutch Completion`, `Date Egg`)
+
+```
+
+:::
+::::
+
+## Renaming columns
+
+We can use the `rename()` function to rename columns, with the syntax `new_name = old_name`. This is especially useful for datasets like this one, where the column names are long, have spaces in them, or other special characters that require \` in order to call the column name. Here is an example of how we rename a column:
+
+```{r}
+penguins_raw |> 
+  rename(id = `Individual ID`, 
+         flipper_length = `Flipper Length (mm)`)
+```
+
+This is a good occasion to show how pipes allow us to chain operations. How do we read the following code out loud? (Remember that pipes are read as "then").
+
+```{r}
+penguins_raw |> 
+  select(Species, `Individual ID`, matches("Length")) |> 
+  rename(id = `Individual ID`, 
+         flipper_length = `Flipper Length (mm)`)
+```
+
+
+## Creating columns
+
+It is common to want to create columns based on existing ones. We can use `mutate()` to do so. For example, we could want to express the main length variables (length of the penguin's flipper and *culmen*, the dorsal ridge of their bill) in **centimeters** instead of **millimeters**:
+
+```{r}
+penguins_raw |> 
+  select(Species, matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  #mutate length variables
+  mutate(flipper_length_cm = flipper_length * 0.1,
+         culmen_length_cm = `Culmen Length (mm)` * 0.1)
+```
+
+We can also use multiple columns for creating a new one. For example, let's calculate the flipper to culmen length ratio: 
+
+```{r}
+penguins_raw |> 
+ select(Species,  matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  mutate(flipper_culmen_ratio = flipper_length/`Culmen Length (mm)`)
+```
+
+## Filtering rows
+
+Another common operation is to filter rows based on logical conditions. We can do so with the `filter()` function. For example, we can filter to only get penguins of a certain species:
+
+```{r}
+penguins_raw |> 
+  filter(Species == "Gentoo penguin (Pygoscelis papua)")
+```
+
+Notice that `==` here is a *logical operator*, read as "is equal to." So our full chain of operations says the following: take `penguins_raw`, then filter it to get rows where the Species is equal to "Gentoo penguin (Pygoscelis papua)".
+
+There are other logical operators, also called **boolean** operators:
+
+| Logical operator | Meaning                       |
+|------------------|-------------------------------|
+| `==`             | "is equal to"                 |
+| `!=`             | "is not equal to"             |
+| `>`              | "is greater than"             |
+| `<`              | "is less than"                |
+| `>=`             | "is greater than or equal to" |
+| `<=`             | "is less than or equal to"    |
+| `%in%`           | "is contained in"             |
+| `&`              | "and" (intersection)          |
+| `|`              | "or" (union)                  |
+
+Let's see a couple of other examples.
+
+```{r}
+penguins_raw |> 
+  filter(Island %in% c("Torgersen", "Biscoe"))
+```
+
+```{r}
+penguins_raw |> 
+  filter(Island == "Torgersen" & Sex == "MALE")
+```
+
+```{r}
+penguins_raw |> 
+  filter(`Flipper Length (mm)` > 200)
+```
+
+
+::: callout-note
+#### Tip
+
+Confused about when to use `filter()` and when to use `select()`? You use `filter()` to select *rows* (i.e., specific observations) with specific attributes, and you use `select()` to select *columns* (i.e., specific variables). To help keep it straight, remember that the letter **"c"** for column is in `select()` and the letter **"r"** for row is in `filter()`.
+
+:::
+
+
+:::: callout-note
+#### Exercise
+
+1.  Add a new column to the data frame, called `length_mass_ratio`, which calculates the ratio of the penguin's flipper length `Flipper Length (mm)` and their body mass `Body Mass (g)`. How would you calculate  `length_cm_mass_ratio`, where the flipper length is expressed as centimeters instead of millimeters? 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+
+To calculate `length_mass_ratio`: 
+```{r}
+## Length to mass ratio:
+penguins_raw |> 
+ select(Species, `Body Mass (g)`, matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  mutate(length_mass_ratio = flipper_length/`Body Mass (g)`)
+```
+
+There are two ways to calculate `length_cm_mass_ratio` in centimeters, you could either generate a new length variable in centimeters, or just apply the unit transformation to the ratio equation: 
+
+
+```{r}
+penguins_raw |> 
+ select(Species, `Body Mass (g)`, matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  mutate(flipper_cm = flipper_length * 0.1, 
+      length_cm_mass_ratio = flipper_cm/`Body Mass (g)`)
+
+penguins_raw |> 
+ select(Species, `Body Mass (g)`, matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  mutate(length_cm_mass_ratio = flipper_length/`Body Mass (g)` * 0.1)
+
+```
+
+:::
+
+2.  Filter the data frame to only get penguins with nests observed with a fully completed clutch. 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+```{r}
+penguins_raw |> 
+  filter(`Clutch Completion` == "Yes")
+
+```
+::: 
+
+
+3.  Filter the data frame to only get penguins with nests observed with a fully completed clutch on the Island of Torgersen. 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+```{r}
+penguins_raw |> 
+  filter(`Clutch Completion` == "Yes" & Island == "Torgersen")
+
+```
+:::
+
+::::
+
+
+
+## Ordering rows
+
+The `arrange()` function allows us to order rows according to values. The default arranges from smallest to largest if numeric, or from A to Z if a character. For example, let's order based on the `Body Mass (g)` variable:
+
+```{r}
+penguins_raw |> 
+  arrange(`Body Mass (g)`)
+```
+
+Maybe we only want penguins from the island of Biscoe. Remember that we can chain operations:
+
+```{r}
+penguins_raw |> 
+  filter(Island == "Biscoe") |> 
+  arrange(`Body Mass (g)`)
+```
+
+By default, `arrange()` uses increasing order (like `sort()`). To use decreasing order, add a minus sign:
+
+```{r}
+penguins_raw |> 
+  filter(Island == "Biscoe") |> 
+  arrange(-`Body Mass (g)`)
+```
+
+You can also order rows by more than one variable. What this does is to order by the first variable, and resolve any ties by ordering by the second variable (and so forth if you have more than two ordering variables). For example, let's first order our data frame by sex, and then within sex order by body mass:
+
+```{r}
+penguins_raw |> 
+  filter(Island == "Biscoe") |> 
+  arrange(Sex, `Body Mass (g)`)
+```
+
+:::: callout-note
+#### Exercise
+
+Arrange the data by `length_mass_ratio`, the ratio of the penguin's flipper length (in mm) and the penguin's body mass (in g). (You should have code on how to create this variable from the last exercise). Save this as an object called `penguins_ratio_data
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+```{r}
+penguins_raw |> 
+ select(Species, `Body Mass (g)`, matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  mutate(length_mass_ratio = flipper_length/`Body Mass (g)`) |>
+  arrange(length_mass_ratio)
+
+## Now save it as an object 
+penguins_ratio_data <- penguins_raw |> 
+ select(Species, `Body Mass (g)`, matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  mutate(length_mass_ratio = flipper_length/`Body Mass (g)`) |>
+  arrange(length_mass_ratio)
+```
+:::
+
+::::
+
+# Summarizing data
+
+## Calculating summary statistics
+
+
+`dplyr` makes summarizing data a breeze using the `summarize()` function:
+
+```{r}
+penguins_raw |> 
+  summarize(mean_flipper_length = mean(`Flipper Length (mm)`),
+            mean_body_mass = mean(`Body Mass (g)`))
+```
+
+
+::: callout-note
+#### Tip 
+
+Oh no! If you want to calculate the mean or do another arithmatic operation on a numeric vector and R returns `NA` values, it likely means that the vector has missing values. Use `na.rm = T` to drop the `NA` values in your calculation. We'll see more of this later in this lesson.
+
+:::
+
+
+```{r}
+penguins_raw |> 
+  summarize(mean_flipper_length = mean(`Flipper Length (mm)`, na.rm = T),
+            mean_body_mass = mean(`Body Mass (g)`, na.rm = T))
+```
+
+
+To make summaries, we can use any function that takes a vector and returns one value. Another example:
+
+```{r}
+penguins_raw |> 
+  filter(`Clutch Completion` == "Yes") |> # to filter out penguins that did not have an (observed) full nest 
+  summarize(max_flipper_length = max(`Flipper Length (mm)`, na.rm = T),
+            min_flipper_length = min(`Flipper Length (mm)`, na.rm = T))
+```
+
+*Grouped summaries* allow us to disaggregate summaries according to other variables (usually categorical):
+
+```{r}
+
+penguins_raw |> 
+  filter(`Clutch Completion` == "Yes") |> # to filter out penguins that did not have an (observed) full nest 
+  summarize(max_flipper_length = max(`Flipper Length (mm)`, na.rm = T),
+            min_flipper_length = min(`Flipper Length (mm)`, na.rm = T),
+            .by = Sex)  #  to group by sex 
+ 
+
+
+penguins_raw |> 
+  filter(`Clutch Completion` == "Yes") |> # to filter out penguins that did not have an (observed) full nest 
+  summarize(max_flipper_length = max(`Flipper Length (mm)`, na.rm = T),
+            min_flipper_length = min(`Flipper Length (mm)`, na.rm = T),
+            .by = Sex) |>  #  to group by sex 
+  filter(is.na(Sex) == F) # to drop the penguins with an unknown sex 
+
+```
+
+:::: callout-note
+#### Exercise
+
+Obtain the maximum and minimum flipper length to mass ratio (call them `max_ratio` and `min_ratio`, drawing from the `length_mass_ratio` variable from before) for each penguin species. 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+```{r}
+
+penguins_raw |> 
+ select(Species, `Body Mass (g)`, matches("Length")) |> # select just for clarity
+    rename(flipper_length = `Flipper Length (mm)`) |>
+  mutate(length_mass_ratio = flipper_length/`Body Mass (g)`) |>
+  # summarize flipper length to mass ratio by species
+ summarize(max_ratio = max(length_mass_ratio, na.rm = T),
+            min_ratio = min(length_mass_ratio, na.rm = T),
+            .by = Species)   #  to group by species 
+
+```
+
+:::
+
+::::
+
+
+## Recoding variables
+
+Take a look at the `Species` variable. We can do a simple tabulation with `count()`:
+
+```{r}
+penguins_raw |> 
+  count(Species)
+```
+
+::: callout-tip
+Another common way to compute quick tabulations in R is with the `table()` function. Be aware that this takes a *vector* as the input:
+
+```{r}
+table(penguins_raw$Species)
+```
+:::
+
+We might want to recode this variable. For instance, if we are only interested in the Chinstrap penguins, we could create a *dummy*/*binary* variable for whether the penguin is a Chinstrap or not. We can do this with `if_else()`, which works with logical conditions:
+
+```{r}
+penguins_raw |> 
+  # the arguments are condition, true (what to do if true), false
+  mutate(chinstrap = if_else(Species == "Chinstrap penguin (Pygoscelis antarctica)", 1, 0)) |> 
+  count(chinstrap)
+```
+
+Instead of a numeric classification (0 and 1), we could use characters:
+
+```{r}
+penguins_raw |> 
+  # the arguments are condition, true (what to do if true), false
+  mutate(chinstrap = if_else(Species == "Chinstrap penguin (Pygoscelis antarctica)", "Chinstrap", "Other")) |> 
+  count(chinstrap)
+```
+
+`if_else()` is great for binary recoding. But sometimes we want to create more than two categories. We can use `case_when()`. This time, say we just want to simplify the `Species` variable to the familiar names of the penguins, not their scientific names:
+
+```{r}
+penguins_raw |> 
+  # syntax is condition ~ value
+  mutate(species = case_when(
+    Species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+    Species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap", 
+    Species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+    .default = "Other" # what to do in all other cases
+  )) |> 
+  count(species)
+```
+
+Save this as an object called `species_table`. We will use this later.
+
+```{r}
+species_table <- penguins_raw |> 
+  # syntax is condition ~ value
+  mutate(species = case_when(
+    Species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+    Species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap", 
+    Species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+    .default = "Other" # what to do in all other cases
+  )) |> 
+  count(species)
+```
+
+The `.default =` argument in `case_when()` can also be used to leave the variable as-is for non-specified cases. For example, let's combine Adelie and Gentoo species:
+
+```{r}
+penguins_raw |> 
+  # syntax is condition ~ value
+  mutate(species = case_when(
+    Species %in% c("Adelie Penguin (Pygoscelis adeliae)", "Gentoo penguin (Pygoscelis papua)") ~ "Adelie/Gentoo",
+    Species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap",  
+    .default = "Other" # what to do in all other cases
+  )) |> 
+  count(species)
+```
+
+:::: callout-note
+#### Exercise
+
+1.  Create a dummy variable, `large_flipper`, for whether the penguin has a flipper that is longer than 210mm. Then compute its mean. 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+```{r}
+penguins_raw |> 
+  # the arguments are condition, true (what to do if true), false
+  mutate(large_flipper = if_else(`Flipper Length (mm)` > 210, 1, 0)) |> 
+  drop_na(large_flipper) |>
+  summarise(large_flipper_mean = mean(large_flipper))
+
+```
+:::
+
+2.  Say you want to get more specific and determine whether the flipper is small, medium, or large. Say a small flipper is 180mm or smaller, a medium-sized flipper ranges from 180 - 210mm, and a large flipper is longer than 210mm. Create the variable `flipper_size` that takes on the values `Small`, `Medium`, or `Large` depending on the length. 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+```{r}
+penguins_raw |> 
+  # the arguments are condition, true (what to do if true), false
+  mutate(flipper_size = case_when(`Flipper Length (mm)` <= 180 ~ "Small",
+                                   `Flipper Length (mm)` > 180 & `Flipper Length (mm)` < 210 ~ "Medium", 
+                                   `Flipper Length (mm)` >= 210 ~ "Large",
+                                   .default = "Other")) |> 
+           drop_na(flipper_size) |>
+           count(flipper_size)
+
+```
+:::
+
+::::
+
+
+## Missing values
+
+Missing values are commonplace in real datasets. In R, missing values are a special type of value in vectors, denoted as `NA`.
+
+::: callout-warning
+The special value `NA` is different from the character value "NA". For example, notice that a numeric vector can have `NAs`, while it obviously cannot hold the character value "NA":
+
+```{r}
+c(5, 4.6, NA, 8)
+```
+:::
+
+A quick way to check for missing values in small datasets is with the `summary()` function:
+
+```{r}
+summary(penguins_raw)
+```
+
+
+Notice that we have missingness in the `Flipper Length (mm)` and `Body Mass (g)` variables, among others. We might want to filter the dataset to see which observations are in this situation:
+
+```{r}
+penguins_raw |> 
+  filter(`Body Mass (g)` == NA | `Flipper Length (mm)` == NA)
+```
+
+But the code above doesn't work! To refer to missing values in logical conditions, we cannot use `== NA`. Instead, we need to use the `is.na()` function:
+
+```{r}
+penguins_raw |> 
+  filter(is.na(`Body Mass (g)`) | is.na(`Flipper Length (mm)`))
+```
+
+As we saw earlier when trying to calculate the mean, in most R functions, missing values are "contagious." This means that any missing value will contaminate the operation and carry over to the results. Recall:
+
+```{r}
+penguins_raw |> 
+  summarize(mean_flipper_length = mean(`Flipper Length (mm)`))
+```
+
+Sometimes we'd like to perform our operations even in the presence of missing values, simply excluding them. Most basic R functions have an `na.rm =` argument to do this:
+
+```{r}
+penguins_raw |> 
+  summarize(mean_flipper_length = mean(`Flipper Length (mm)`, na.rm = T))
+```
+
+:::: callout-note
+#### Exercise
+
+Calculate the median value of the penguins' flipper length and body mass for each Island (i.e., perform a grouped summary). 
+
+::: {.callout-caution collapse="true" appearance="simple" icon="false"}
+##### Solution
+```{r}
+penguins_raw |> 
+    summarize(median_flipper_length = median(`Flipper Length (mm)`, na.rm = T),
+              median_body_mass = median(`Body Mass (g)`, na.rm = T),
+              .by = Island)
+
+```
+
+:::
+
+::::
+
+
+# Overview
+
+| Function               | Purpose                          |
+|------------------------|----------------------------------|
+| `select()`             | Select columns                   |
+| `rename()`             | Rename columns                   |
+| `mutate()`             | Creating columns                 |
+| `filter()`             | Filtering rows                   |
+| `arrange()`            | Ordering rows                    |
+| `summarize()`          | Summarizing data                 |
+| `summarize(…, .by = )` | Summarizing data (by groups)     |
+| `if_else()`            | Recode to a binary variable      |
+| `case_when()`          | Recode to a categorical variable |
+| `is.na()`, `na.rm()`.  | Identify and remove missing data |
+
+
+# Saving and exporting cleaned data
+
+As in the [plotting lesson](r-plotting.qmd), you will often want to save or export your cleaned data. This is especially true if you are working on complex data cleaning tasks, and you will use your cleaned dataset for other scripts in the same project. You can save cleaned data in a variety of file formats: you can save them as data files (as .csv files, or as native R data files, with .rds or .rda file extensions) or export the tables for reports (for \LaTeX integration, as Microsoft Word documents, html tables, or as images). 
+
+We will practice one of each. 
+
+```{r, eval = FALSE}
+## To export to a .csv 
+save(penguins_ratio_data, file = "penguins_ratio_data.csv")
+
+## To save as .rda file
+save(penguins_ratio_data, species_table, file = "penguins_cleaned.rda")
+
+## To make a table for export
+knitr::kable(species_table, format = "markdown", caption = "N Penguins by Species") %>%
+  save_kable("species_table.pdf")
+
+```
+
+Your table will look like this: 
+```{r}
+## To make a table for export
+knitr::kable(species_table, format = "markdown", 
+             caption = "N Penguins by Species")
+
+```
+
+
+
+Now we'll once again use the git tools within RStudio to commit these files and push them to our GitHub repository. Click on the "Git" tab in the top-right. Clicking this tab will show you all of the files that have been modified since we last committed. In this case, you should see your code file, your cleaned data for future use, and your table to export for a report. Click the boxes next to these three files to queue them for committing. Then click the <kbd>Commit</kbd> button. Write a succinct commit message in the window, then click the <kbd>Commit</kbd> button, then the <kbd>Push</kbd> button. And that's that!
+
 

@@ -1,6 +1,6 @@
 ---
 title: "Computing Basics and Intro to R"
-author: "Syracuse University Open Source Program Office"
+author: "[Syracuse University Open Source Program Office](https://opensource.syracuse.edu/)"
 subtitle: "January 2025"
 ---
 
@@ -13,13 +13,13 @@ subtitle: "January 2025"
 |:-------------------:|:-------------------:|:---------:|:----------------------------------------------------------------------------------------:|:---------------:|
 | Monday, January 20  | 9:00 AM - 10:00 AM  | Hinds 347 | Optional: Bash Setup Help                                                                |                 |
 | Monday, January 20  | 10:00 AM - 12:00 PM | Hinds 347 | [Computing Basics: Intro to Bash](lessons/shell-intro/shell-intro.qmd)                   | Sarah Lucas     |
-| Monday, January 20  | 1:00 PM - 2:00 PM   | Hinds 347 | Optional: GitHub Setup Help                                                              | Collin Capano   |
-| Monday, January 20  | 2:00 PM - 4:00 PM   | Hinds 347 | [Computing Basics: git and GitHub](lessons/github/github-intro.qmd)                      |                 |
+| Monday, January 20  | 1:00 PM - 2:00 PM   | Hinds 347 | Optional: GitHub Setup Help                                                              |    |
+| Monday, January 20  | 2:00 PM - 4:00 PM   | Hinds 347 | [Computing Basics: git and GitHub](lessons/github/github-intro.qmd)                      |  Collin Capano    |
 | Thursday, January 23| 9:00 AM - 10:00 AM  | Hinds 336 | Optional: R Setup Help                                                                   |                 |
 | Thursday, January 23| 10:00 AM - 12:00 PM | Hinds 347 | [Intro to R: variables, assignments, types and functions](lessons/r-lessons/r-intro.qmd) | Will Gearty     |
 | Thursday, January 23| 2:00 PM - 4:00 PM   | Hinds 347 | [Intro to R: data vizualization with ggplot2](lessons/r-lessons/r-plotting.qmd)          | Will Gearty     |
-| Friday, January 24  | 10:00 AM - 12:00 PM | Hinds 111 | [Intro to R: data cleaning with the tidyverse](lessons/r-lessons/r-tidydata.qmd)         | Sarah Lucas     |
-| Friday, January 24  | 2:00 PM - 4:00 PM   | Hinds 111 | [Intro to R: data reports with R Markdown](lessons/r-lessons/r-markdown.qmd)             | Jessie Trudeau  |
+| Friday, January 24  | 10:00 AM - 12:00 PM | Hinds 111 | [Intro to R: data cleaning with the tidyverse](lessons/r-lessons/r-tidydata.qmd)         | Jessie Trudeau     |
+| Friday, January 24  | 2:00 PM - 4:00 PM   | Hinds 111 | [Intro to R: data reports with R Markdown](lessons/r-lessons/r-markdown.qmd)             | Sarah Lucas |
 
 # Workshop Preparation
 
