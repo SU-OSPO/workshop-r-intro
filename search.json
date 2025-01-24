@@ -2,11 +2,101 @@
   {
     "objectID": "lessons/r-lessons/r-markdown.html",
     "href": "lessons/r-lessons/r-markdown.html",
-    "title": "Writing reports with R Markdown",
+    "title": "Writing Reports with R Markdown",
     "section": "",
-    "text": "Back to top",
+    "text": "What is Markdown/R Markdown, and why use it\nHow can I integrate my R code with text and plots?\nWhich formats are available for rendering my Markdown files?\n\n\nTo create a report in R Markdown that combines text, code, and figures.\nTo use Markdown to format our report.\nTo understand how to use R code chunks to include or hide code, figures, and messages.\nTo be aware of the various report formats that can be rendered using R Markdown.",
     "crumbs": [
-      "Writing reports with R Markdown"
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#different-outputs",
+    "href": "lessons/r-lessons/r-markdown.html#different-outputs",
+    "title": "Writing Reports with R Markdown",
+    "section": "Different outputs",
+    "text": "Different outputs\nThe default output for an R Markdown report is HTML, but you can also use R Markdown to output other report formats. For example, you can generate PDF reports using R Markdown, but you must install TeX to do this.",
+    "crumbs": [
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#header",
+    "href": "lessons/r-lessons/r-markdown.html#header",
+    "title": "Writing Reports with R Markdown",
+    "section": "Header",
+    "text": "Header\nThe first part is a header at the top of the file between the lines of —. This contains instructions for how R should render the document. The instructions are given in a format called YAML, and is made up of key-value pairs (key: value).\nHere’s an example:",
+    "crumbs": [
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#code-chunks",
+    "href": "lessons/r-lessons/r-markdown.html#code-chunks",
+    "title": "Writing Reports with R Markdown",
+    "section": "Code chunks",
+    "text": "Code chunks\nThe next section is a code chunk, or embedded R code, that sets up options for all code chunks. Here is a default code chunk that appears when you create a new R Markdown file:\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE)\n```\nAll code chunks have this format:\n```{r}\n# Your code here\n```\nAll of the code is enclosed in 3 back ticks, and the {r} part indicates that it’s a chunk of R code.\n\n\n\nrupixen via Unsplash.com\n\n\nYou can also include other information within the curly brackets to indicate different instructions for how that code chunk should be interpreted. For instance, the first code block is named “setup”, and include=FALSE prevents code and results from showing up in the output file.\nInside the code chunk, you can write any R code that you want to run, and you can have as many code chunks as you want in your file.\nAs we mentioned above, in the first code chunk you can set options for the entire file. echo = TRUE means that you want your code to be shown in the output file. If you change this to echo = FALSE, then the code will be hidden and only the output of the code chunks will be seen in the output file. There are also many other options that you can change.",
+    "crumbs": [
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#text",
+    "href": "lessons/r-lessons/r-markdown.html#text",
+    "title": "Writing Reports with R Markdown",
+    "section": "Text",
+    "text": "Text\nFinally, you can include text in your R Markdown file. This is any text or explanation you want to include, and it’s formatted with Markdown. We’ll learn more about Markdown formatting soon!",
+    "crumbs": [
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#including-our-analysis",
+    "href": "lessons/r-lessons/r-markdown.html#including-our-analysis",
+    "title": "Writing Reports with R Markdown",
+    "section": "Including our analysis",
+    "text": "Including our analysis\nNext, we will go over a couple different ways we can include data into our report.\n\nInserting our saved plots\nIn an R Markdown file, we can use markdown syntax to pull in a figure we have saved from our plotting lesson. The code below allows us to access the .jpg file we made yesterday during the plotting lesson.\n![Some general information on our penguins](../figures/penguins_1.jpg){width=\"600\"}\nThere are several components to this markdown element. First, we begin with an exclamation point ! followed by a pair of square brackets that contains a figure caption. Next, a pair of parentheses contains the path to the file, relative to our .Rmd file. Finally, in a pair of curly braces, we can dictate the size in pixels we want our figure to be in the document. Since our figure is pretty big, we downsize it to a width of 600 px. There are many other ways you can customize outside figures.\n\n\nCoding our analysis right in the .Rmd document\nOne great thing about R markdown documents is we can interweave text and code. That means we can do a quick analysis an insert a new figure in our report. Let’s add some quick text to describe what we want to show:\nWe have calculated the flipper length to mass ratio for three species of penguins in our dataset. Below is a boxplot showing the median and interquartile range for all penguins.\nBelow, we will read in our penguins_ratio_data.csv file we saved yesterday, do a little more cleaning up, and plotting.\n```{r ratioPlot}\npenguins_ratio_data &lt;- read_csv(\"penguins_ratio_data.csv\")\n\npenguins_ratio_data |&gt; \n  separate(Species, sep = \"penguin|Penguin\", into = c(\"species_common\", \"species_scientific\")) |&gt;\n  mutate(species_scientific = str_replace_all(species_scientific,\n                                             pattern = \"[\\\\(\\\\)]\",\n                                             replacement = \"\")) |&gt;\n  ggplot(aes(x = species_scientific, y = length_mass_ratio)) +\n  geom_boxplot() +\n  geom_jitter(width = 0.2, alpha = 0.5) +\n  theme_classic() +\n  labs(title = \"The ratio of flipper length to body mass for \\ndifferent species of penguins\",\n       subtitle = \"Obervations from the Palmer Research Station, Antartica\",\n       y = \"Flipper Length to Body Mass Ratio\",\n       x = \"Species\") +\n  theme(\n    axis.text.x = element_text(face = \"bold.italic\"),\n    axis.text.y = element_text(face = \"bold\"),\n    plot.title = element_text(color = \"#0099f8\", size = 16, face = \"bold\", hjust = 0.5),\n    plot.subtitle = element_text(face = \"bold.italic\", hjust = 0.5),\n    plot.caption = element_text(face = \"italic\")\n  )\n```\nNow we can knit our document to see how our report looks! Use the knit button in the top left of the screen. Below is just the top part of our report, but we can already seem some areas that need a little tidying up.",
+    "crumbs": [
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#cleaning-up-our-work",
+    "href": "lessons/r-lessons/r-markdown.html#cleaning-up-our-work",
+    "title": "Writing Reports with R Markdown",
+    "section": "Cleaning up our work",
+    "text": "Cleaning up our work\nIt’s looking pretty good, but there seems to be a few extra elements that we don’t need to see in the report. For example, the report shows that we load the tidyverse package and the accompanying messages.\n\nTo get rid of this, we can revise our packages code chunk by adding include=FALSE just like in the setup chunk to prevent code and messages in this chunk from showing up in our report.\n\n```{r packages, include=FALSE}\nlibrary(tidyverse)\n```\n\nWe can also see the code that was used to generate the plot. Depending on the purpose and audience for your report, you may want to include the code. If you don’t want the code to appear, how can you prevent it? Using the echo=FALSE option will allow us to see the output without the code that generated it.\n\n```{r ratioPlot, echo=FALSE}\n [...rest of plotting code here...]\n```\n\nHere is a snapshot of the output after we add echo=FALSE to our code chunk:\n\nWe still have some pesky warnings and messages that are included in our report. There are special options to remove these two types of output as well. Let’s include the two options, warning=FALSE and message=FALSE in our code chunk:\n\n```{r ratioPlot, echo=FALSE, message=FALSE, warning=FALSE}\n [...rest of plotting code here...]\n```\n\nWhen we Knit our .Rmd file again we can see that our report is really starting to take shape!",
+    "crumbs": [
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#inline-code",
+    "href": "lessons/r-lessons/r-markdown.html#inline-code",
+    "title": "Writing Reports with R Markdown",
+    "section": "Inline code",
+    "text": "Inline code\nSometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change. Here is how to do this.\nFirst, let’s create a new code chunk that summarizes features of our data that we can use to describe our plot to our audience. Note that we set include=FALSE because we only want this step to happen in the background. We will calculate the average flipper length to mass ratio for each species of penguin in the dataset.\n\ngentoo_ratio_mean &lt;- penguins_ratio_data |&gt;\n  filter(Species == \"Gentoo penguin (Pygoscelis papua)\") |&gt;\n  summarise(round(mean(length_mass_ratio, na.rm = TRUE), digits = 3)) |&gt;\n  pull()\n\nadelie_ratio_mean &lt;- penguins_ratio_data |&gt;\n  filter(Species == \"Adelie Penguin (Pygoscelis adeliae)\") |&gt;\n  summarise(round(mean(length_mass_ratio, na.rm = TRUE), digits = 3)) |&gt;\n  pull()\n\nchinstrap_ratio_mean &lt;- penguins_ratio_data |&gt;\n  filter(Species == \"Chinstrap penguin (Pygoscelis antarctica)\") |&gt;\n  summarise(round(mean(length_mass_ratio, na.rm = TRUE), digits = 3)) |&gt;\n  pull()\n\nNow, all we need to do is reference the values we just computed to describe our plot. To do this, we enclose each value in one set of backticks (some_R_variable_name), while the r part once again indicates that it’s a chunk of R code. When we knit our report, R will automatically fill in the values we just created in the above code chunk. Note that R will automatically update these values every time our data might change.\nThe above plot shows the relationship between penguin body mass and flipper length. The Gentoo penguins had the smallest flipper length to body mass ratio, with an average of `r gentoo_ratio_mean `, followed by the Adelie and the Chinstrap penguins, at `r adelie_ratio_mean ` and `r chinstrap_ratio_mean `, respectively.\nThe code above will render to this text:\n\nThe above plot shows the relationship between penguin body mass and flipper length. The Gentoo penguins had the smallest flipper length to body mass ratio, with an average of 0.043, followed by the Adelie and the Chinstrap penguins, at 0.052 and 0.053, respectively.",
+    "crumbs": [
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#tables",
+    "href": "lessons/r-lessons/r-markdown.html#tables",
+    "title": "Writing Reports with R Markdown",
+    "section": "Tables",
+    "text": "Tables\nIn addition to reporting specific values in the text, we may also want to show a table of values. With R Markdown there are multiple ways to product tables. One way to generate smaller tables is manually. Using a special format we can generate a table in our output. Note that this does not get generated in a code chunk because it is markdown formatting not R code.\n|HEADER 1|HEADER 2|\n|-------------|-------------|\n|row 1, column1|row 1, column 2|\n|row 2, column1|row 2, column 2|\nColumns are separated by the pipe key | located above Enter on the keyboard. The dashes distinguish the header row from the rest of the table. This header could be a name for each column or a header for the whole table. Now that we know the basic structure we can fill in our table. This is how we could present the same numbers from the previous paragraph as a table instead, again using in-line code. Copy and paste the following code into your .Rmd report file.\n| Average Penguin Length to Body Mass Ratio |                          |\n|-------------------------------------------|--------------------------|\n| Gentoo penguin (Pygoscelis papua)         | `r gentoo_ratio_mean `    |\n| Adelie Penguin (Pygoscelis adeliae)       | `r adelie_ratio_mean `    |\n| Chinstrap penguin (Pygoscelis antarctica) | `r chinstrap_ratio_mean ` |\nWhen we render our report using this above table in our document, we get the following result:",
+    "crumbs": [
+      "Writing Reports with R Markdown"
+    ]
+  },
+  {
+    "objectID": "lessons/r-lessons/r-markdown.html#formatting",
+    "href": "lessons/r-lessons/r-markdown.html#formatting",
+    "title": "Writing Reports with R Markdown",
+    "section": "Formatting",
+    "text": "Formatting\nWe now know how to create a report with R Markdown. Maybe we also want to format the report a little bit to structure our thought process in a useful way (e.g., sections) and make it visually appealing? Markdown is a very simple programming language when it comes to syntax. Let’s try to figure out some syntax together. Suppose we wanted to create sections in our report.\n\nR Markdown headers\nMarkdown syntax allows us to easily denote different sections with headers. To do this, simply att the # symbol before your header text using the below convention:\n# Level 1 Header\n## Level 2 Header\n### Level 3 Header\n… and so on.\n\n\n\n\n\n\nUsing Posit Cheat sheets\n\n\n\nPosit makes some great cheat sheets for writing in Markdown, and so much more. You can find these cheat sheets in the Help menu at the top of your RStudio window. You can also easily find them online.\n\n\n\n\n\n\n\n\n\nR Markdown Syntax Practice\n\n\n\nUse the available cheat sheets, or search the internet to figure out how to do the following tasks:\n\nas the first item, write the name of your current favorite programming language in bold\nas the second item, write the names of a function you have so far found most useful in italics\nas the third item, write one thing you want to learn next on your programming journey in bold and italics\nturn your bullet point list into a numbered list\ncreate a fourth list item and find an online guide and or cheatsheet for basic Markdown syntax, write its name here and hyperlink its URL.\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n* **my favorite programming language is R**\n* *most useful function I've learned is dplyr::filter()*\n* ***I'd like to learn more about creating my own R packages***\n\n1. **my favorite programming language is R**\n1. *most useful function I've learned is dplyr::filter()*\n1. ***I'd like to learn more about creating my own R packages***\n1. [Here's a link to a Markdown Cheat Sheet](https://rmarkdown.rstudio.com/lesson-15.HTML)\n\nmy favorite programming language is R\nmost useful function I’ve learned is dplyr::filter()\nI’d like to learn more about creating my own R packages\n\n\nmy favorite programming language is R\nmost useful function I’ve learned is dplyr::filter()\nI’d like to learn more about creating my own R packages\nHere’s a link to a Markdown Cheat Sheet\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nShaping up our report\n\n\n\nUsing a combination of what you have learned so far, online resources, and the R Markdown cheat sheets, add the following elements to your .Rmd file. When you’re done, render your report.\n\nAdd headers and subheaders to break up your plots and text into sections\nSomewhere in your document, create a table (your preferred method) of total penguins per species (like you did in the R for Data Cleaning lesson. Don’t show the code, just the table.\nAt the top of your report, create a hyperlink to the palmerpenguins website: https://allisonhorst.github.io/palmerpenguins/\n\n\n\n\n\n\n\nFinal .Rmd contents\n\n\n\n\n\nIf you’d like to see an example of what the final .Rmd could look like (you might have personalized it a different way!) follow the link here:\npenguin_report.Rmd",
+    "crumbs": [
+      "Writing Reports with R Markdown"
     ]
   },
   {
