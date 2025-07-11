@@ -18,8 +18,8 @@ project:
       - lessons/r-lessons/r-markdown.qmd
 website:
   title: "Computing Basics and Intro to R"
-  site-url: https://SyracuseUniversity.github.io/ospo-workshop-r-intro
-  repo-url: https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+  site-url: https://su-ospo.github.io/workshop-r-intro/
+  repo-url: https://github.com/su-ospo/workshop-r-intro
   repo-actions: [issue]
   back-to-top-navigation: true
   page-footer:
@@ -37,9 +37,9 @@ website:
       - icon: github
         menu:
           - text: Source Code
-            href: https://github.com/SyracuseUniversity/ospo-workshop-r-intro
+            href: https://github.com/su-ospo/workshop-r-intro
           - text: Report a Bug
-            href: https://github.com/SyracuseUniversity/ospo-workshop-r-intro/issues/new
+            href: https://github.com/su-ospo/workshop-r-intro/issues/new
     collapse-level: 1
     contents:
       - lessons/shell-intro/shell-intro.qmd
@@ -54,6 +54,7 @@ website:
       - lessons/r-lessons/r-tidydata.qmd
       - lessons/r-lessons/r-markdown.qmd
   page-navigation: true
+  favicon: SU-OSPO.png
 
 execute:
   freeze: auto
@@ -61,7 +62,6 @@ execute:
 format:
   html:
     theme: lumen
-    css: styles.css
     toc: true
 
 callout-appearance: default
