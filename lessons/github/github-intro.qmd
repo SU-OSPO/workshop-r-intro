@@ -15,11 +15,12 @@ title: "`git` and GitHub"
 
 The following should be done *before* doing the exercises below.
 
-### GitHub ssh keys
+### GitHub authentication
 
-In exercises 2 and 3 you will be using GitHub to "push" and "pull" commits between your local computer and GitHub's servers. This requires authentication to be setup. For these purposes we suggest using ssh keys. To set that up, follow the instructions here:
+In exercises 2 and 3 you will be using GitHub to "push" and "pull" commits between your local computer and GitHub's servers. This requires authentication to be setup. For these purposes we suggest using ssh keys. Alternatively, you can log in with the GitHub CLI (`gh`) and use `git` over HTTPS instead of ssh. To set up one of these, follow the instructions here:
 
  * [Setup ssh key for GitHub](ssh_setup.qmd)
+ * [Log in to GitHub with the GitHub CLI](gh_setup.qmd) (alternative to ssh keys)
  
 ### Git configuration
 

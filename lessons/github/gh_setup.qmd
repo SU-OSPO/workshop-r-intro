@@ -1,0 +1,72 @@
+## Log in to GitHub with the GitHub CLI
+
+In order to push commits to GitHub you need to have authentication setup. As an alternative to [ssh keys](ssh_setup.qmd), you can use the [GitHub CLI](https://cli.github.com/) (`gh`) to log in to GitHub through your web browser. `gh` will then handle authentication for `git` whenever you push or pull over HTTPS, so you don't need to create or manage ssh keys. The steps below will walk you through how to install `gh`, log in, and use it with `git`.
+
+**Before doing step 1, check if you already have `gh` installed. Open a shell and run:**
+```bash
+gh --version
+```
+**If a version number is returned, skip step 1. Otherwise, if you get "command not found", do step 1.**
+
+1. Install `gh` by following the instructions for your operating system on the [GitHub CLI installation page](https://github.com/cli/cli#installation). For example:
+   * **Mac** (using [Homebrew](https://brew.sh/)): `brew install gh`
+   * **Windows** (using `winget`): `winget install --id GitHub.cli`
+   * **Linux**: see the [Linux installation instructions](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) for your distribution.
+
+   Once it's installed, close and reopen your terminal, then run `gh --version` again to verify that it worked.
+
+----
+*Note: you need a GitHub account to do the following steps. If you do not have a GitHub account, sign up for one by going to https://github.com and following the onscreen instructions. Once you have an account you can proceed.*
+
+----
+
+2. Now let's log in to GitHub. In your terminal run:
+```bash
+gh auth login --hostname github.com --git-protocol https --web
+```
+This tells `gh` to log in to github.com through your web browser and to use HTTPS (instead of ssh) for `git` operations. If you are asked `Authenticate Git with your GitHub credentials?`, type `Y`. You will then be shown a one-time code, something like:
+```bash
+! First copy your one-time code: XXXX-XXXX
+Press Enter to open https://github.com/login/device in your browser...
+```
+Copy the code, press Enter, then paste the code into the page that opens in your browser and follow the onscreen instructions to authorize the GitHub CLI. When you're done, your terminal should say that you are logged in as `USERNAME`, where `USERNAME` is your username.
+
+::: {.callout-tip}
+You can also just run `gh auth login` and answer the prompts yourself. If you do, choose GitHub.com as the host, HTTPS as the protocol, `Y` to authenticate Git with your GitHub credentials, and to log in with a web browser. The exact prompts may differ slightly depending on your version of `gh`.
+:::
+
+3. To test whether you were successful, in your terminal run
+```bash
+gh auth status
+```
+You should get something like
+```
+github.com
+  ✓ Logged in to github.com account USERNAME (keyring)
+  - Active account: true
+  - Git operations protocol: https
+```
+where `USERNAME` is your username.
+
+4. Step 2 should have also configured `git` to use `gh` for authentication. If you said no to `Authenticate Git with your GitHub credentials?`, or `git` later asks you for a username and password when you push, run:
+```bash
+gh auth setup-git
+```
+
+You're now ready to use GitHub!
+
+## Using `git` without ssh
+
+Because `gh` authenticates `git` over HTTPS, you need to use the **HTTPS** URL of a repository instead of the ssh URL. In the exercises, whenever you are told to copy the SSH URL from the green `<> Code` button on GitHub, select the "HTTPS" tab and copy that URL instead. It will look something like `https://github.com/USERNAME/REPO_NAME.git` (rather than `git@github.com:USERNAME/REPO_NAME.git`). For example:
+```bash
+git clone https://github.com/USERNAME/REPO_NAME.git
+```
+
+If you already cloned a repository using its ssh URL, you can switch it to HTTPS by running the following inside the repository:
+```bash
+git remote set-url origin https://github.com/USERNAME/REPO_NAME.git
+```
+
+----
+
+For more information, see the [GitHub CLI manual](https://cli.github.com/manual/) and GitHub's documentation on [caching your GitHub credentials in Git](https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git).
