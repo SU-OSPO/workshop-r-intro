@@ -94,7 +94,7 @@ Now paste your repository SSH link in the first box, then name your new repo dir
 <img src="fig/clone_git_repo.png" width="600"/>
 
 ::: {.callout-note}
-In addition to using the SSH link, you can also use the git URL of the repository (e.g., https://github.com/willgearty/penguins_repo.git). If you do this, you will need to either a) set up the SSH key connection manually using Git Bash or the Git Terminal in RStudio or b) set up a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens). You will be prompted to perform the "b" option the [first time you attempt to push to GitHub](#committing-and-pushing-changes-to-github).
+In addition to using the SSH link, you can also use the git URL of the repository (e.g., https://github.com/willgearty/penguins_repo.git). If you do this, you will need to either a) set up the SSH key connection manually using Git Bash or the Git Terminal in RStudio, b) log in with the [GitHub CLI](../github/gh_setup.qmd), or c) set up a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens). You will be prompted to perform the "c" option the [first time you attempt to push to GitHub](#committing-and-pushing-changes-to-github).
 :::
 
 Then click the <kbd>Create Project</kbd> button.

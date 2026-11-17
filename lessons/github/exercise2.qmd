@@ -4,7 +4,7 @@ Exercise 1 illustrated how to create a new git repository on your local computer
 
 ::: {.callout-important}
 ## ssh key setup
-In order to do this exercise you will need an `ssh` key uploaded to GitHub. If you have not done that yet, follow the [ssh setup instructions](ssh_setup.qmd) before starting this exercise.
+In order to do this exercise you will need an `ssh` key uploaded to GitHub. If you have not done that yet, follow the [ssh setup instructions](ssh_setup.qmd) before starting this exercise. Alternatively, you can [log in with the GitHub CLI](gh_setup.qmd) and use the HTTPS URL wherever this exercise uses the SSH URL.
 :::
 
 1. Go to https://github.com and sign in if you are not already. Then go to https://github.com/new to create a new repository.

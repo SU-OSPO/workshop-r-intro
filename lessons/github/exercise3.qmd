@@ -35,7 +35,7 @@ The diagram below illustrates the relationship between a fork (on GitHub) and a 
 ```bash
 git clone SSH_URL
 ```
-where `SSH_URL` is the SSH URL you copied.
+where `SSH_URL` is the SSH URL you copied. (If you [logged in with the GitHub CLI](gh_setup.qmd) instead of setting up ssh keys, copy and use the HTTPS URL instead.)
 
 7. `cd` into the repository you just cloned and type
 ```bash
