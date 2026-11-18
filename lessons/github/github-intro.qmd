@@ -15,6 +15,62 @@ title: "`git` and GitHub"
 
 The following should be done *before* doing the exercises below.
 
+### Installing git
+
+To check if you already have `git` installed, open a terminal and run:
+
+``` bash
+git --version
+```
+
+If a version number is returned (e.g., `git version 2.47.1`), you can skip to the next section. Otherwise, follow the instructions below for your operating system.
+
+::: {.callout-note appearance="simple" collapse="true"}
+
+### Windows
+
+Download and install [Git for Windows](https://gitforwindows.org/). The default options in the installer are fine for this workshop. Git for Windows also includes Git Bash, the terminal we use in the [shell lesson](../shell-intro/shell-intro.qmd), so if you already have Git Bash, you already have `git`.
+
+Once it's installed, open Git Bash and run `git --version` to verify that it worked.
+
+:::
+
+::: {.callout-note appearance="simple" collapse="true"}
+
+### macOS
+
+The easiest option is to install Apple's Xcode Command Line Tools, which include `git`. Running `git --version` in Terminal should prompt you to install them if you don't have `git` yet. If it doesn't, you can install them by running:
+
+``` bash
+xcode-select --install
+```
+
+Alternatively, if you use [Homebrew](https://brew.sh/), you can run `brew install git`. See the [git download page for macOS](https://git-scm.com/install/mac) for other options.
+
+Once it's installed, close and reopen Terminal, then run `git --version` to verify that it worked.
+
+:::
+
+::: {.callout-note appearance="simple" collapse="true"}
+
+### Linux
+
+Install `git` with your distribution's package manager. For example, on Debian/Ubuntu:
+
+``` bash
+sudo apt-get install git
+```
+
+or on Fedora:
+
+``` bash
+sudo dnf install git
+```
+
+See the [git download page for Linux](https://git-scm.com/install/linux) for other distributions.
+
+:::
+
 ### GitHub authentication
 
 In exercises 2 and 3 you will be using GitHub to "push" and "pull" commits between your local computer and GitHub's servers. This requires authentication to be setup. For these purposes we suggest using ssh keys. Alternatively, you can log in with the GitHub CLI (`gh`) and use `git` over HTTPS instead of ssh. To set up one of these, follow the instructions here:
