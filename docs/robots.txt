@@ -1,1 +1,1 @@
-Sitemap: https://SyracuseUniversity.github.io/ospo-workshop-r-intro/sitemap.xml
+Sitemap: https://su-ospo.github.io/workshop-r-intro/sitemap.xml

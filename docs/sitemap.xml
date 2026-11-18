@@ -1,32 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://SyracuseUniversity.github.io/ospo-workshop-r-intro/lessons/r-lessons/r-markdown.html</loc>
-    <lastmod>2025-01-19T22:10:58.265Z</lastmod>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/r-lessons/r-markdown.html</loc>
+    <lastmod>2025-01-24T19:21:07.871Z</lastmod>
   </url>
   <url>
-    <loc>https://SyracuseUniversity.github.io/ospo-workshop-r-intro/lessons/r-lessons/r-plotting.html</loc>
-    <lastmod>2025-01-14T22:22:56.787Z</lastmod>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/r-lessons/r-plotting.html</loc>
+    <lastmod>2025-01-17T16:47:09.853Z</lastmod>
   </url>
   <url>
-    <loc>https://SyracuseUniversity.github.io/ospo-workshop-r-intro/lessons/github/github-intro.html</loc>
-    <lastmod>2025-01-14T22:22:56.784Z</lastmod>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/github/gh_setup.html</loc>
+    <lastmod>2026-11-17T23:54:02.651Z</lastmod>
   </url>
   <url>
-    <loc>https://SyracuseUniversity.github.io/ospo-workshop-r-intro/index.html</loc>
-    <lastmod>2025-01-14T22:22:56.783Z</lastmod>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/github/exercise3.html</loc>
+    <lastmod>2026-11-17T23:54:02.651Z</lastmod>
   </url>
   <url>
-    <loc>https://SyracuseUniversity.github.io/ospo-workshop-r-intro/lessons/shell-intro/shell-intro.html</loc>
-    <lastmod>2025-01-14T22:22:56.792Z</lastmod>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/github/exercise1.html</loc>
+    <lastmod>2025-01-20T21:31:20.246Z</lastmod>
   </url>
   <url>
-    <loc>https://SyracuseUniversity.github.io/ospo-workshop-r-intro/lessons/r-lessons/r-intro.html</loc>
-    <lastmod>2025-01-14T22:22:56.785Z</lastmod>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/shell-intro/shell-intro.html</loc>
+    <lastmod>2025-01-20T21:31:20.262Z</lastmod>
   </url>
   <url>
-    <loc>https://SyracuseUniversity.github.io/ospo-workshop-r-intro/lessons/r-lessons/r-tidydata.html</loc>
-    <lastmod>2025-01-14T22:22:56.787Z</lastmod>
-
+    <loc>https://su-ospo.github.io/workshop-r-intro/index.html</loc>
+    <lastmod>2025-01-17T17:35:22.912Z</lastmod>
+  </url>
+  <url>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/github/github-intro.html</loc>
+    <lastmod>2026-11-17T23:54:02.652Z</lastmod>
+  </url>
+  <url>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/github/exercise2.html</loc>
+    <lastmod>2026-11-17T23:54:02.650Z</lastmod>
+  </url>
+  <url>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/github/ssh_setup.html</loc>
+    <lastmod>2025-01-17T03:52:22.941Z</lastmod>
+  </url>
+  <url>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/r-lessons/r-intro.html</loc>
+    <lastmod>2026-11-17T23:54:02.654Z</lastmod>
+  </url>
+  <url>
+    <loc>https://su-ospo.github.io/workshop-r-intro/lessons/r-lessons/r-tidydata.html</loc>
+    <lastmod>2025-01-24T19:21:07.872Z</lastmod>
   </url>
 </urlset>
